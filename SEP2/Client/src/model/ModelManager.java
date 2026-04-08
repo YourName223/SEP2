@@ -9,7 +9,7 @@ public class ModelManager implements Model
       throw new IllegalArgumentException("Arguments cannot be null");
     }
 
-    if(true)//Sends place order to server side
+    if(false)//Sends order to server side
     {
       return true;
     }

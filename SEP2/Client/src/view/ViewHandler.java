@@ -4,15 +4,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import viewModel.ViewModelFactory;
 
 public class ViewHandler
 {
   private Stage primaryStage;
   private Scene currentScene;
+  private ViewModelFactory viewModelFactory;
   private OrderViewController orderViewController;
 
-  public ViewHandler()
+  public ViewHandler(ViewModelFactory viewModelFactory)
   {
+    this.viewModelFactory = viewModelFactory;
     currentScene = new Scene(new Region());
   }
 
@@ -56,7 +59,7 @@ public class ViewHandler
         Region root = loader.load();
         orderViewController = loader.getController();
         orderViewController
-            .init(this, root);
+            .init(this, viewModelFactory.getOrderViewModel(), root);
       }
       catch (Exception e)
       {

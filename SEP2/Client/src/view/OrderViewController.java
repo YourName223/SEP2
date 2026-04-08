@@ -34,6 +34,6 @@ public class OrderViewController
 
   @FXML private void orderButton()
   {
-
+    viewModel.order();
   }
 }
