@@ -1,6 +1,8 @@
 package model;
 
-public interface Model
+import utility.UnnamedPropertyChangeSubject;
+
+public interface Model extends UnnamedPropertyChangeSubject
 {
   public boolean placeOrder(Table table, Order order);
 }
