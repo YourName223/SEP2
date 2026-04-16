@@ -3,6 +3,7 @@ package mediator;
 import com.google.gson.Gson;
 import model.Model;
 import model.Order;
+import model.OrderManager;
 import parser.XmlJsonParser;
 
 import java.beans.PropertyChangeSupport;
@@ -17,24 +18,25 @@ public class ResturantClient
   private Socket socket;
   private BufferedReader in;
   private PrintWriter out;
-  private boolean running;
-  private OrderManager orderManager;
+  private boolean waiting;
   private Gson gson;
   private XmlJsonParser parser;
   private Model model;
+  private OrderPackage orderPackage;
   private ResturantClientReader resturantClientReader;
 
-  public ResturantClient(Socket socket, Model model)
+  public ResturantClient(Model model, String host, int port)
   {
     try
     {
       this.model = model;
+      socket = new Socket(host, port);
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
       out = new PrintWriter(socket.getOutputStream(), true);
       gson = new Gson();
-      running = true;
+      waiting = false;
       resturantClientReader = new ResturantClientReader(this, in);
-      new Thread(new ResturantClientReader(this, in)).start();
+      new Thread(resturantClientReader).start();
     }
     catch (Exception e)
     {
@@ -42,10 +44,8 @@ public class ResturantClient
     }
   }
 
-  public void close()
+  public void disconnect()
   {
-    running = false;
-    resturantClientReader.close();
     try
     {
       if (socket != null)
@@ -63,18 +63,6 @@ public class ResturantClient
     }
   }
 
-  public void sendMessage(String message)
-  {
-    String e = gson.toJson(orderPackage);
-    out.println(message);
-  }
-
-  private Order parseOrder(String line)
-  {
-    OrderPackage packageObj = gson.fromJson(line, OrderPackage.class);
-    return packageObj.getOrder();
-  }
-
   public void received(String line)
   {
     Order order = parseOrder(line);
@@ -82,6 +70,29 @@ public class ResturantClient
     if (order != null)
     {
       model.addOrder(order);
+    }
+  }
+
+  public void sendOrder(OrderPackage orderPackage)
+  {
+    String message = gson.toJson(orderPackage);
+    out.println(message);
+  }
+
+  private synchronized void waitingForReply()
+  {
+    waiting = true;
+
+    while (waiting)
+    {
+      try
+      {
+        wait();
+      }
+      catch (InterruptedException e)
+      {
+        e.printStackTrace();
+      }
     }
   }
 }
