@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Model;
 import model.Order;
-import model.Table;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -31,12 +30,10 @@ public class OrderViewModel implements PropertyChangeListener
     return successProperty;
   }
 
-  public void order()
+  public void createOrder()
   {
-    if(model.placeOrder(new Table(),new Order()))
-    {
-      successProperty.set("Order was placed");
-    }
+    model.createOrder();
+    successProperty.set("Order was placed");
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)

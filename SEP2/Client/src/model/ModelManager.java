@@ -6,22 +6,29 @@ import java.beans.PropertyChangeSupport;
 public class ModelManager implements Model
 {
   private PropertyChangeSupport property;
+  private OrderManager orderManager;
 
   public ModelManager()
   {
+    orderManager = new OrderManager();
     property = new PropertyChangeSupport(this);
   }
 
-  @Override public boolean placeOrder(Table table, Order order)
+  @Override public void createOrder()
   {
-    if(table == null || order == null)
+    orderManager.createOrder();
+  }
+
+  @Override public void placeOrder(Order order)
+  {
+    if(order == null)
     {
       throw new IllegalArgumentException("Arguments cannot be null");
     }
 
     if(false)//Sends order to server side
     {
-      return true;
+
     }
     else
     {
