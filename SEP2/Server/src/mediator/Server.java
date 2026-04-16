@@ -11,11 +11,10 @@ import java.util.List;
 public class Server
 {
   private Model model;
-  private int PORT = 2910;
+  private static int PORT = 2910;
   private boolean running;
   private ServerSocket welcomeSocket;
   private List<ClientHandler> clients;
-  private OrderManager orderManager;
 
   public Server(Model model)
   {

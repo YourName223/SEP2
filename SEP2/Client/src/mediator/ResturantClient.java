@@ -18,9 +18,9 @@ public class ResturantClient
   private Socket socket;
   private BufferedReader in;
   private PrintWriter out;
-  private boolean waiting;
   private Gson gson;
   private XmlJsonParser parser;
+  private boolean waiting;
   private Model model;
   private OrderPackage orderPackage;
   private ResturantClientReader resturantClientReader;

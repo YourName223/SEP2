@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Client" />
+    <orderEntry type="library" name="XmlJsonParser-1.6" level="project" />
   </component>
 </module>

@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-package mediator;
 
 import com.google.gson.Gson;
 import model.Model;
@@ -21,19 +20,18 @@ public class ClientHandler
   private PrintWriter out;
   private boolean running;
   private OrderManager orderManager;
-  private Gson gson;
-  private XmlJsonParser parser;
+  private Gson parser;
   private Model model;
   private ResturantClientReader resturantClientReader;
 
-  public ResturantClient(Socket socket, Model model)
+  public ClientHandler(Socket socket, Model model)
   {
     try
     {
       this.model = model;
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
       out = new PrintWriter(socket.getOutputStream(), true);
-      gson = new Gson();
+      parser = new Gson();
       running = true;
       resturantClientReader = new ResturantClientReader(this, in);
       new Thread(new ResturantClientReader(this, in)).start();
@@ -67,23 +65,24 @@ public class ClientHandler
 
   public void sendMessage(String message)
   {
-    String e = gson.toJson(orderPackage);
+    String e = parser.toJson(message);
     out.println(message);
+  }
+
+  public void handlePackage(OrderPackage orderPackage)
+  {
+    Order order = parseOrder(orderPackage.toString());
+
+    if (order != null)
+    {
+      model.recieveOrder(socket.getInetAddress().getHostAddress() ,order);
+    }
   }
 
   private Order parseOrder(String line)
   {
-    OrderPackage packageObj = gson.fromJson(line, OrderPackage.class);
-    return packageObj.getOrder();
-  }
-
-  public void received(String line)
-  {
-    Order order = parseOrder(line);
-
-    if (order != null)
-    {
-      model.addOrder(order);
-    }
+    OrderPackage packageObj;
+    packageObj = parser.fromJson(line, OrderPackage.class);
+    return (packageObj.getOrder());
   }
 }
