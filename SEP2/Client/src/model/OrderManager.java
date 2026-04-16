@@ -2,8 +2,8 @@ package model;
 
 public class OrderManager
 {
-  public void createOrder()
+  public Order createOrder()
   {
-
+    return new Order();
   }
 }
