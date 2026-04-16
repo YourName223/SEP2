@@ -6,7 +6,10 @@ import model.Model;
 import model.Order;
 import model.Table;
 
-public class OrderViewModel
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public class OrderViewModel implements PropertyChangeListener
 {
   private Model model;
   private StringProperty successProperty;
@@ -15,6 +18,7 @@ public class OrderViewModel
   {
     this.model = model;
     this.successProperty = new SimpleStringProperty();
+    model.addListener("Update",this);
   }
 
   public void clear()
@@ -32,6 +36,14 @@ public class OrderViewModel
     if(model.placeOrder(new Table(),new Order()))
     {
       successProperty.set("Order was placed");
+    }
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt)
+  {
+    if(evt.getPropertyName().equals("Update"))
+    {
+      //Do some update
     }
   }
 }
