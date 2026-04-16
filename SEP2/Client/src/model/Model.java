@@ -4,5 +4,6 @@ import utility.UnnamedPropertyChangeSubject;
 
 public interface Model extends UnnamedPropertyChangeSubject
 {
-  public boolean placeOrder(Table table, Order order);
+  public void createOrder();
+  public void placeOrder(Order order);
 }
