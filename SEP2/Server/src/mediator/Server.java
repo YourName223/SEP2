@@ -29,7 +29,10 @@ public class Server implements Runnable
     {
       welcomeSocket.close();
     }
-    catch (IOException e) {e.printStackTrace();}
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
     System.out.println("Server stopped.");
   }
 
@@ -38,6 +41,34 @@ public class Server implements Runnable
     for (ClientHandler client : clients)
     {
       client.sendMessage(message);
+    }
+  }
+
+  @Override public void run()
+  {
+    running = true;
+    try
+    {
+      welcomeSocket = new ServerSocket(PORT);
+    }
+    catch (IOException e)
+    {
+      throw new RuntimeException(e);
+    }
+    while (running)
+    {
+      ClientHandler c = null;
+      try
+      {
+        c = new ClientHandler(welcomeSocket.accept(), model);
+        Thread t1 = new Thread(c);
+        t1.setDaemon(true);
+        t1.start();
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(e);
+      }
     }
   }
 }
