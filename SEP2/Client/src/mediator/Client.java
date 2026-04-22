@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Client implements Runnable
+public class Client
 {
   private Socket socket;
   private BufferedReader in;
@@ -39,11 +39,6 @@ public class Client implements Runnable
     {
       e.printStackTrace();
     }
-  }
-
-  @Override public void run()
-  {
-    //TODO
   }
 
   public void disconnect()
