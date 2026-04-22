@@ -1,5 +1,6 @@
-package model;
-
+import model.Order;
+import model.Table;
+import model.TableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

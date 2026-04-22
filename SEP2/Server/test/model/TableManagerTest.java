@@ -1,5 +1,5 @@
-package model;
-
+import model.TableList;
+import model.TableManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
