@@ -3,6 +3,7 @@ package mediator;
 import model.Model;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -13,7 +14,7 @@ import model.Order;
 import model.OrderManager;
 import parser.XmlJsonParser;
 
-public class ClientHandler
+public class ClientHandler implements Runnable
 {
   private Socket socket;
   private BufferedReader in;
@@ -40,6 +41,11 @@ public class ClientHandler
     {
       e.printStackTrace();
     }
+  }
+
+  @Override public void run()
+  {
+    //TODO
   }
 
   public void close()

@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ResturantClient
+public class ResturantClient implements Runnable
 {
   private Socket socket;
   private BufferedReader in;
@@ -42,6 +42,11 @@ public class ResturantClient
     {
       e.printStackTrace();
     }
+  }
+
+  @Override public void run()
+  {
+    //TODO
   }
 
   public void disconnect()
