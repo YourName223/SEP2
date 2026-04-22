@@ -22,4 +22,9 @@ public class Table
   {
     return tableNr;
   }
+
+  public ArrayList<Order> getOrders()
+  {
+    return totalOrder;
+  }
 }

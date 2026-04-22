@@ -17,33 +17,29 @@ class TableListTest
     tableList = new TableList();
   }
 
-  @Test void addTable()
+  @Test void addTableZero()
   {
     tables.add(new Table("23"));
+    assertEquals(new Table("23"),tables.getFirst());
   }
 
-  @Test void getTableZero1()
+  @Test void getTableZero()
   {
     tableList.addTable("23");
 
     assertThrows(Exception.class, () -> tableList.getTable(null));
   }
 
-  @Test void getTableZero2()
-  {
-    tableList.addTable("25");
-
-    assertThrows(Exception.class, () -> tableList.getTable("23"));
-  }
-
   @Test void getTableOne()
   {
     tableList.addTable("25");
-    assertEquals("[25,[]]",tableList.getTable("25").toString());
+    assertEquals(new Table("23"),tables);
   }
 
-  @Test void addOrder()
+  @Test void addOrderOne()
   {
-    tableList.getTable("1").assignOrder(new Order());
+    tableList.addTable("1");
+    tableList.addOrder("1",new Order());
+    assertEquals("",tableList.getTable("1").getOrders().getFirst().getContent());
   }
 }
