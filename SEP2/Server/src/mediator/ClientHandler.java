@@ -66,7 +66,20 @@ public class ClientHandler implements Runnable
         reply = "Order accepted";
       }
       catch (Exception e)
-      { e.printStackTrace();}}
+      { e.printStackTrace();}
+
+      try
+      {
+        if(!reply.equals(""))
+        {
+          out.println(reply);
+        }
+      }
+      catch (Exception e)
+      {
+        throw new RuntimeException(e);
+      }
+    }
   }
 
   public void close()
