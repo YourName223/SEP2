@@ -28,6 +28,11 @@ public class ModelManager implements Model
     orderSender.placeOrder(order);
   }
 
+  @Override public void fireProperty(String line)
+  {
+    property.firePropertyChange("Update",null,line);
+  }
+
   @Override public void addListener(String propertyName,
       PropertyChangeListener listener)
   {

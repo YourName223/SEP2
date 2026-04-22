@@ -62,12 +62,7 @@ public class Client
 
   public void received(String line)
   {
-    Order order = parseOrder(line);
-
-    if (order != null)
-    {
-      model.addOrder(order);
-    }
+    model.fireProperty(line);
   }
 
   public void sendOrder(OrderPackage orderPackage)

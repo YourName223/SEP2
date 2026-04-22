@@ -45,7 +45,7 @@ public class OrderViewModel implements PropertyChangeListener
   {
     if(evt.getPropertyName().equals("Update"))
     {
-      //Do some update
+      successProperty.set(evt.getNewValue().toString());
     }
   }
 }
