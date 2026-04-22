@@ -1,15 +1,15 @@
 package model;
 
 import mediator.OrderPackage;
-import mediator.ResturantClient;
+import mediator.Client;
 
 public class OrderSender
 {
-  ResturantClient resturantClient;
+  Client client;
 
   public OrderSender(Model model)
   {
-    resturantClient = new ResturantClient(model,"192.168.1.90",2910);
+    client = new Client(model,"192.168.1.90",2910);
   }
 
   public void placeOrder(Order order)
@@ -19,7 +19,7 @@ public class OrderSender
       throw new IllegalArgumentException("Arguments cannot be null");
     }
 
-    resturantClient.sendOrder(new OrderPackage(order));
+    client.sendOrder(new OrderPackage(order));
 
     if(false)//Sends order to server side
     {

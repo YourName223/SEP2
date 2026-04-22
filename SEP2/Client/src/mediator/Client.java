@@ -1,5 +1,100 @@
 package mediator;
 
-public class Client
+import com.google.gson.Gson;
+import model.Model;
+import model.Order;
+import parser.XmlJsonParser;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class Client implements Runnable
 {
+  private Socket socket;
+  private BufferedReader in;
+  private PrintWriter out;
+  private Gson gson;
+  private XmlJsonParser parser;
+  private boolean waiting;
+  private Model model;
+  private OrderPackage orderPackage;
+  private ClientReader clientReader;
+
+  public Client(Model model, String host, int port)
+  {
+    try
+    {
+      this.model = model;
+      socket = new Socket(host, port);
+      in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+      out = new PrintWriter(socket.getOutputStream(), true);
+      gson = new Gson();
+      waiting = false;
+      clientReader = new ClientReader(this, in);
+      new Thread(clientReader).start();
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Override public void run()
+  {
+    //TODO
+  }
+
+  public void disconnect()
+  {
+    try
+    {
+      if (socket != null)
+        socket.close();
+
+      if (in != null)
+        in.close();
+
+      if (out != null)
+        out.close();
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  public void received(String line)
+  {
+    Order order = parseOrder(line);
+
+    if (order != null)
+    {
+      model.addOrder(order);
+    }
+  }
+
+  public void sendOrder(OrderPackage orderPackage)
+  {
+    String message = gson.toJson(orderPackage);
+    out.println(message);
+  }
+
+  private synchronized void waitingForReply()
+  {
+    waiting = true;
+
+    while (waiting)
+    {
+      try
+      {
+        wait();
+      }
+      catch (InterruptedException e)
+      {
+        e.printStackTrace();
+      }
+    }
+  }
 }

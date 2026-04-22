@@ -2,13 +2,13 @@ package mediator;
 
 import java.io.BufferedReader;
 
-public class ResturantClientReader implements Runnable
+public class ClientReader implements Runnable
 {
   private BufferedReader in;
   private boolean running;
-  private ResturantClient client;
+  private Client client;
 
-  public ResturantClientReader(ResturantClient client, BufferedReader in)
+  public ClientReader(Client client, BufferedReader in)
   {
     this.client = client;
     this.in = in;
