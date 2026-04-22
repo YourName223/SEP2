@@ -33,6 +33,11 @@ public class OrderViewModel implements PropertyChangeListener
   public void createOrder()
   {
     model.createOrder();
+  }
+
+  public void placeOrder()
+  {
+    model.placeOrder();
     successProperty.set("Order was placed");
   }
 

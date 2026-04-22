@@ -34,6 +34,11 @@ public class OrderViewController
 
   @FXML private void orderButton()
   {
+    viewModel.placeOrder();
+  }
+
+  @FXML private void createOrderButton()
+  {
     viewModel.createOrder();
   }
 }

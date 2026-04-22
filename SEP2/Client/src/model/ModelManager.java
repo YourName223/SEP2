@@ -8,9 +8,11 @@ public class ModelManager implements Model
   private PropertyChangeSupport property;
   private OrderManager orderManager;
   private OrderSender orderSender;
+  private Order order;
 
   public ModelManager()
   {
+    order = null;
     orderManager = new OrderManager();
     orderSender = new OrderSender();
     property = new PropertyChangeSupport(this);
@@ -18,10 +20,10 @@ public class ModelManager implements Model
 
   @Override public void createOrder()
   {
-    orderManager.createOrder();
+    order = orderManager.createOrder();
   }
 
-  @Override public void placeOrder(Order order)
+  @Override public void placeOrder()
   {
     orderSender.placeOrder(order);
   }
