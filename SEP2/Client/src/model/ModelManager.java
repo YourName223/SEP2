@@ -14,7 +14,7 @@ public class ModelManager implements Model
   {
     order = null;
     orderManager = new OrderManager();
-    orderSender = new OrderSender();
+    orderSender = new OrderSender(this);
     property = new PropertyChangeSupport(this);
   }
 
