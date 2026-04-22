@@ -23,19 +23,17 @@ public class ClientHandler implements Runnable
   private OrderManager orderManager;
   private Gson parser;
   private Model model;
-  private ResturantClientReader resturantClientReader;
 
   public ClientHandler(Socket socket, Model model)
   {
     try
     {
+      this.socket = socket;
       this.model = model;
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
       out = new PrintWriter(socket.getOutputStream(), true);
       parser = new Gson();
       running = true;
-      resturantClientReader = new ResturantClientReader(this, in);
-      new Thread(new ResturantClientReader(this, in)).start();
     }
     catch (Exception e)
     {
@@ -45,13 +43,35 @@ public class ClientHandler implements Runnable
 
   @Override public void run()
   {
-    //TODO
+    running = true;
+
+    while (running)
+    {String clientText = null;
+      try
+      {
+        clientText = in.readLine();
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(e);
+      }
+
+      OrderPackage orderPackage;
+      String reply = "";
+      try
+      {
+        orderPackage = parser.fromJson(clientText, OrderPackage.class);
+        handlePackage(orderPackage);
+
+        reply = "Order accepted";
+      }
+      catch (Exception e)
+      { e.printStackTrace();}}
   }
 
   public void close()
   {
     running = false;
-    resturantClientReader.close();
     try
     {
       if (socket != null)
