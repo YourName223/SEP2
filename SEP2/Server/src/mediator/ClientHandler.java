@@ -9,10 +9,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.google.gson.Gson;
-import model.Model;
 import model.Order;
-import model.OrderManager;
-import parser.XmlJsonParser;
 
 public class ClientHandler implements Runnable
 {
@@ -20,7 +17,6 @@ public class ClientHandler implements Runnable
   private BufferedReader in;
   private PrintWriter out;
   private boolean running;
-  private OrderManager orderManager;
   private Gson parser;
   private Model model;
 
