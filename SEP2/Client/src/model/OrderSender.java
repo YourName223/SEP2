@@ -9,7 +9,7 @@ public class OrderSender
 
   public OrderSender(Model model)
   {
-    client = new Client(model,"255.255.255.255",2910);
+    client = new Client(model,"10.154.208.86",2910);
   }
 
   public void placeOrder(Order order)
