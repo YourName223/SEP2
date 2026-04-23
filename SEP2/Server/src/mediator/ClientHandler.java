@@ -62,9 +62,14 @@ public class ClientHandler implements Runnable
       try
       {
         orderPackage = parser.fromJson(clientText, OrderPackage.class);
-        handlePackage(orderPackage);
-
-        reply = "Order accepted";
+        if(handlePackage(orderPackage))
+        {
+          reply = "Order accepted";
+        }
+        else
+        {
+          reply = "Order was not accepted";
+        }
       }
       catch (Exception e)
       { e.printStackTrace();}
@@ -109,14 +114,16 @@ public class ClientHandler implements Runnable
     out.println(message);
   }
 
-  public void handlePackage(OrderPackage orderPackage)
+  public boolean handlePackage(OrderPackage orderPackage)
   {
     Order order = orderPackage.getOrder();
 
     if (order != null)
     {
       model.receiveOrder(socket.getInetAddress().getHostAddress() ,order);
+      return true;
     }
+    return false;
   }
 
   private Order parseOrder(String line)

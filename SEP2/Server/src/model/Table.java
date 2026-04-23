@@ -16,6 +16,7 @@ public class Table
   public void assignOrder(Order order)
   {
     totalOrder.add(order);
+    new OrderPrinter().printOrder(order);
   }
 
   public String getTableNr()

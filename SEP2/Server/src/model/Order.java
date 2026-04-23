@@ -7,7 +7,6 @@ public class Order
   public Order(String content)
   {
     this.content = content;
-    new OrderPrinter().printOrder(this);
   }
 
   public String getContent()
