@@ -1,5 +1,6 @@
 package viewModel;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Model;
@@ -45,7 +46,7 @@ public class OrderViewModel implements PropertyChangeListener
   {
     if(evt.getPropertyName().equals("Update"))
     {
-      successProperty.set(evt.getNewValue().toString());
+      Platform.runLater( () -> successProperty.set(evt.getNewValue().toString()));
     }
   }
 }

@@ -21,15 +21,6 @@ public class OrderSender
     else
     {
       client.sendOrder(new OrderPackage(order));
-
-      if(true)//Sends order to server side
-      {
-
-      }
-      else
-      {
-        throw new IllegalStateException("Order could not be placed");
-      }
     }
   }
 }
