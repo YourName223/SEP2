@@ -8,6 +8,6 @@
    <children>
       <Button fx:id="orderButton" layoutX="262.0" layoutY="187.0" mnemonicParsing="false" onAction="#orderButton" text="Place order" />
       <Label fx:id="successLabel" layoutX="286.0" layoutY="223.0" text="Label" />
-      <Button fx:id="createOrderButton" layoutX="258.0" layoutY="153.0" mnemonicParsing="false" text="Create order" />
+      <Button fx:id="createOrderButton" layoutX="258.0" layoutY="153.0" mnemonicParsing="false" onAction="#createOrderButton" text="Create order" />
    </children>
 </AnchorPane>
