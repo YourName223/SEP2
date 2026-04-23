@@ -36,10 +36,10 @@ class ModelManagerTest
   @Test void placeOrderZero()
   {
     IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
-        () -> orderSender.placeOrder(order)
+        () -> orderSender.placeOrder(null)
     );
 
-    assertEquals("Arguments cannot be null", e);
+    assertEquals("Arguments cannot be null", e.getMessage());
   }
 
   @Test void placeOrderOne()
