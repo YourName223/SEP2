@@ -1,4 +1,4 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+/*//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main
 {
@@ -14,5 +14,22 @@ public class Main
       // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
       System.out.println("i = " + i);
     }
+  }
+}*/
+
+import mediator.Server;
+import model.Model;
+import model.ModelManager;
+
+public class Main {
+  public static void main(String[] args) {
+    Model model = new ModelManager();
+
+    Server server = new Server(model);
+    Thread serverThread = new Thread(server);
+    serverThread.setDaemon(false);
+    serverThread.start();
+
+    System.out.println("Server kører på port 2910...");
   }
 }
