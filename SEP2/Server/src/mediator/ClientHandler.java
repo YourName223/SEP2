@@ -111,7 +111,7 @@ public class ClientHandler implements Runnable
 
   public void handlePackage(OrderPackage orderPackage)
   {
-    Order order = orderPackage.getOrder());
+    Order order = orderPackage.getOrder();
 
     if (order != null)
     {
