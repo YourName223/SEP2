@@ -46,6 +46,11 @@ public class ClientHandler implements Runnable
       try
       {
         clientText = in.readLine();
+        if (clientText == null)
+        {
+          close();
+          break;
+        }
       }
       catch (IOException e)
       {
@@ -106,11 +111,11 @@ public class ClientHandler implements Runnable
 
   public void handlePackage(OrderPackage orderPackage)
   {
-    Order order = parseOrder(orderPackage.toString());
+    Order order = orderPackage.getOrder());
 
     if (order != null)
     {
-      model.recieveOrder(socket.getInetAddress().getHostAddress() ,order);
+      model.receiveOrder(socket.getInetAddress().getHostAddress() ,order);
     }
   }
 

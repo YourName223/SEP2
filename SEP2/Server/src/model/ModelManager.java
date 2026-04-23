@@ -13,7 +13,7 @@ public class ModelManager implements Model
     orderManager = new OrderManager(tableList);
   }
 
-  @Override public void recieveOrder(String tableNr, Order order)
+  @Override public void receiveOrder(String tableNr, Order order)
   {
     tableManager.secureTable(tableNr);
     orderManager.addOrder(tableNr,order);
