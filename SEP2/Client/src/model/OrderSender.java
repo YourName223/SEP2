@@ -22,7 +22,7 @@ public class OrderSender
     {
       client.sendOrder(new OrderPackage(order));
 
-      if(false)//Sends order to server side
+      if(true)//Sends order to server side
       {
 
       }

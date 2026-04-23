@@ -6,7 +6,10 @@ public class OrderPackage
 {
   private Order order;
 
-  public OrderPackage() { }
+  public OrderPackage(Order order)
+  {
+    this.order = order;
+  }
 
   public Order getOrder()
   {
