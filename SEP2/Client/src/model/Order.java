@@ -4,9 +4,9 @@ public class Order
 {
   private String content;
 
-  public Order()
+  public Order(String content)
   {
-    content = "An order";
+    this.content = content;
   }
 
   public String getContent()

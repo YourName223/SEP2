@@ -4,6 +4,6 @@ public class OrderManager
 {
   public Order createOrder()
   {
-    return new Order();
+    return new Order("An order");
   }
 }

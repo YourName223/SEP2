@@ -4,8 +4,9 @@ public class Order
 {
   private String content;
 
-  public Order()
+  public Order(String content)
   {
+    this.content = content;
     new OrderPrinter().printOrder(this);
   }
 

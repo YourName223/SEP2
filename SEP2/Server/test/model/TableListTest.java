@@ -40,7 +40,7 @@ class TableListTest
   @Test void addOrderOne()
   {
     tableList.addTable("1");
-    tableList.addOrder("1",new Order());
+    tableList.addOrder("1",new Order("An order"));
     assertNotEquals(null,tableList.getTable("1").getOrders().getFirst());
   }
 }
