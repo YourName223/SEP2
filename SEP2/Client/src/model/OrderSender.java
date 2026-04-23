@@ -18,16 +18,18 @@ public class OrderSender
     {
       throw new IllegalArgumentException("Arguments cannot be null");
     }
-
-    client.sendOrder(new OrderPackage(order));
-
-    if(false)//Sends order to server side
-    {
-
-    }
     else
     {
-      throw new IllegalStateException("Order could not be placed");
+      client.sendOrder(new OrderPackage(order));
+
+      if(false)//Sends order to server side
+      {
+
+      }
+      else
+      {
+        throw new IllegalStateException("Order could not be placed");
+      }
     }
   }
 }
