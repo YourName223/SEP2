@@ -9,14 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ModelManagerTest
 {
   Order order;
-  OrderSender orderSender;
   OrderManager orderManager;
   Model model;
 
   @BeforeEach void setUp()
   {
     model = new ModelManager();
-    orderSender = new OrderSender(model);
     orderManager = new OrderManager();
     order = null;
   }
@@ -36,7 +34,7 @@ class ModelManagerTest
   @Test void placeOrderZero()
   {
     IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
-        () -> orderSender.placeOrder(null)
+        () -> model.placeOrder()
     );
 
     assertEquals("Arguments cannot be null", e.getMessage());
@@ -44,6 +42,6 @@ class ModelManagerTest
 
   @Test void placeOrderOne()
   {
-    assertDoesNotThrow(() -> orderSender.placeOrder(new Order()));
+    assertDoesNotThrow(() -> model.placeOrder());
   }
 }

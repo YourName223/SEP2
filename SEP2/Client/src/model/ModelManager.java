@@ -1,5 +1,8 @@
 package model;
 
+import mediator.OrderPackage;
+import mediator.Client;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -7,15 +10,15 @@ public class ModelManager implements Model
 {
   private PropertyChangeSupport property;
   private OrderManager orderManager;
-  private OrderSender orderSender;
   private Order order;
+  private Client client;
 
   public ModelManager()
   {
     order = null;
     orderManager = new OrderManager();
-    orderSender = new OrderSender(this);
     property = new PropertyChangeSupport(this);
+    client = new Client(this,"10.154.208.86",2910);
   }
 
   @Override public void createOrder()
@@ -25,7 +28,14 @@ public class ModelManager implements Model
 
   @Override public void placeOrder()
   {
-    orderSender.placeOrder(order);
+    if(order == null)
+    {
+      throw new IllegalArgumentException("Arguments cannot be null");
+    }
+    else
+    {
+      client.sendOrder(new OrderPackage(order));
+    }
   }
 
   @Override public void fireProperty(String line)
