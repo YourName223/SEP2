@@ -16,7 +16,6 @@ public class Table
   public void assignOrder(Order order)
   {
     totalOrder.add(order);
-    new OrderPrinter().printOrder(order);
   }
 
   public String getTableNr()
@@ -27,5 +26,15 @@ public class Table
   public ArrayList<Order> getOrders()
   {
     return totalOrder;
+  }
+
+  public Table copy()
+  {
+    Table table = new Table(tableNr);
+    for(Order order : totalOrder)
+    {
+      table.assignOrder(order);
+    }
+    return table;
   }
 }

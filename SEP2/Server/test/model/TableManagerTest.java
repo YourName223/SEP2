@@ -14,7 +14,7 @@ class TableManagerTest
   @BeforeEach void setUp()
   {
     tableList = new TableList();
-    tableManager = new TableManager(tableList);
+    tableManager = new TableManager();
   }
 
   @Test void secureTableOne()

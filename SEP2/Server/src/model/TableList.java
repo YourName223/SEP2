@@ -27,7 +27,7 @@ public class TableList
     {
       if (table.getTableNr().equals(tableNr))
       {
-        return table;
+        return table.copy();
       }
     }
     return null;
