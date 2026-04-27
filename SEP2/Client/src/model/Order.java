@@ -3,6 +3,7 @@ package model;
 public class Order
 {
   private String content;
+  private String orderType;
 
   public Order(String content)
   {
@@ -12,5 +13,10 @@ public class Order
   public String getContent()
   {
     return content;
+  }
+
+  public String getOrderType()
+  {
+    return orderType;
   }
 }

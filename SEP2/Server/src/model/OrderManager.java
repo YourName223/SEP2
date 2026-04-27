@@ -1,16 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+
 public class OrderManager
 {
-  private TableList tableList;
+  private ArrayList<Order> orders;
 
-  public OrderManager(TableList tableList)
+  public void addOrder(Order order)
   {
-    this.tableList = tableList;
-  }
-
-  public void addOrder(String tableNr, Order order)
-  {
-    tableList.addOrder(tableNr,order);
+    orders.add(order);
   }
 }
