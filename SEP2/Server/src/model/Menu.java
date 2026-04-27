@@ -1,28 +1,33 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Menu
 {
-  private int id;
-  private String name;
-  private String allergies;
-  private double price;
+  ArrayList<MenuItem> menuItems;
 
-  public Menu(int id, String name, String allergies, double price)
+  public Menu()
   {
-    this.id = id;
-    this.name = name;
-    this.allergies = allergies;
-    this.price = price;
+    menuItems = new ArrayList<>();
   }
 
-  // Getters
-  public int getId() { return id; }
-  public String getName() { return name; }
-  public String getAllergies() { return allergies; }
-  public double getPrice() { return price; }
+  public void addMenuItem(int id, String name, String allergies, double price)
+  {
+    menuItems.add(new MenuItem(id, name, allergies, price));
+  }
 
-  // Setters
-  public void setName(String name) { this.name = name; }
-  public void setAllergies(String allergies) { this.allergies = allergies; }
-  public void setPrice(double price) { this.price = price; }
+  public ArrayList<MenuItem> getMenuItems()
+  {
+    return menuItems;
+  }
+
+  public MenuItem getMenu(int index)
+  {
+    return menuItems.get(index);
+  }
+
+  public void addProductToMenuItem(int index, Component product)
+  {
+    getMenu(index).addProduct(product);
+  }
 }
