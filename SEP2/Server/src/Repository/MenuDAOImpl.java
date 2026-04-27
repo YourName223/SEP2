@@ -1,8 +1,8 @@
 package Repository;
 
 import model.Menu;
+import model.MenuItem;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class MenuDAOImpl implements MenuDAO
   }
 
   @Override
-  public Menu create (int id, String name, String allergies, double price) throws SQLException
+  public MenuItem create (int id, String name, String allergies, double price) throws SQLException
   {
     try (Connection connection = DriverManager.getConnection(
         "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc",
@@ -44,13 +44,13 @@ public class MenuDAOImpl implements MenuDAO
       if (rs.next())
       {
         int generatedId = rs.getInt("id");
-        return new Menu(generatedId, name, allergies, price);
+        return new MenuItem(generatedId, name, allergies, price);
       }
     }
     return null;
   }
 
-  @Override public Menu readById(int id) throws SQLException
+  @Override public MenuItem readById(int id) throws SQLException
   {
     try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
     {
@@ -63,7 +63,7 @@ public class MenuDAOImpl implements MenuDAO
         String allergies = resultSet.getString("allergies");
         double price = resultSet.getDouble("price");
 
-        return new Menu(id, name, allergies, price);
+        return new MenuItem(id, name, allergies, price);
       }
       else
       {
@@ -72,49 +72,49 @@ public class MenuDAOImpl implements MenuDAO
     }
   }
 
-  @Override public List<Menu> readByName(String searchString) throws SQLException
+  @Override public List<MenuItem> readByName(String searchString) throws SQLException
   {
     try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
     {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM Menu WHERE name LIKE ?");
       statement.setString(1, "%" + searchString + "%");
       ResultSet resultSet = statement.executeQuery();
-      ArrayList<Menu> result = new ArrayList<>();
+      ArrayList<MenuItem> result = new ArrayList<>();
       while (resultSet.next())
       {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
         String allergies = resultSet.getString("allergies");
         double price = resultSet.getDouble("price");
-        Menu menu = new Menu(id, name, allergies, price);
-        result.add(menu);
+        MenuItem menuItem = new MenuItem(id, name, allergies, price);
+        result.add(menuItem);
       }
       return result;
     }
   }
 
-  @Override public void update(Menu menu) throws SQLException
+  @Override public void update(MenuItem menuItem) throws SQLException
   {
     try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
     {
       PreparedStatement statement =
           connection.prepareStatement(
               "UPDATE menu SET name = ?, allergies = ?, price = ? WHERE id = ?");
-      statement.setString(1, menu.getName());
-      statement.setString(2, menu.getAllergies());
-      statement.setDouble(3, menu.getPrice());
-      statement.setInt(4, menu.getId());
+      statement.setString(1, menuItem.getName());
+      statement.setString(2, menuItem.getAllergies());
+      statement.setDouble(3, menuItem.getPrice());
+      statement.setInt(4, menuItem.getId());
       statement.executeUpdate();
     }
   }
 
-  @Override public void delete(Menu menu) throws SQLException
+  @Override public void delete(MenuItem menuItem) throws SQLException
   {
     try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
     {
       PreparedStatement statement =
           connection.prepareStatement("DELETE FROM menu WHERE id = ?");
-      statement.setInt(1, menu.getId());
+      statement.setInt(1, menuItem.getId());
       statement.executeUpdate();
     }
   }
