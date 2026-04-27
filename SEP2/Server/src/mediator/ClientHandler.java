@@ -10,6 +10,7 @@ import java.net.Socket;
 
 import com.google.gson.Gson;
 import model.Order;
+import model.TableOrder;
 
 public class ClientHandler implements Runnable
 {
@@ -120,7 +121,7 @@ public class ClientHandler implements Runnable
 
     if (order != null)
     {
-      model.receiveOrder(socket.getInetAddress().getHostAddress() ,order);
+      model.receiveOrder(new TableOrder(order.getContent(),socket.getInetAddress().getHostAddress()));
       return true;
     }
     return false;

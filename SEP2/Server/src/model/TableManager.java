@@ -4,16 +4,17 @@ public class TableManager
 {
   public TableList tableList;
 
-  public TableManager(TableList tableList)
+  public TableManager()
   {
-    this.tableList = tableList;
+    this.tableList = new TableList();
   }
 
-  public void secureTable(String tableNr)
+  public Table secureTable(String tableNr)
   {
     if(tableList.getTable(tableNr) == null)
     {
       tableList.addTable(tableNr);
     }
+    return tableList.getTable(tableNr);
   }
 }
