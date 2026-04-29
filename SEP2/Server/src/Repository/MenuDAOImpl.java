@@ -24,7 +24,7 @@ public class MenuDAOImpl implements MenuDAO
     return instance;
   }
 
-  @Override
+  /*@Override
   public MenuItem create (int id, String name, String allergies, double price) throws SQLException
   {
     try (Connection connection = DriverManager.getConnection(
@@ -47,6 +47,26 @@ public class MenuDAOImpl implements MenuDAO
       }
     }
     return null;
+  }*/
+
+  @Override public ArrayList<String> getAllNames()
+  {
+    ArrayList<String> names = new ArrayList<>();
+    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+    {
+      PreparedStatement statement = connection.prepareStatement(
+          "SELECT name FROM Menu");
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next())
+      {
+        names.add(resultSet.getString("name"));
+      }
+    }
+    catch (SQLException e)
+    {
+      e.printStackTrace();
+    }
+    return names;
   }
 
   @Override public MenuItem readById(int id) throws SQLException
@@ -92,7 +112,7 @@ public class MenuDAOImpl implements MenuDAO
     }
   }
 
-  @Override public void update(MenuItem menuItem) throws SQLException
+  /*@Override public void update(MenuItem menuItem) throws SQLException
   {
     try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
     {
@@ -116,5 +136,5 @@ public class MenuDAOImpl implements MenuDAO
       statement.setInt(1, menuItem.getId());
       statement.executeUpdate();
     }
-  }
+  }*/
 }
