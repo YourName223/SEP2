@@ -1,10 +1,14 @@
 package view;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import viewModel.ViewModelFactory;
+
+import java.io.IOException;
 
 public class ViewHandler
 {
@@ -22,7 +26,7 @@ public class ViewHandler
   public void start(Stage primaryStage)
   {
     this.primaryStage = primaryStage;
-    openView("order");
+    openView("menu");
   }
 
   public void openView(String id)
@@ -30,8 +34,8 @@ public class ViewHandler
     Region root = null;
     switch (id)
     {
-      case "order":
-        root = loadOrderView("OrderView.fxml");
+      case "menu":
+        root = loadOrderView("MenuView.fxml");
         break;
     }
 
@@ -71,5 +75,22 @@ public class ViewHandler
       orderViewController.reset();
     }
     return orderViewController.getRoot();
+  }
+
+  public void openPopup(String fxml) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+      Parent root = loader.load();
+
+      Stage stage = new Stage();
+      stage.setScene(new Scene(root));
+      stage.setTitle("Popup");
+
+      stage.initModality(Modality.APPLICATION_MODAL); // optional but recommended
+      stage.show();
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

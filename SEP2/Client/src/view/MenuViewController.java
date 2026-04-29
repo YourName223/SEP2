@@ -39,4 +39,24 @@ public class MenuViewController
   {
     return root;
   }
+
+  @FXML
+  private void increaseButton() {
+
+  }
+
+  @FXML
+  private void decreaseButton() {
+
+  }
+
+  @FXML
+  private void addToOrderButton() {
+
+  }
+
+  @FXML
+  private void viewOrderButton() {
+    viewHandler.openPopup("OrderOverviewView.fxml");
+  }
 }
