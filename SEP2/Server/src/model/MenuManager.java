@@ -13,6 +13,10 @@ public class MenuManager
 
   public void addMenuItem(int id, String name, String allergies, double price)
   {
+    if(name == null || allergies == null || name.isBlank())
+    {
+      throw new IllegalArgumentException("Arguments cannot be null");
+    }
     menuItems.add(new MenuItem(id,name,allergies,price));
   }
 
@@ -23,7 +27,9 @@ public class MenuManager
 
   public MenuItem getMenuItem(int index)
   {
-    return menuItems.get(index);
+    if(menuItems.size() >= index)
+      return menuItems.get(index);
+    throw new IllegalArgumentException("index is out of bounds");
   }
 
   public void addProductToMenuItem(int index, Component product)

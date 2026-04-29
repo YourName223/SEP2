@@ -44,7 +44,7 @@ public class MenuItem
   public String toString()
   {
     StringBuilder string = new StringBuilder();
-    string.append("Id:").append(id).append("Name:").append(name).append("Allergies:").append(allergies).append("Products:");
+    string.append("Id:").append(id).append("Name:").append(name).append("Allergies:").append(allergies).append("Price:").append(price).append("Products:");
 
     string.append("{");
 
