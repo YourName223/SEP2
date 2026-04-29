@@ -4,12 +4,16 @@ public class TableOrder extends Order
 {
   private String tableNr;
 
-  public TableOrder(String content, String tableNr)
+  public TableOrder(Order order, String tableNr)
   {
-    super(content);
+    super(order.getContent());
     super.setOrderType("Table");
+    super.setProducts(order.getItems());
     this.tableNr = tableNr;
   }
 
-  public String getTableNr;
+  public String getTableNr()
+  {
+    return tableNr;
+  };
 }

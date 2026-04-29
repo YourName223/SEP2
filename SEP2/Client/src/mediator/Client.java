@@ -3,6 +3,7 @@ package mediator;
 import com.google.gson.Gson;
 import model.Model;
 import model.Order;
+import parser.ParserException;
 import parser.XmlJsonParser;
 
 import java.io.BufferedReader;
@@ -60,14 +61,31 @@ public class Client
     }
   }
 
-  public void received(String line)
+  public void received(String line) throws ParserException
   {
-    model.fireProperty(line);
+    switch(parser.fromJson(line, BasePackage.class).getType())
+    {
+      case "order":
+        orderPackage = parser.fromJson(line, OrderPackage.class);
+        model.fireProperty("Update",orderPackage.getTxt());
+        break;
+      case "menu":
+        MenuPackage menuPackage = parser.fromJson(line, MenuPackage.class);
+        model.changeMenu(menuPackage.getMenuItems());
+        break;
+    }
   }
 
   public void sendOrder(OrderPackage orderPackage)
   {
     String message = gson.toJson(orderPackage);
+    out.println(message);
+  }
+
+  public void getMenu()
+  {
+    MenuPackage menuPackage = new MenuPackage("menu",null);
+    String message = gson.toJson(menuPackage);
     out.println(message);
   }
 

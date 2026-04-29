@@ -1,5 +1,6 @@
 package mediator;
 
+import model.MenuItem;
 import model.Model;
 
 import java.io.BufferedReader;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import model.Order;
@@ -59,27 +61,38 @@ public class ClientHandler implements Runnable
       }
 
       OrderPackage orderPackage;
-      String reply = "";
+      OrderPackage sendOrderPackage = new OrderPackage(null,null,null);
       try
       {
-        orderPackage = parser.fromJson(clientText, OrderPackage.class);
-        if(handlePackage(orderPackage))
+        switch(parser.fromJson(clientText, BasePackage.class).getType())
         {
-          reply = "Order accepted";
-        }
-        else
-        {
-          reply = "Order was not accepted";
+          case "order":
+            orderPackage = parser.fromJson(clientText, OrderPackage.class);
+            if(handlePackage(orderPackage))
+            {
+              sendOrderPackage = new OrderPackage("Order",null,"Order accepted");
+            }
+            else
+            {
+              sendOrderPackage = new OrderPackage("Order",null,"Order was not accepted");
+            }
+            break;
+          case "menu":
+            MenuPackage menuPackage = parser.fromJson(clientText, MenuPackage.class);
+            ArrayList<MenuItem> menuItems = model.getMenuItems();
+
+            break;
         }
       }
       catch (Exception e)
-      { e.printStackTrace();}
-
+      {
+        e.printStackTrace();
+      }
       try
       {
-        if(!reply.equals(""))
+        if(sendOrderPackage.getTxt() != null)
         {
-          out.println(reply);
+          out.println(sendOrderPackage);
         }
       }
       catch (Exception e)
@@ -121,7 +134,7 @@ public class ClientHandler implements Runnable
 
     if (order != null)
     {
-      model.receiveOrder(new TableOrder(order.getContent(),socket.getInetAddress().getHostAddress()));
+      model.receiveOrder(new TableOrder(order,socket.getInetAddress().getHostAddress()));
       return true;
     }
     return false;
