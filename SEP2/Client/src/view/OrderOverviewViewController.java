@@ -20,6 +20,7 @@ public class OrderOverviewViewController
   @FXML private TableColumn<OrderContentsViewModel, IntegerProperty> qtyColumn;
   @FXML private Label qtyLabel;
   @FXML private Label totalLabel;
+  @FXML private Label errorLabel;
 
   private ViewHandler viewHandler;
   private OrderViewModel viewModel;
