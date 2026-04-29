@@ -1,6 +1,8 @@
 package Repository;
 
+import model.Component;
 import model.MenuItem;
+import model.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -110,6 +112,28 @@ public class MenuDAOImpl implements MenuDAO
       }
       return result;
     }
+  }
+
+  @Override public ArrayList<Component> getAllProductsFromMenuItem(String menuName)
+  {
+    ArrayList<Component> components = new ArrayList<>();
+    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+    {
+      PreparedStatement statement = connection.prepareStatement("SELECT p.name FROM product p JOIN menu_product mp ON p.name = mp.product_name WHERE mp.menu_name = ?");
+      statement.setString(1, menuName);
+      ResultSet resultSet = statement.executeQuery();
+
+      while (resultSet.next())
+      {
+        String name = resultSet.getString("name");
+        components.add(new Product(name));
+      }
+    }
+    catch (SQLException e)
+    {
+      e.printStackTrace();
+    }
+    return components;
   }
 
   /*@Override public void update(MenuItem menuItem) throws SQLException

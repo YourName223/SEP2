@@ -40,6 +40,12 @@ public class Main {
 
     ArrayList<String> names = menuDAO.getAllNames();
 
+    MenuDAOImpl dao = MenuDAOImpl.getInstance();
+    ArrayList<Component> products = dao.getAllProductsFromMenuItem("Pizza");
+    for (Component c : products) {
+      System.out.println(c.getName());
+    }
+
     System.out.println("Names:"+names);
     System.out.println(menuDAO.readByName(names.getFirst()));
 
