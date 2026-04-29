@@ -17,34 +17,31 @@ public class Main
   }
 }*/
 
+import Repository.MenuDAO;
+import Repository.MenuDAOImpl;
 import mediator.Server;
 import model.Component;
 import model.Model;
 import model.ModelManager;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Main {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws SQLException
+  {
     Model model = new ModelManager();
 
     Server server = new Server(model);
     Thread serverThread = new Thread(server);
     serverThread.setDaemon(false);
     serverThread.start();
+    MenuDAO menuDAO = new MenuDAOImpl();
 
-    Component burger = model.createComponent("Burger");
-    Component burgerBolle = model.createProduct("BurgerBolle");
-    Component bøf = model.createProduct("Bøf");
-    model.addProductToComponent(burgerBolle,burger);
-    model.addProductToComponent(burgerBolle,bøf);
+    ArrayList<String> names = menuDAO.getAllNames();
 
-    Component pomfritter = model.createProduct("Pomfritter");
-
-    System.out.println(burger.getName());
-    model.addMenuItem(1,"God Burger","Bøf",2.3);
-    model.addProductToMenuItem(0,burger);
-    model.addProductToMenuItem(0,pomfritter);
-
-    System.out.println(model.menuItemToString(0));
+    System.out.println("Names:"+names);
+    System.out.println(menuDAO.readByName(names.getFirst()));
 
     System.out.println("Server kører på port 2910...");
   }

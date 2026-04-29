@@ -10,7 +10,7 @@ public class MenuDAOImpl implements MenuDAO
 {
   private static MenuDAOImpl instance;
 
-  private MenuDAOImpl() throws SQLException
+  public MenuDAOImpl() throws SQLException
   {
     DriverManager.registerDriver(new org.postgresql.Driver());
   }
