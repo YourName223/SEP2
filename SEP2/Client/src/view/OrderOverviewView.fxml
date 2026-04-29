@@ -75,7 +75,12 @@
       </HBox>
       <HBox alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="560.0">
          <children>
-            <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="451.0" text="Error Label" textFill="#df2626" />
+            <VBox prefHeight="35.0" prefWidth="448.0">
+               <children>
+                  <Label fx:id="successLabel" prefHeight="17.0" prefWidth="451.0" text="Success Label" textFill="#27a525" />
+                  <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="451.0" text="Error Label" textFill="#df2626" />
+               </children>
+            </VBox>
             <Button fx:id="placeOrderButton" mnemonicParsing="false" text="Place Order">
                <font>
                   <Font size="14.0" />
