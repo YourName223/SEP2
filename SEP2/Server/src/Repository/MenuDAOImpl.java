@@ -82,7 +82,7 @@ public class MenuDAOImpl implements MenuDAO
         String allergies = resultSet.getString("allergies");
         double price = resultSet.getDouble("price");
 
-        return new MenuItem(id, name, allergies, price);
+        return new MenuItem(name, allergies, price);
       }
       else
       {
@@ -101,11 +101,11 @@ public class MenuDAOImpl implements MenuDAO
       ArrayList<MenuItem> result = new ArrayList<>();
       while (resultSet.next())
       {
-        int id = resultSet.getInt("id");
+
         String name = resultSet.getString("name");
         String allergies = resultSet.getString("allergies");
         double price = resultSet.getDouble("price");
-        MenuItem menuItem = new MenuItem(id, name, allergies, price);
+        MenuItem menuItem = new MenuItem(name, allergies, price);
         result.add(menuItem);
       }
       return result;

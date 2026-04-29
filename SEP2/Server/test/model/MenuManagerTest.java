@@ -24,7 +24,7 @@ class MenuManagerTest
   @Test void addMenuItemZero()
   {
     IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
-        () -> menuManager.addMenuItem(0,null,null,0)
+        () -> menuManager.addMenuItem(null,null,0)
     );
 
     assertEquals("Arguments cannot be null", e.getMessage());
@@ -32,14 +32,14 @@ class MenuManagerTest
 
   @Test void addMenuItemOne()
   {
-    menuManager.addMenuItem(1,"1","1",1);
+    menuManager.addMenuItem("1","1",1);
     assertEquals(1,menuManager.getMenuItems().size());
   }
 
   @Test void addMenuItemMany()
   {
-    menuManager.addMenuItem(1,"1","1",1);
-    menuManager.addMenuItem(2,"1","1",1);
+    menuManager.addMenuItem("1","1",1);
+    menuManager.addMenuItem("1","1",1);
     assertEquals(2,menuManager.getMenuItems().size());
   }
 
@@ -54,7 +54,7 @@ class MenuManagerTest
   @Test void getMenuItemsOne()
   {
     addMenuItemOne();
-    assertEquals(1,menuManager.getMenuItem(0).getId());
+    assertEquals("1",menuManager.getMenuItem(0).getName());
   }
 
   @Test void addProductToMenuItemZero()

@@ -42,9 +42,9 @@ public class ModelManager implements Model
     return component;
   }
 
-  public void addMenuItem(int id, String name, String allergies, double price)
+  public void addMenuItem(String name, String allergies, double price)
   {
-    menuManager.addMenuItem(id,name,allergies,price);
+    menuManager.addMenuItem(name,allergies,price);
   }
 
   @Override public void addProductToMenuItem(int index, Component product)

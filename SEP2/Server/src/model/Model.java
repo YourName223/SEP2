@@ -14,7 +14,7 @@ public interface Model
 
   public Component addProductToComponent(Component product, Component component);
 
-  public void addMenuItem(int id, String name, String allergies, double price);
+  public void addMenuItem(String name, String allergies, double price);
 
   public void addProductToMenuItem(int index, Component product);
 

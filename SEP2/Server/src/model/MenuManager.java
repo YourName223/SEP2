@@ -11,13 +11,13 @@ public class MenuManager
     menuItems = new ArrayList<>();
   }
 
-  public void addMenuItem(int id, String name, String allergies, double price)
+  public void addMenuItem(String name, String allergies, double price)
   {
     if(name == null || allergies == null || name.isBlank())
     {
       throw new IllegalArgumentException("Arguments cannot be null");
     }
-    menuItems.add(new MenuItem(id,name,allergies,price));
+    menuItems.add(new MenuItem(name,allergies,price));
   }
 
   public ArrayList<MenuItem> getMenuItems()
