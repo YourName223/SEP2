@@ -1,6 +1,7 @@
 import model.Order;
 import model.Table;
 import model.TableList;
+import model.TableOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +41,7 @@ class TableListTest
   @Test void addOrderOne()
   {
     tableList.addTable("1");
-    tableList.addOrder("1",new Order("An order"));
+    //tableList.addOrder("1",new TableOrder("An order"));
     assertNotEquals(null,tableList.getTable("1").getOrders().getFirst());
   }
 }

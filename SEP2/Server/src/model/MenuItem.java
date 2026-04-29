@@ -28,11 +28,36 @@ public class MenuItem
     return products;
   }
 
+  public void setId(int id) {this.id = id;}
   public void setName(String name) { this.name = name; }
   public void setAllergies(String allergies) { this.allergies = allergies; }
   public void setPrice(double price) { this.price = price; }
   public void addProduct(Component product)
   {
     products.add(product);
+  }
+  public void removeProduct(Component product)
+  {
+    products.remove(product);
+  }
+
+  public String toString()
+  {
+    StringBuilder string = new StringBuilder();
+    string.append("Id:").append(id).append("Name:").append(name).append("Allergies:").append(allergies).append("Products:");
+
+    string.append("{");
+
+    for (Component component : products)
+    {
+      string.append(component.getName()).append(",");
+    }
+
+    if (products.size() > 0)
+      string.setLength(string.length() - 1);
+
+    string.append("}");
+
+    return string.toString();
   }
 }

@@ -4,7 +4,14 @@ import java.util.ArrayList;
 
 public class Composite implements Component
 {
+  private String name;
   ArrayList<Component> children;
+
+  public Composite(String name)
+  {
+    this.name = name;
+    children = new ArrayList<>();
+  }
 
   @Override public void add(Component in)
   {
@@ -19,5 +26,25 @@ public class Composite implements Component
   @Override public Component getChild(int index)
   {
     return children.get(index);
+  }
+
+  @Override public String getName()
+  {
+    StringBuilder name = new StringBuilder("{");
+
+    name.append(this.name);
+
+    for (Component component : children)
+    {
+      name.append("{").append(component.getName()).append("},");
+    }
+
+    if (name.length() > 1)
+      name.setLength(name.length() - 1);
+
+    name.append("}");
+
+    String result = name.toString();
+    return result;
   }
 }

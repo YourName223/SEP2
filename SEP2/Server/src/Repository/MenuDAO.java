@@ -1,6 +1,5 @@
 package Repository;
 
-import model.Menu;
 import model.MenuItem;
 
 import java.sql.SQLException;
