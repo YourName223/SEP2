@@ -2,18 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrderOverviewViewController">
    <children>
-      <Button mnemonicParsing="false" text="x" />
-      <TableView fx:id="orderTable"  prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="orderTable" prefHeight="235.0" prefWidth="560.0">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="454.4000610113144" text="Product" />
           <TableColumn fx:id="priceColumn" prefWidth="142.79995727539062" text="Price" />
@@ -23,33 +21,67 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
+      <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="560.0" spacing="5.0">
          <children>
-            <HBox prefHeight="72.0" prefWidth="252.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="350.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="-">
+                  <Button fx:id="removeButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="34.0" text="🗑">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <TextField prefHeight="25.0" prefWidth="35.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <Button mnemonicParsing="false" text="+">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" text="Save">
+                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="103.0" spacing="5.0">
+                     <children>
+                        <Button fx:id="decreaseButton" mnemonicParsing="false" text="-">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="qtyLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="21.0" text="0" textAlignment="CENTER">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="increaseButton" mnemonicParsing="false" text="+">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Button fx:id="updateButton" mnemonicParsing="false" text="Save">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" text="Place Order">
+            <Label text="Total price:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalLabel" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="52.0" text="00,00" textAlignment="RIGHT">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label text="DKK">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="560.0">
+         <children>
+            <VBox prefHeight="35.0" prefWidth="448.0">
+               <children>
+                  <Label fx:id="successLabel" prefHeight="17.0" prefWidth="451.0" text="Success Label" textFill="#27a525" />
+                  <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="451.0" text="Error Label" textFill="#df2626" />
+               </children>
+            </VBox>
+            <Button fx:id="placeOrderButton" mnemonicParsing="false" text="Place Order">
                <font>
                   <Font size="14.0" />
                </font>
