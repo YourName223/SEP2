@@ -63,7 +63,7 @@ public class ViewHandler
         Region root = loader.load();
         menuViewController = loader.getController();
         menuViewController
-            .init(this, viewModelFactory.getMenuViewModel(), root);
+            .init(this, viewModelFactory.getMenuListViewModel(), root);
       }
       catch (Exception e)
       {
