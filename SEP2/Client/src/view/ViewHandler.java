@@ -80,11 +80,11 @@ public class ViewHandler
   public void openPopup(String fxml) {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-      Parent root = loader.load();
+      Region root = loader.load();
 
       OrderOverviewViewController controller = loader.getController();
 
-      controller.init(this, viewModelFactory.getOrderOverviewViewModel(), root);
+      controller.init(this, viewModelFactory.getOrderContentsViewModel(), root);
 
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
