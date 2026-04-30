@@ -17,7 +17,7 @@ public class ModelManager implements Model
   {
     orderManager = new OrderManager();
     property = new PropertyChangeSupport(this);
-    client = new Client(this,"10.154.208.86",2910);
+    //client = new Client(this,"10.154.208.86",2910);
   }
 
   @Override public void createOrder()
@@ -67,5 +67,10 @@ public class ModelManager implements Model
       PropertyChangeListener listener)
   {
     property.removePropertyChangeListener(propertyName,listener);
+  }
+
+  @Override public Order getOrder()
+  {
+    return orderManager.getOrder();
   }
 }

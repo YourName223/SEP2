@@ -14,4 +14,5 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void changeMenu(ArrayList<MenuItem> menu);
 
   public void getMenu();
+  public Order getOrder();
 }

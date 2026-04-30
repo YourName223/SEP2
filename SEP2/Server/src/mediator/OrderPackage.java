@@ -11,7 +11,6 @@ public class OrderPackage extends BasePackage
   public OrderPackage(String type, Order order, String txt)
   {
     super(type);
-    this.type = type;
     this.order = order;
     this.txt = txt;
   }
