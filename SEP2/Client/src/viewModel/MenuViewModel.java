@@ -48,6 +48,11 @@ public class MenuViewModel implements PropertyChangeListener
     return menuItems;
   }
 
+  public MenuItem getMenuItem()
+  {
+    return menuItem;
+  }
+
   public void loadFromModel()
   {
     ObservableList<MenuItem> list = FXCollections.observableArrayList();
