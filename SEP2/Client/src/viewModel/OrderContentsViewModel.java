@@ -5,7 +5,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.MenuItem;
 import model.Model;
+import model.OrderItem;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -13,6 +15,7 @@ import java.beans.PropertyChangeListener;
 public class OrderContentsViewModel implements PropertyChangeListener
 {
   private Model model;
+  private OrderItem orderItem;
   private final ObservableList<OrderItemViewModel> orderItems = FXCollections.observableArrayList();
   private StringProperty successProperty;
   private StringProperty errorProperty;
@@ -21,6 +24,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
   public OrderContentsViewModel(Model model)
   {
     this.model = model;
+    orderItem = null;
     this.successProperty = new SimpleStringProperty();
     this.errorProperty = new SimpleStringProperty();
 
@@ -62,5 +66,13 @@ public class OrderContentsViewModel implements PropertyChangeListener
     return orderItems;
   }
 
+  public void placeOrder()
+  {
+    model.placeOrder();
+  }
 
+  public void setSelectedOrderItem(OrderItem orderItem)
+  {
+    this.orderItem = orderItem;
+  }
 }
