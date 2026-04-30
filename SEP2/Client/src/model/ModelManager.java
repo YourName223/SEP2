@@ -12,11 +12,13 @@ public class ModelManager implements Model
   private PropertyChangeSupport property;
   private OrderManager orderManager;
   private Client client;
+  private ArrayList<MenuItem> menu;
 
   public ModelManager()
   {
     orderManager = new OrderManager();
     property = new PropertyChangeSupport(this);
+    orderManager.createOrder();
     //client = new Client(this,"10.154.208.86",2910);
   }
 
@@ -28,6 +30,11 @@ public class ModelManager implements Model
   @Override public void addProductToOrder(MenuItem menuItem)
   {
     orderManager.addProductToOrder(menuItem);
+  }
+
+  @Override public void removeProductFromOrder(MenuItem menuItem)
+  {
+    orderManager.removeProductFromOrder(menuItem);
   }
 
   @Override public void placeOrder()
@@ -52,9 +59,14 @@ public class ModelManager implements Model
     property.firePropertyChange("Menu",null,menu);
   }
 
-  @Override public void getMenu()
+  @Override public void getMenuFromDataBase()
   {
     client.getMenu();
+  }
+
+  @Override public ArrayList<MenuItem> getMenu()
+  {
+    return menu;
   }
 
   @Override public void addListener(String propertyName,

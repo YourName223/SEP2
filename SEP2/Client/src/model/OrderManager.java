@@ -19,6 +19,11 @@ public class OrderManager
     order.addProduct(menuItem);
   }
 
+  public void removeProductFromOrder(MenuItem menuItem)
+  {
+    order.removeProduct(menuItem);
+  }
+
   public Order getOrder()
   {
     return order;
