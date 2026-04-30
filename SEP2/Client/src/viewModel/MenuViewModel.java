@@ -9,43 +9,15 @@ import model.Model;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class MenuViewModel implements PropertyChangeListener
+public class MenuViewModel
 {
   private Model model;
   private MenuItem menuItem;
-  private final ObservableList<MenuViewModel> menuItems = FXCollections.observableArrayList();
 
-  public MenuViewModel(Model model)
+  public MenuViewModel(Model model, MenuItem menuItem)
   {
     this.model = model;
-    menuItem = null;
-  }
-
-  public void clear()
-  {
-    loadFromModel();
-  }
-
-  public void increase()
-  {
-    if(menuItem != null)
-      model.addProductToOrder(menuItem);
-  }
-
-  public void decrease()
-  {
-    if(menuItem != null)
-      model.removeProductFromOrder(menuItem);
-  }
-
-  public void setSelectedMenuItem(MenuItem menuItem)
-  {
-    this.menuItem = menuItem;
-  }
-
-  public ObservableList<MenuViewModel> getMenuItems()
-  {
-    return menuItems;
+    menuItem = menuItem;
   }
 
   public MenuItem getMenuItem()
@@ -53,14 +25,29 @@ public class MenuViewModel implements PropertyChangeListener
     return menuItem;
   }
 
-  public void loadFromModel()
+  public void clear()
   {
-    ObservableList<MenuItem> list = FXCollections.observableArrayList();
-    list.addAll(model.getMenu());
+    loadFromModel();
   }
 
-  @Override public void propertyChange(PropertyChangeEvent evt)
+  public String getName()
   {
+    return menuItem.getName();
+  }
 
+  public String getAllergies()
+  {
+    return menuItem.getAllergies();
+  }
+
+  public double getPrice()
+  {
+    return menuItem.getPrice();
+  }
+
+  public void decrease()
+  {
+    if(menuItem != null)
+      model.removeProductFromOrder(menuItem);
   }
 }
