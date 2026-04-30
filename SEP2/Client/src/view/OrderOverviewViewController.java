@@ -26,7 +26,8 @@ public class OrderOverviewViewController
   private OrderContentsViewModel viewModel;
   private Region root;
 
-  public void init(ViewHandler viewHandler, OrderContentsViewModel viewModel, Region root)
+  public void init(ViewHandler viewHandler, OrderContentsViewModel viewModel,
+      Region root)
   {
     this.viewHandler = viewHandler;
     this.viewModel = viewModel;
@@ -53,29 +54,39 @@ public class OrderOverviewViewController
     return root;
   }
 
-
-  @FXML
-  private void increaseButton() {
-
+  @FXML private void onOrderItemSelected()
+  {
+    System.out.println("Selected an item");
+    OrderItemViewModel selected = orderTable.getSelectionModel()
+        .getSelectedItem();
+    if (selected != null)
+    {
+      viewModel.setSelectedOrderItem(selected.getOrderItem());
+    }
   }
 
-  @FXML
-  private void decreaseButton() {
-
+  @FXML private void increaseButton()
+  {
+    viewModel.increase();
   }
 
-  @FXML
-  private void updateButton() {
-
+  @FXML private void decreaseButton()
+  {
+    viewModel.decrease();
   }
 
-  @FXML
-  private void removeButton() {
-viewModel
+  @FXML private void updateButton()
+  {
+    viewModel.updateQuantity();
   }
 
-  @FXML
-  private void placeOrderButton() {
+  @FXML private void removeButton()
+  {
+    viewModel.deleteMenuItem();
+  }
+
+  @FXML private void placeOrderButton()
+  {
     viewModel.placeOrder();
   }
 }

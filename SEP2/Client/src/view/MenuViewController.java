@@ -60,7 +60,6 @@ public class MenuViewController
 
   @FXML private void onMenuItemSelected()
   {
-    System.out.println("Selected an item");
     MenuViewModel selected = menuTable.getSelectionModel().getSelectedItem();
     if (selected != null)
     {
