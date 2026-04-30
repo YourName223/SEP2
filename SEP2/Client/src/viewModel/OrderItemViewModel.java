@@ -30,7 +30,7 @@ public class OrderItemViewModel
     return orderItem.getItem().getPrice();
   }
 
-  public double getQuantity()
+  public int getQuantity()
   {
     return orderItem.getQuantity();
   }
@@ -50,4 +50,5 @@ public class OrderItemViewModel
     if(orderItem.getItem() != null)
       model.removeProductFromOrder(orderItem.getItem());
   }
+
 }

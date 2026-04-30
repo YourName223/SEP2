@@ -8,24 +8,25 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import viewModel.MenuViewModel;
 import viewModel.OrderContentsViewModel;
+import viewModel.OrderItemViewModel;
 import viewModel.OrderViewModel;
 
 public class OrderOverviewViewController
 {
-  @FXML private TableView<OrderContentsViewModel> orderTable;
-  @FXML private TableColumn<OrderContentsViewModel, StringProperty> nameColumn;
-  @FXML private TableColumn<OrderContentsViewModel, DoubleProperty> priceColumn;
-  @FXML private TableColumn<OrderContentsViewModel, IntegerProperty> qtyColumn;
+  @FXML private TableView<OrderItemViewModel> orderTable;
+  @FXML private TableColumn<OrderItemViewModel, String> nameColumn;
+  @FXML private TableColumn<OrderItemViewModel, Double> priceColumn;
+  @FXML private TableColumn<OrderItemViewModel, Integer> qtyColumn;
   @FXML private Label qtyLabel;
   @FXML private Label totalLabel;
   @FXML private Label successLabel;
   @FXML private Label errorLabel;
 
   private ViewHandler viewHandler;
-  private OrderViewModel viewModel;
+  private OrderContentsViewModel viewModel;
   private Region root;
 
-  public void init(ViewHandler viewHandler, OrderViewModel viewModel, Region root)
+  public void init(ViewHandler viewHandler, OrderContentsViewModel viewModel, Region root)
   {
     this.viewHandler = viewHandler;
     this.viewModel = viewModel;
@@ -36,13 +37,10 @@ public class OrderOverviewViewController
     priceColumn.setCellValueFactory(
         cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPrice()));
     qtyColumn.setCellValueFactory(
-        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPrice()));
+        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
 
-    orderTable.setItems(viewModel.getMenuItems());
+    orderTable.setItems(viewModel.getOrderItems());
 
-    qtyLabel.textProperty().bind(
-        viewModel.getAmount().asString()
-    );
   }
 
   public void reset()
