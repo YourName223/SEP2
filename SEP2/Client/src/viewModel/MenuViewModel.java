@@ -13,6 +13,7 @@ public class MenuViewModel implements PropertyChangeListener
 {
   private Model model;
   private MenuItem menuItem;
+  private final ObservableList<MenuItem> menuItems = FXCollections.observableArrayList();
 
   public MenuViewModel(Model model)
   {
@@ -42,14 +43,13 @@ public class MenuViewModel implements PropertyChangeListener
 
   public ObservableList<MenuItem> getMenuItems()
   {
-    ObservableList<MenuItem> list = FXCollections.observableArrayList();
-    list.addAll(model.getMenu());
-    return list;
+    return menuItems;
   }
 
   public void loadFromModel()
   {
-
+    ObservableList<MenuItem> list = FXCollections.observableArrayList();
+    list.addAll(model.getMenu());
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)
