@@ -17,7 +17,7 @@ public class MenuViewModel
   public MenuViewModel(Model model, MenuItem menuItem)
   {
     this.model = model;
-    menuItem = menuItem;
+    this.menuItem = menuItem;
   }
 
   public MenuItem getMenuItem()

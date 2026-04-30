@@ -13,11 +13,13 @@ public class MenuListViewModel implements PropertyChangeListener
   private Model model;
   private MenuItem menuItem;
   private final ObservableList<MenuViewModel> menuItems = FXCollections.observableArrayList();
+  private int amount;
 
   public MenuListViewModel(Model model)
   {
     this.model = model;
     menuItem = null;
+    amount = 0;
   }
 
   public void clear()
@@ -27,19 +29,26 @@ public class MenuListViewModel implements PropertyChangeListener
 
   public void increase()
   {
-    if(menuItem != null)
-      model.addProductToOrder(menuItem);
+    amount ++;
   }
 
   public void decrease()
   {
-    if(menuItem != null)
-      model.removeProductFromOrder(menuItem);
+    amount --;
   }
 
   public void setSelectedMenuItem(MenuItem menuItem)
   {
     this.menuItem = menuItem;
+    amount = 0;
+  }
+
+  public void addToOrder()
+  {
+    for(int i = 0; i < amount; i++)
+    {
+      model.addProductToOrder(menuItem);
+    }
   }
 
   public ObservableList<MenuViewModel> getMenuItems()
