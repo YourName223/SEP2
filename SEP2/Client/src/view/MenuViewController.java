@@ -17,9 +17,9 @@ import viewModel.OrderViewModel;
 public class MenuViewController
 {
   @FXML private TableView<MenuViewModel> menuTable;
-  @FXML private TableColumn<MenuViewModel,String> nameColumn;
-  @FXML private TableColumn<MenuViewModel,String> allergensColumn;
-  @FXML private TableColumn<MenuViewModel,Double> priceColumn;
+  @FXML private TableColumn<MenuViewModel, String> nameColumn;
+  @FXML private TableColumn<MenuViewModel, String> allergensColumn;
+  @FXML private TableColumn<MenuViewModel, Double> priceColumn;
   @FXML private Label qtyLabel;
   @FXML private Label totalLabel;
 
@@ -27,19 +27,19 @@ public class MenuViewController
   private MenuListViewModel viewModel;
   private Region root;
 
-  public void init(ViewHandler viewHandler, MenuListViewModel viewModel, Region root)
+  public void init(ViewHandler viewHandler, MenuListViewModel viewModel,
+      Region root)
   {
     this.viewHandler = viewHandler;
     this.viewModel = viewModel;
     this.root = root;
 
-    nameColumn.setCellValueFactory(cell ->
-        new SimpleStringProperty(cell.getValue().getName()));
-    allergensColumn.setCellValueFactory(cell ->
-        new SimpleStringProperty(String.valueOf(cell.getValue().getMenuItem().getAllergies())));
-    priceColumn.setCellValueFactory(cell ->
-        new ReadOnlyObjectWrapper<>(cell.getValue().getMenuItem().getPrice()));
-
+    nameColumn.setCellValueFactory(
+        cell -> new SimpleStringProperty(cell.getValue().getName()));
+    allergensColumn.setCellValueFactory(cell -> new SimpleStringProperty(
+        String.valueOf(cell.getValue().getAllergies())));
+    priceColumn.setCellValueFactory(
+        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPrice()));
 
     menuTable.setItems(viewModel.getMenuItems());
   }
@@ -63,23 +63,23 @@ public class MenuViewController
     }
   }
 
-  @FXML
-  private void increaseButton() {
-
+  @FXML private void increaseButton()
+  {
+    viewModel.increase();
   }
 
-  @FXML
-  private void decreaseButton() {
-
+  @FXML private void decreaseButton()
+  {
+    viewModel.decrease();
   }
 
-  @FXML
-  private void addToOrderButton() {
-
+  @FXML private void addToOrderButton()
+  {
+    viewModel.addToOrder();
   }
 
-  @FXML
-  private void viewOrderButton() {
+  @FXML private void viewOrderButton()
+  {
     viewHandler.openPopup("OrderOverviewView.fxml");
   }
 }
