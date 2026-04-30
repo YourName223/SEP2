@@ -4,15 +4,15 @@ import model.Model;
 
 public class ViewModelFactory
 {
-  private OrderViewModel orderViewModel;
+  private MenuViewModel menuViewModel;
 
   public ViewModelFactory(Model model)
   {
-    orderViewModel = new OrderViewModel(model);
+    menuViewModel = new MenuViewModel(model);
   }
 
-  public OrderViewModel getOrderViewModel()
+  public MenuViewModel getMenuViewModel()
   {
-    return orderViewModel;
+    return menuViewModel;
   }
 }

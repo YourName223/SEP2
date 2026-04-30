@@ -15,7 +15,7 @@ public class ViewHandler
   private Stage primaryStage;
   private Scene currentScene;
   private ViewModelFactory viewModelFactory;
-  private OrderViewController orderViewController;
+  private MenuViewController menuViewController;
 
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
@@ -35,7 +35,7 @@ public class ViewHandler
     switch (id)
     {
       case "menu":
-        root = loadOrderView("MenuView.fxml");
+        root = loadMenuView("MenuView.fxml");
         break;
     }
 
@@ -52,18 +52,18 @@ public class ViewHandler
     primaryStage.show();
   }
 
-  private Region loadOrderView(String fxmlFile)
+  private Region loadMenuView(String fxmlFile)
   {
-    if (orderViewController == null)
+    if (menuViewController == null)
     {
       try
       {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(fxmlFile));
         Region root = loader.load();
-        orderViewController = loader.getController();
-        orderViewController
-            .init(this, viewModelFactory.getOrderViewModel(), root);
+        menuViewController = loader.getController();
+        menuViewController
+            .init(this, viewModelFactory.getMenuViewModel(), root);
       }
       catch (Exception e)
       {
@@ -72,9 +72,9 @@ public class ViewHandler
     }
     else
     {
-      orderViewController.reset();
+      menuViewController.reset();
     }
-    return orderViewController.getRoot();
+    return menuViewController.getRoot();
   }
 
   public void openPopup(String fxml) {

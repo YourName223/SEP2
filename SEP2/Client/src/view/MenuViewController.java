@@ -20,10 +20,10 @@ public class MenuViewController
   @FXML private Label totalLabel;
 
   private ViewHandler viewHandler;
-  private OrderViewModel viewModel;
+  private MenuViewModel viewModel;
   private Region root;
 
-  public void init(ViewHandler viewHandler, OrderViewModel viewModel, Region root)
+  public void init(ViewHandler viewHandler, MenuViewModel viewModel, Region root)
   {
     this.viewHandler = viewHandler;
     this.viewModel = viewModel;
