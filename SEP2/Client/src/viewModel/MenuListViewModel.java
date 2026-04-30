@@ -63,9 +63,17 @@ public class MenuListViewModel implements PropertyChangeListener
 
   public void loadFromModel()
   {
-    for(MenuItem menuItem : model.getMenu())
+    try
     {
-      menuItems.add(new MenuViewModel(model,menuItem));
+      Thread.sleep(1000);
+      for(MenuItem menuItem : model.getMenu())
+      {
+        menuItems.add(new MenuViewModel(model,menuItem));
+      }
+    }
+    catch (Exception e)
+    {
+
     }
   }
 

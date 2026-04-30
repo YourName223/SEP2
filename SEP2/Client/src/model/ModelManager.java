@@ -20,6 +20,7 @@ public class ModelManager implements Model
     property = new PropertyChangeSupport(this);
     orderManager.createOrder();
     //client = new Client(this,"10.154.208.86",2910);
+    getMenuFromDataBase();
   }
 
   @Override public void createOrder()
