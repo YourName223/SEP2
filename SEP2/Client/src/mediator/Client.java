@@ -16,8 +16,7 @@ public class Client
   private Socket socket;
   private BufferedReader in;
   private PrintWriter out;
-  private Gson gson;
-  private XmlJsonParser parser;
+  private Gson parser;
   private boolean waiting;
   private Model model;
   private OrderPackage orderPackage;
@@ -31,7 +30,7 @@ public class Client
       socket = new Socket(host, port);
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
       out = new PrintWriter(socket.getOutputStream(), true);
-      gson = new Gson();
+      parser = new Gson();
       waiting = false;
       clientReader = new ClientReader(this, in);
       new Thread(clientReader).start();
@@ -78,14 +77,14 @@ public class Client
 
   public void sendOrder(OrderPackage orderPackage)
   {
-    String message = gson.toJson(orderPackage);
+    String message = parser.toJson(orderPackage);
     out.println(message);
   }
 
   public void getMenu()
   {
     MenuPackage menuPackage = new MenuPackage("menu",null);
-    String message = gson.toJson(menuPackage);
+    String message = parser.toJson(menuPackage);
     out.println(message);
   }
 
