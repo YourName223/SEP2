@@ -93,6 +93,17 @@ public class OrderContentsViewModel implements PropertyChangeListener
     }
   }
 
+  public void deleteMenuItem()
+  {
+    for(OrderItemViewModel orderItem1 : orderItems)
+    {
+      if (orderItem1.getOrderItem().getItem().equals(orderItem))
+      {
+        orderItems.remove(orderItem1);
+      }
+    }
+  }
+
   public void setSelectedOrderItem(OrderItem orderItem)
   {
     this.orderItem = orderItem;
