@@ -82,11 +82,15 @@ public class ViewHandler
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
       Parent root = loader.load();
 
+      OrderOverviewViewController controller = loader.getController();
+
+      controller.init(this, viewModelFactory.getOrderOverviewViewModel(), root);
+
       Stage stage = new Stage();
       stage.setScene(new Scene(root));
-      stage.setTitle("Popup");
+      stage.setTitle("Order Overview");
 
-      stage.initModality(Modality.APPLICATION_MODAL); // optional but recommended
+      stage.initModality(Modality.APPLICATION_MODAL);
       stage.show();
 
     } catch (IOException e) {
