@@ -32,7 +32,7 @@
                   </Button>
                   <HBox alignment="CENTER" prefHeight="30.0" prefWidth="103.0" spacing="5.0">
                      <children>
-                        <Button fx:id="decreaseButton" mnemonicParsing="false" text="-">
+                        <Button fx:id="decreaseButton" onAction="#decreaseButton" mnemonicParsing="false" text="-">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -42,14 +42,14 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="increaseButton" mnemonicParsing="false" text="+">
+                        <Button fx:id="increaseButton" onAction="#increaseButton" mnemonicParsing="false" text="+">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="updateButton" mnemonicParsing="false" text="Save">
+                  <Button fx:id="updateButton" onAction="#updateButton" mnemonicParsing="false" text="Save">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -81,7 +81,7 @@
                   <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="451.0" text="Error Label" textFill="#df2626" />
                </children>
             </VBox>
-            <Button fx:id="placeOrderButton" mnemonicParsing="false" text="Place Order">
+            <Button fx:id="placeOrderButton" onAction="#placeOrderButton" mnemonicParsing="false" text="Place Order">
                <font>
                   <Font size="14.0" />
                </font>

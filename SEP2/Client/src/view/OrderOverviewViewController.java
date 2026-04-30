@@ -1,8 +1,6 @@
 package view;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -32,6 +30,19 @@ public class OrderOverviewViewController
     this.viewHandler = viewHandler;
     this.viewModel = viewModel;
     this.root = root;
+
+    nameColumn.setCellValueFactory(
+        cell -> new SimpleStringProperty(cell.getValue().getName()));
+    priceColumn.setCellValueFactory(
+        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPrice()));
+    qtyColumn.setCellValueFactory(
+        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPrice()));
+
+    orderTable.setItems(viewModel.getMenuItems());
+
+    qtyLabel.textProperty().bind(
+        viewModel.getAmount().asString()
+    );
   }
 
   public void reset()
