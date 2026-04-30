@@ -61,7 +61,6 @@ public class ClientHandler implements Runnable
       }
 
       OrderPackage orderPackage;
-      BasePackage sendPackage = null;
       try
       {
         System.out.println("Client asked for something");
@@ -71,34 +70,25 @@ public class ClientHandler implements Runnable
             orderPackage = parser.fromJson(clientText, OrderPackage.class);
             if(handlePackage(orderPackage))
             {
-              sendPackage = new OrderPackage("Order",null,"Order accepted");
+              OrderPackage sendPackage = new OrderPackage("Order",null,"Order accepted");
+              out.println(parser.toJson(sendPackage));
             }
             else
             {
-              sendPackage = new OrderPackage("Order",null,"Order was not accepted");
+              OrderPackage sendPackage = new OrderPackage("Order",null,"Order was not accepted");
+              out.println(parser.toJson(sendPackage));
             }
             break;
           case "menu":
             System.out.println("Client asked for menu");
-            sendPackage = new MenuPackage("menu",model.getMenuItems());
-
+            MenuPackage sendPackage = new MenuPackage("menu",model.getMenuItems());
+            out.println(parser.toJson(sendPackage));
             break;
         }
       }
       catch (Exception e)
       {
         e.printStackTrace();
-      }
-      try
-      {
-        if(sendPackage.getType() != null)
-        {
-          out.println(parser.toJson(sendPackage));
-        }
-      }
-      catch (Exception e)
-      {
-
       }
     }
   }

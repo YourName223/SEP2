@@ -40,12 +40,19 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
   public void loadFromModel()
   {
+    System.out.println("Trying to get order test");
     successProperty.set("");
     errorProperty.set("");
     for(OrderItem orderItem : model.getOrder().getItems())
     {
+      System.out.println("Trying to get order v2 test");
       orderItems.add(new OrderItemViewModel(model,orderItem));
     }
+  }
+
+  public void loadAgain()
+  {
+    loadFromModel();
   }
 
   public StringProperty getSuccessProperty()
