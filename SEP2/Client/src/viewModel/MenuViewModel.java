@@ -18,7 +18,7 @@ public class MenuViewModel implements PropertyChangeListener
   public MenuViewModel(Model model)
   {
     this.model = model;
-
+    menuItem = null;
   }
 
   public void clear()
