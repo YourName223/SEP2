@@ -42,6 +42,10 @@ public class OrderContentsViewModel implements PropertyChangeListener
   {
     successProperty.set("");
     errorProperty.set("");
+    for(OrderItem orderItem : model.getOrder().getItems())
+    {
+      orderItems.add(new OrderItemViewModel(model,orderItem));
+    }
   }
 
   public StringProperty getSuccessProperty()
