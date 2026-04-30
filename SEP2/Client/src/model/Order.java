@@ -18,7 +18,7 @@ public class Order
     return content;
   }
 
-  public void addProduct(MenuItem menuItem)
+  public void setProduct(MenuItem menuItem, int amount)
   {
     boolean partOfList = false;
 
@@ -32,12 +32,21 @@ public class Order
       for (OrderItem item : items)
       {
         if(item.getItem().equals(menuItem))
-          item.add();
+        {
+          if(amount == 0)
+          {
+            items.remove(item);
+          }
+          else
+          {
+            item.setQuantity(amount);
+          }
+        }
       }
     }
     else
     {
-      items.add(new OrderItem(menuItem));
+      items.add(new OrderItem(menuItem,amount));
     }
   }
 

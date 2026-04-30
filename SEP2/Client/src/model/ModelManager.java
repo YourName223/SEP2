@@ -28,9 +28,9 @@ public class ModelManager implements Model
     orderManager.createOrder();
   }
 
-  @Override public void addProductToOrder(MenuItem menuItem)
+  @Override public void addProductToOrder(MenuItem menuItem, int amount)
   {
-    orderManager.addProductToOrder(menuItem);
+    orderManager.addProductToOrder(menuItem, amount);
   }
 
   @Override public void removeProductFromOrder(MenuItem menuItem)
@@ -46,6 +46,7 @@ public class ModelManager implements Model
     }
     else
     {
+      System.out.println("Tried sending order");
       client.sendOrder(new OrderPackage("order",orderManager.getOrder(),"Get"));
     }
   }

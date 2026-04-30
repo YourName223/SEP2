@@ -39,10 +39,4 @@ public class MenuViewModel
   {
     return menuItem.getPrice();
   }
-
-  public void decrease()
-  {
-    if(menuItem != null)
-      model.removeProductFromOrder(menuItem);
-  }
 }

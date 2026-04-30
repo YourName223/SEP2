@@ -6,6 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.MenuItem;
 import model.Model;
+import model.Order;
+import model.OrderItem;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -48,16 +50,32 @@ public class MenuListViewModel implements PropertyChangeListener
   public void setSelectedMenuItem(MenuItem menuItem)
   {
     this.menuItem = menuItem;
-    amount.set(0);
+    boolean menuItemIsInOrder = false;
+    for(OrderItem orderItem : model.getOrder().getItems())
+    {
+      if(orderItem.getItem().equals(menuItem))
+        menuItemIsInOrder = true;
+    }
+    if(menuItemIsInOrder)
+      for(OrderItem orderItem : model.getOrder().getItems())
+      {
+        if(orderItem.getItem().equals(menuItem))
+          amount.set(orderItem.getQuantity());
+      }
+    else
+    {
+      amount.set(0);
+    }
   }
 
   public void addToOrder()
   {
     System.out.println("Tried to add to order");
-    for(int i = 0; i < amount.get(); i++)
+    if(amount.get() >= 0)
     {
-      model.addProductToOrder(menuItem);
+      model.addProductToOrder(menuItem,amount.get());
     }
+    System.out.println(model.getOrder().getItems().get(0).getItem());
   }
 
   public ObservableList<MenuViewModel> getMenuItems()

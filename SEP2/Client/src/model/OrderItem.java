@@ -5,10 +5,10 @@ public class OrderItem
   MenuItem item;
   int quantity;
 
-  public OrderItem(MenuItem item)
+  public OrderItem(MenuItem item,int quantity)
   {
     this.item = item;
-    quantity = 1;
+    this.quantity = quantity;
   }
 
   public void add()
@@ -29,6 +29,11 @@ public class OrderItem
   public int getQuantity()
   {
     return quantity;
+  }
+
+  public void setQuantity(int quantity)
+  {
+    this.quantity = quantity;
   }
 
   public String toString()

@@ -14,9 +14,9 @@ public class OrderManager
     return new Order("An order");
   }
 
-  public void addProductToOrder(MenuItem menuItem)
+  public void addProductToOrder(MenuItem menuItem, int amount)
   {
-    order.addProduct(menuItem);
+    order.setProduct(menuItem,amount);
   }
 
   public void removeProductFromOrder(MenuItem menuItem)
