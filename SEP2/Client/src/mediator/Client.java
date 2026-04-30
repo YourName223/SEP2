@@ -63,7 +63,7 @@ public class Client
 
   public void received(String line) throws ParserException
   {
-    switch(parser.fromJson(line, BasePackage.class).getType())
+    switch(parser.fromJson(line, OrderPackage.class).getType())
     {
       case "order":
         orderPackage = parser.fromJson(line, OrderPackage.class);

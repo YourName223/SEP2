@@ -64,7 +64,7 @@ public class ClientHandler implements Runnable
       OrderPackage sendOrderPackage = new OrderPackage(null,null,null);
       try
       {
-        switch(parser.fromJson(clientText, BasePackage.class).getType())
+        switch(parser.fromJson(clientText, OrderPackage.class).getType())
         {
           case "order":
             orderPackage = parser.fromJson(clientText, OrderPackage.class);
