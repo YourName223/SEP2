@@ -40,6 +40,9 @@ public class OrderOverviewViewController
     qtyColumn.setCellValueFactory(
         cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
 
+    errorLabel.textProperty().bind(viewModel.getErrorProperty());
+    successLabel.textProperty().bind(viewModel.getSuccessProperty());
+
     orderTable.setItems(viewModel.getOrderItems());
 
   }
