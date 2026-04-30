@@ -61,9 +61,11 @@ public class ClientHandler implements Runnable
       }
 
       OrderPackage orderPackage;
-      OrderPackage sendOrderPackage = new OrderPackage(null,null,null);
+      OrderPackage sendOrderPackage = null;
+      MenuPackage menuPackage = null;
       try
       {
+        System.out.println("Client asked for something");
         switch(parser.fromJson(clientText, OrderPackage.class).getType())
         {
           case "order":
@@ -78,8 +80,8 @@ public class ClientHandler implements Runnable
             }
             break;
           case "menu":
-            MenuPackage menuPackage = parser.fromJson(clientText, MenuPackage.class);
-            ArrayList<MenuItem> menuItems = model.getMenuItems();
+            System.out.println("Client asked for menu");
+            menuPackage = new MenuPackage("menu",model.getMenuItems());
 
             break;
         }
@@ -97,7 +99,18 @@ public class ClientHandler implements Runnable
       }
       catch (Exception e)
       {
-        throw new RuntimeException(e);
+
+      }
+      try
+      {
+        if(menuPackage.getType() != null)
+        {
+          out.println(menuPackage);
+        }
+      }
+      catch (Exception e)
+      {
+
       }
     }
   }

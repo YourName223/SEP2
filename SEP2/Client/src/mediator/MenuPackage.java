@@ -11,7 +11,6 @@ public class MenuPackage extends BasePackage
   public MenuPackage(String type, ArrayList<MenuItem> menuItems)
   {
     super(type);
-    this.type = type;
     this.menuItems = menuItems;
   }
 
