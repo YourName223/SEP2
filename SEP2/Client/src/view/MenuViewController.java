@@ -42,6 +42,10 @@ public class MenuViewController
         cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPrice()));
 
     menuTable.setItems(viewModel.getMenuItems());
+
+    qtyLabel.textProperty().bind(
+        viewModel.getAmount().asString()
+    );
   }
 
   public void reset()
@@ -56,6 +60,7 @@ public class MenuViewController
 
   @FXML private void onMenuItemSelected()
   {
+    System.out.println("Selected an item");
     MenuViewModel selected = menuTable.getSelectionModel().getSelectedItem();
     if (selected != null)
     {

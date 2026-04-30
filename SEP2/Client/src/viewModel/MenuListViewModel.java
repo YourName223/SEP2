@@ -1,5 +1,7 @@
 package viewModel;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.MenuItem;
@@ -13,13 +15,14 @@ public class MenuListViewModel implements PropertyChangeListener
   private Model model;
   private MenuItem menuItem;
   private final ObservableList<MenuViewModel> menuItems = FXCollections.observableArrayList();
-  private int amount;
+  private IntegerProperty amount;
 
   public MenuListViewModel(Model model)
   {
     this.model = model;
     menuItem = null;
-    amount = 0;
+    amount = new SimpleIntegerProperty();
+    loadFromModel();
   }
 
   public void clear()
@@ -27,25 +30,31 @@ public class MenuListViewModel implements PropertyChangeListener
     loadFromModel();
   }
 
+  public IntegerProperty getAmount()
+  {
+    return amount;
+  }
+
   public void increase()
   {
-    amount ++;
+    amount.set(amount.get()+1);
   }
 
   public void decrease()
   {
-    amount --;
+    amount.set(amount.get()-1);
   }
 
   public void setSelectedMenuItem(MenuItem menuItem)
   {
     this.menuItem = menuItem;
-    amount = 0;
+    amount.set(0);
   }
 
   public void addToOrder()
   {
-    for(int i = 0; i < amount; i++)
+    System.out.println("Tried to add to order");
+    for(int i = 0; i < amount.get(); i++)
     {
       model.addProductToOrder(menuItem);
     }
@@ -63,17 +72,11 @@ public class MenuListViewModel implements PropertyChangeListener
 
   public void loadFromModel()
   {
-    try
+    System.out.println("Test");
+    for(MenuItem menuItem : model.getMenu())
     {
-      Thread.sleep(1000);
-      for(MenuItem menuItem : model.getMenu())
-      {
-        menuItems.add(new MenuViewModel(model,menuItem));
-      }
-    }
-    catch (Exception e)
-    {
-
+      System.out.println("Test1");
+      menuItems.add(new MenuViewModel(model,menuItem));
     }
   }
 
