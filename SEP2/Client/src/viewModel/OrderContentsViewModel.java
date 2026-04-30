@@ -42,6 +42,10 @@ public class OrderContentsViewModel implements PropertyChangeListener
   {
     successProperty.set("");
     errorProperty.set("");
+    for(OrderItem orderItem : model.getOrder().getItems())
+    {
+      orderItems.add(new OrderItemViewModel(model,orderItem));
+    }
   }
 
   public StringProperty getSuccessProperty()
@@ -89,6 +93,17 @@ public class OrderContentsViewModel implements PropertyChangeListener
       if (orderItem1.getOrderItem().getItem().equals(orderItem))
       {
         orderItem1.getOrderItem().setQuantity(amount);
+      }
+    }
+  }
+
+  public void deleteMenuItem()
+  {
+    for(OrderItemViewModel orderItem1 : orderItems)
+    {
+      if (orderItem1.getOrderItem().getItem().equals(orderItem))
+      {
+        orderItems.remove(orderItem1);
       }
     }
   }
