@@ -25,11 +25,6 @@ public class MenuViewModel
     return menuItem;
   }
 
-  public void clear()
-  {
-    loadFromModel();
-  }
-
   public String getName()
   {
     return menuItem.getName();

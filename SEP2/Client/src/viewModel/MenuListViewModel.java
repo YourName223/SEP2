@@ -54,8 +54,10 @@ public class MenuListViewModel implements PropertyChangeListener
 
   public void loadFromModel()
   {
-    ObservableList<MenuItem> list = FXCollections.observableArrayList();
-    list.addAll(model.getMenu());
+    for(MenuItem menuItem : model.getMenu())
+    {
+      menuItems.add(new MenuViewModel(model,menuItem));
+    }
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)
