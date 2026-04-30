@@ -19,6 +19,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
   private final ObservableList<OrderItemViewModel> orderItems = FXCollections.observableArrayList();
   private StringProperty successProperty;
   private StringProperty errorProperty;
+  private int amount;
 
 
   public OrderContentsViewModel(Model model)
@@ -71,8 +72,51 @@ public class OrderContentsViewModel implements PropertyChangeListener
     model.placeOrder();
   }
 
+  public void increase()
+  {
+    amount ++;
+  }
+
+  public void decrease()
+  {
+    amount --;
+  }
+
+  public void updateQuantity()
+  {
+    for(OrderItemViewModel orderItem1 : orderItems)
+    {
+      if (orderItem1.getOrderItem().getItem().equals(orderItem))
+      {
+        orderItem1.getOrderItem().setQuantity(amount);
+      }
+    }
+  }
+
   public void setSelectedOrderItem(OrderItem orderItem)
   {
     this.orderItem = orderItem;
+    boolean orderItemIsInOrder = false;
+    for(OrderItemViewModel orderItem1 : orderItems)
+    {
+      if (orderItem1.getOrderItem().getItem().equals(orderItem))
+      {
+        orderItemIsInOrder = true;
+        break;
+      }
+    }
+    if(orderItemIsInOrder)
+      for(OrderItemViewModel orderItem1 : orderItems)
+      {
+        if (orderItem1.getOrderItem().getItem().equals(orderItem))
+        {
+          amount = orderItem.getQuantity();
+          break;
+        }
+      }
+    else
+    {
+      amount = 0;
+    }
   }
 }
