@@ -73,7 +73,7 @@ public class OrderOverviewViewController
 
   @FXML
   private void removeButton() {
-
+viewModel
   }
 
   @FXML

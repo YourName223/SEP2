@@ -52,4 +52,5 @@ public class OrderContentsViewModel implements PropertyChangeListener
       Platform.runLater( () -> successProperty.set(evt.getNewValue().toString()));
     }
   }
+
 }
