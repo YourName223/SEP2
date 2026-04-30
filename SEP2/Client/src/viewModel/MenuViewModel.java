@@ -28,12 +28,14 @@ public class MenuViewModel implements PropertyChangeListener
 
   public void increase()
   {
-    model.addProductToOrder(menuItem);
+    if(menuItem != null)
+      model.addProductToOrder(menuItem);
   }
 
   public void decrease()
   {
-    model.removeProductFromOrder(menuItem);
+    if(menuItem != null)
+      model.removeProductFromOrder(menuItem);
   }
 
   public void setSelectedMenuItem(MenuItem menuItem)
