@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public abstract class Order
+public class Order
 {
   private String content;
   private String orderType;
