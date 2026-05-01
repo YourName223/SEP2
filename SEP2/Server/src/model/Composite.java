@@ -47,4 +47,28 @@ public class Composite implements Component
     String result = name.toString();
     return result;
   }
+  @Override
+  public ArrayList<Ingredient> getIngredients()
+  {
+    ArrayList<Ingredient> result = new ArrayList<>();
+
+    for (Component child : children)
+    {
+      result.addAll(child.getIngredients());
+    }
+
+    return result;
+  }
+
+  @Override public void addIngredient(Ingredient ingredient)
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  public void removeIngredient(Ingredient ingredient)
+  {
+    throw new UnsupportedOperationException();
+  }
+
 }
