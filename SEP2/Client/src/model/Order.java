@@ -50,7 +50,7 @@ public class Order
     }
   }
 
-  public void removeProduct(MenuItem menuItem)
+  public void addProduct(MenuItem menuItem, int amount)
   {
     boolean partOfList = false;
 
@@ -63,7 +63,25 @@ public class Order
     {
       for (OrderItem item : items)
       {
-        items.remove(item);
+        if(item.getItem().equals(menuItem))
+        {
+          item.setQuantity(amount+item.getQuantity());
+        }
+      }
+    }
+    else
+    {
+      items.add(new OrderItem(menuItem,amount));
+    }
+  }
+
+  public void removeProduct(MenuItem menuItem)
+  {
+    for (OrderItem item : items)
+    {
+      if(item.getItem().equals(menuItem))
+      {
+        item.remove();
         break;
       }
     }

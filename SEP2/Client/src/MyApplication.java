@@ -12,7 +12,7 @@ public class MyApplication extends Application
     Model model = new ModelManager();
     try
     {
-      Thread.sleep(250); //waiting for server response
+      Thread.sleep(1000); //waiting for server response
       ViewModelFactory viewModelFactory = new ViewModelFactory(model);
       ViewHandler view = new ViewHandler(viewModelFactory);
       view.start(primaryStage);

@@ -19,7 +19,7 @@ public class ModelManager implements Model
     orderManager = new OrderManager();
     property = new PropertyChangeSupport(this);
     orderManager.createOrder();
-    client = new Client(this,"10.154.208.40",2910);
+    client = new Client(this,"10.154.208.74",2910);
     getMenuFromDataBase();
   }
 
@@ -33,6 +33,11 @@ public class ModelManager implements Model
     orderManager.addProductToOrder(menuItem, amount);
   }
 
+  @Override public void setProductToOrder(MenuItem menuItem, int amount)
+  {
+    orderManager.addProductToOrder(menuItem, amount);
+  }
+
   @Override public void removeProductFromOrder(MenuItem menuItem)
   {
     orderManager.removeProductFromOrder(menuItem);
@@ -40,7 +45,7 @@ public class ModelManager implements Model
 
   @Override public void placeOrder()
   {
-    if(orderManager.getOrder() == null)
+    if(orderManager.getOrder().getItems().isEmpty())
     {
       throw new IllegalArgumentException("Arguments cannot be null");
     }

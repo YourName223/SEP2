@@ -8,6 +8,7 @@ public interface Model extends UnnamedPropertyChangeSubject
 {
   public void createOrder();
   public void addProductToOrder(MenuItem menuItem,int amount);
+  public void setProductToOrder(MenuItem menuItem, int amount);
   public void removeProductFromOrder(MenuItem menuItem);
   public void placeOrder();
   public void fireProperty(String propertyName, String line);

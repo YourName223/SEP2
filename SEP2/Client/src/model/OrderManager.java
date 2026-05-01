@@ -16,6 +16,11 @@ public class OrderManager
 
   public void addProductToOrder(MenuItem menuItem, int amount)
   {
+    order.addProduct(menuItem,amount);
+  }
+
+  public void setProductToOrder(MenuItem menuItem, int amount)
+  {
     order.setProduct(menuItem,amount);
   }
 

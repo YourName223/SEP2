@@ -42,10 +42,15 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
   public void loadFromModel()
   {
-    orderItems.clear();
     successProperty.set("");
     errorProperty.set("");
     amount.set(0);
+    reloadOrderTable();
+  }
+
+  private void reloadOrderTable()
+  {
+    orderItems.clear();
     for(OrderItem item : model.getOrder().getItems())
     {
       orderItems.add(new OrderItemViewModel(model,item));
@@ -103,6 +108,8 @@ public class OrderContentsViewModel implements PropertyChangeListener
       if (orderItem1.getOrderItem().equals(orderItem))
       {
         orderItem1.getOrderItem().setQuantity(amount.get());
+        reloadOrderTable();
+        break;
       }
     }
   }
@@ -113,7 +120,9 @@ public class OrderContentsViewModel implements PropertyChangeListener
     {
       if (orderItem1.getOrderItem().equals(orderItem))
       {
-        orderItems.remove(orderItem1);
+        model.getOrder().removeProduct(orderItem1.getOrderItem().getItem());
+        System.out.println(model.getOrder().getItems().size());
+        reloadOrderTable();
         break;
       }
     }
@@ -123,6 +132,5 @@ public class OrderContentsViewModel implements PropertyChangeListener
   {
     this.orderItem = orderItem;
     amount.set(orderItem.getQuantity());
-    System.out.println(amount.get());
   }
 }
