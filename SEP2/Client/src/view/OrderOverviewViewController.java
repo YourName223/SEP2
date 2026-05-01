@@ -44,7 +44,8 @@ public class OrderOverviewViewController
     successLabel.textProperty().bind(viewModel.getSuccessProperty());
 
     orderTable.setItems(viewModel.getOrderItems());
-
+    viewModel.loadFromModel();
+    qtyLabel.textProperty().bind(viewModel.getAmount().asString());
   }
 
   public void reset()
@@ -59,7 +60,6 @@ public class OrderOverviewViewController
 
   @FXML private void onOrderItemSelected()
   {
-    System.out.println("Selected an item");
     OrderItemViewModel selected = orderTable.getSelectionModel()
         .getSelectedItem();
     if (selected != null)

@@ -26,7 +26,6 @@ public class ClientReader implements Runnable
         if (line == null)
           break;
 
-        System.out.println(line);
         client.received(line);
       }
     }

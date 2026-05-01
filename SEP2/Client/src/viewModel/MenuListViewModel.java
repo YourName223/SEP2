@@ -44,38 +44,22 @@ public class MenuListViewModel implements PropertyChangeListener
 
   public void decrease()
   {
-    amount.set(amount.get()-1);
+    if(amount.get() > 0)
+      amount.set(amount.get()-1);
   }
 
   public void setSelectedMenuItem(MenuItem menuItem)
   {
     this.menuItem = menuItem;
-    boolean menuItemIsInOrder = false;
-    for(OrderItem orderItem : model.getOrder().getItems())
-    {
-      if(orderItem.getItem().equals(menuItem))
-        menuItemIsInOrder = true;
-    }
-    if(menuItemIsInOrder)
-      for(OrderItem orderItem : model.getOrder().getItems())
-      {
-        if(orderItem.getItem().equals(menuItem))
-          amount.set(orderItem.getQuantity());
-      }
-    else
-    {
-      amount.set(0);
-    }
+    amount.set(0);
   }
 
   public void addToOrder()
   {
-    System.out.println("Tried to add to order");
-    if(amount.get() >= 0)
+    if(amount.get() > 0)
     {
       model.addProductToOrder(menuItem,amount.get());
     }
-    System.out.println(model.getOrder().getItems().get(0).getItem());
   }
 
   public ObservableList<MenuViewModel> getMenuItems()
@@ -90,10 +74,8 @@ public class MenuListViewModel implements PropertyChangeListener
 
   public void loadFromModel()
   {
-    System.out.println("Test");
     for(MenuItem menuItem : model.getMenu())
     {
-      System.out.println("Test1");
       menuItems.add(new MenuViewModel(model,menuItem));
     }
   }

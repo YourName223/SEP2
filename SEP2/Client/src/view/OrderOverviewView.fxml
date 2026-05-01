@@ -11,7 +11,7 @@
 
 <VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrderOverviewViewController">
    <children>
-      <TableView fx:id="orderTable" prefHeight="235.0" prefWidth="560.0">
+      <TableView fx:id="orderTable" onMouseClicked="#onOrderItemSelected" prefHeight="235.0" prefWidth="560.0">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="454.4000610113144" text="Product" />
           <TableColumn fx:id="priceColumn" prefWidth="142.79995727539062" text="Price" />
