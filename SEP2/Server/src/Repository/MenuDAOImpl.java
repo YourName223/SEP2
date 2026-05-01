@@ -54,7 +54,7 @@ public class MenuDAOImpl implements MenuDAO
   @Override public ArrayList<String> getAllNames()
   {
     ArrayList<String> names = new ArrayList<>();
-    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
     {
       PreparedStatement statement = connection.prepareStatement(
           "SELECT name FROM Menu");
@@ -73,7 +73,7 @@ public class MenuDAOImpl implements MenuDAO
 
   @Override public MenuItem readById(int id) throws SQLException
   {
-    try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+    try(Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
     {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM Menu WHERE id = ?");
       statement.setInt(1, id);
@@ -95,7 +95,7 @@ public class MenuDAOImpl implements MenuDAO
 
   @Override public List<MenuItem> readByName(String searchString) throws SQLException
   {
-    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
     {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM Menu WHERE name LIKE ?");
       statement.setString(1, "%" + searchString + "%");
@@ -117,7 +117,7 @@ public class MenuDAOImpl implements MenuDAO
   @Override public ArrayList<Component> getAllProductsFromMenuItem(String menuName)
   {
     ArrayList<Component> components = new ArrayList<>();
-    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
     {
       PreparedStatement statement = connection.prepareStatement("SELECT p.name FROM product p JOIN menu_product mp ON p.name = mp.product_name WHERE mp.menu_name = ?");
       statement.setString(1, menuName);
