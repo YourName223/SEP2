@@ -46,7 +46,6 @@ public class ModelManager implements Model
     }
     else
     {
-      System.out.println("Tried sending order");
       client.sendOrder(new OrderPackage("order",orderManager.getOrder(),"Get"));
     }
   }
@@ -58,7 +57,6 @@ public class ModelManager implements Model
 
   @Override public void changeMenu(ArrayList<MenuItem> menu)
   {
-    System.out.println("got the menu");
     this.menu = menu;
     property.firePropertyChange("Menu",null,menu);
   }
@@ -70,7 +68,6 @@ public class ModelManager implements Model
 
   @Override public ArrayList<MenuItem> getMenu()
   {
-    System.out.println("Asked for menu");
     return menu;
   }
 

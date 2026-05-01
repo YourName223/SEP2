@@ -63,10 +63,8 @@ public class Order
     {
       for (OrderItem item : items)
       {
-        if(item.getItem().equals(menuItem) && item.getQuantity() > 1)
-          item.remove();
-        else
-          items.remove(item);
+        items.remove(item);
+        break;
       }
     }
   }
