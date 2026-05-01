@@ -125,7 +125,7 @@ public class ClientHandler implements Runnable
 
     if (order != null)
     {
-      model.receiveOrder(new TableOrder(order,socket.getInetAddress().getHostAddress()));
+      model.receiveTableOrder(order,socket.getInetAddress().getHostAddress());
       System.out.println(order.getItems().size());
       return true;
     }

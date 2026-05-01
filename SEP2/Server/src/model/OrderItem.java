@@ -25,4 +25,9 @@ public class OrderItem
   {
     return quantity;
   }
+
+  public String toString()
+  {
+    return item.getName() + " : " + quantity + " * " + item.getPrice();
+  }
 }

@@ -81,7 +81,7 @@ public class Order
     {
       if(item.getItem().equals(menuItem))
       {
-        item.remove();
+        items.remove(item);
         break;
       }
     }

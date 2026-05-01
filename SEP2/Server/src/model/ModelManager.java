@@ -15,9 +15,11 @@ public class ModelManager implements Model
     menuManager = new MenuManager();
   }
 
-  @Override public void receiveOrder(Order order)
+  @Override public void receiveTableOrder(Order order, String tableNr)
   {
-    orderDispatcher.dispatch(order);
+    Order tableOrder = orderManager.createTableOrder(order,tableNr);
+    orderManager.addOrder(tableOrder);
+    orderDispatcher.dispatch(tableOrder);
   }
 
   @Override public ArrayList<MenuItem> getMenuItems()

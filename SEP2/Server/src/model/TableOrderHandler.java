@@ -16,7 +16,6 @@ public class TableOrderHandler implements OrderHandler
   @Override public void handle(Order order)
   {
     Table table = tableManager.secureTable(((TableOrder)order).getTableNr());
-    orderManager.addOrder(order);
     table.assignOrder(order);
   }
 

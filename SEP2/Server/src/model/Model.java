@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface Model
 {
-  public void receiveOrder(Order order);
+  public void receiveTableOrder(Order order, String tableNr);
 
   public ArrayList<MenuItem> getMenuItems();
 

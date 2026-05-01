@@ -55,6 +55,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
     {
       orderItems.add(new OrderItemViewModel(model,item));
     }
+    System.out.println(model.getOrder().getItems().size());
   }
 
   public StringProperty getSuccessProperty()
@@ -107,7 +108,10 @@ public class OrderContentsViewModel implements PropertyChangeListener
     {
       if (orderItem1.getOrderItem().equals(orderItem))
       {
-        orderItem1.getOrderItem().setQuantity(amount.get());
+        if(amount.get()==0)
+          model.removeProductFromOrder(orderItem1.getOrderItem().getItem());
+        else
+          model.getOrder().setProduct(orderItem1.getOrderItem().getItem(),amount.get());
         reloadOrderTable();
         break;
       }

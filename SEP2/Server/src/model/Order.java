@@ -11,7 +11,6 @@ public class Order
   public Order(String content)
   {
     this.content = content;
-    new OrderPrinter().printOrder(this);
   }
 
   public void setOrderType(String orderType)
@@ -60,5 +59,22 @@ public class Order
   public ArrayList<OrderItem> getItems()
   {
     return items;
+  }
+
+  public String toString()
+  {
+    StringBuilder string = new StringBuilder("{");
+
+    for (OrderItem orderItem : items)
+    {
+      string.append("{").append(orderItem.toString()).append("},");
+    }
+
+    if (string.length() > 1)
+      string.setLength(string.length() - 1);
+
+    string.append("}");
+
+    return string.toString();
   }
 }
