@@ -1,16 +1,20 @@
 package model;
 
+import Repository.MenuDAOImpl;
+
+import java.sql.SQLException;
+
 public class RecipeManager
 {
-  private RecipeDAO recipeDAO;
+  private MenuDAOImpl menuDAO;
 
-  public RecipeManager()
+  public RecipeManager() throws SQLException
   {
-    recipeDAO = new RecipeDAOImpl();
+    menuDAO = new MenuDAOImpl();
   }
 
   public Recipe getRecipe(String recipeId)
   {
-    return recipeDAO.getRecipeWithIngredients(recipeId);
+    return menuDAO.getRecipeWithIngreDients(recipeId);
   }
 }
