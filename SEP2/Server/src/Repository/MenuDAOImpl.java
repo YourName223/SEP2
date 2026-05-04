@@ -1,164 +1,193 @@
-package Repository;
+  package Repository;
 
-import model.Component;
-import model.MenuItem;
-import model.Product;
+  import model.Component;
+  import model.Ingredient;
+  import model.MenuItem;
+  import model.Product;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+  import java.sql.*;
+  import java.util.ArrayList;
+  import java.util.List;
 
-public class MenuDAOImpl implements MenuDAO
-{
-  private static MenuDAOImpl instance;
-
-  public MenuDAOImpl() throws SQLException
+  public class MenuDAOImpl implements MenuDAO
   {
-    DriverManager.registerDriver(new org.postgresql.Driver());
-  }
+    private static MenuDAOImpl instance;
 
-  public static synchronized MenuDAOImpl getInstance() throws SQLException
-  {
-    if (instance == null)
+    public MenuDAOImpl() throws SQLException
     {
-      instance = new MenuDAOImpl();
+      DriverManager.registerDriver(new org.postgresql.Driver());
     }
-    return instance;
-  }
 
-  /*@Override
-  public MenuItem create (int id, String name, String allergies, double price) throws SQLException
-  {
-    try (Connection connection = DriverManager.getConnection(
-        "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc",
-        "postgres", "admin"))
+    public static synchronized MenuDAOImpl getInstance() throws SQLException
     {
-      PreparedStatement statement = connection.prepareStatement(
-          "INSERT INTO menu(name, allergies, price) VALUES (?,?,?) RETURNING id");
-
-      statement.setString(1, name);
-      statement.setString(2, allergies);
-      statement.setDouble(3, price);
-
-      ResultSet rs = statement.executeQuery();
-
-      if (rs.next())
+      if (instance == null)
       {
-        int generatedId = rs.getInt("id");
-        return new MenuItem(generatedId, name, allergies, price);
+        instance = new MenuDAOImpl();
+      }
+      return instance;
+    }
+
+    /*@Override
+    public MenuItem create (int id, String name, String allergies, double price) throws SQLException
+    {
+      try (Connection connection = DriverManager.getConnection(
+          "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc",
+          "postgres", "admin"))
+      {
+        PreparedStatement statement = connection.prepareStatement(
+            "INSERT INTO menu(name, allergies, price) VALUES (?,?,?) RETURNING id");
+
+        statement.setString(1, name);
+        statement.setString(2, allergies);
+        statement.setDouble(3, price);
+
+        ResultSet rs = statement.executeQuery();
+
+        if (rs.next())
+        {
+          int generatedId = rs.getInt("id");
+          return new MenuItem(generatedId, name, allergies, price);
+        }
+      }
+      return null;
+    }*/
+
+    @Override public ArrayList<String> getAllNames()
+    {
+      ArrayList<String> names = new ArrayList<>();
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+      {
+        PreparedStatement statement = connection.prepareStatement(
+            "SELECT name FROM Menu");
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next())
+        {
+          names.add(resultSet.getString("name"));
+        }
+      }
+      catch (SQLException e)
+      {
+        e.printStackTrace();
+      }
+      return names;
+    }
+
+    @Override public MenuItem readById(int id) throws SQLException
+    {
+      try(Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+      {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Menu WHERE id = ?");
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next())
+        {
+          String name = resultSet.getString("name");
+          String allergies = resultSet.getString("allergies");
+          double price = resultSet.getDouble("price");
+
+          return new MenuItem(name, allergies, price);
+        }
+        else
+        {
+          return null;
+        }
       }
     }
-    return null;
-  }*/
 
-  @Override public ArrayList<String> getAllNames()
-  {
-    ArrayList<String> names = new ArrayList<>();
-    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+    @Override public List<MenuItem> readByName(String searchString) throws SQLException
     {
-      PreparedStatement statement = connection.prepareStatement(
-          "SELECT name FROM Menu");
-      ResultSet resultSet = statement.executeQuery();
-      while (resultSet.next())
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
-        names.add(resultSet.getString("name"));
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Menu WHERE name LIKE ?");
+        statement.setString(1, "%" + searchString + "%");
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<MenuItem> result = new ArrayList<>();
+        while (resultSet.next())
+        {
+
+          String name = resultSet.getString("name");
+          String allergies = resultSet.getString("allergies");
+          double price = resultSet.getDouble("price");
+          MenuItem menuItem = new MenuItem(name, allergies, price);
+          result.add(menuItem);
+        }
+        return result;
       }
     }
-    catch (SQLException e)
-    {
-      e.printStackTrace();
-    }
-    return names;
-  }
 
-  @Override public MenuItem readById(int id) throws SQLException
-  {
-    try(Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+    @Override public ArrayList<Component> getAllProductsFromMenuItem(String menuName)
     {
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM Menu WHERE id = ?");
-      statement.setInt(1, id);
-      ResultSet resultSet = statement.executeQuery();
-      if (resultSet.next())
+      ArrayList<Component> components = new ArrayList<>();
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
-        String name = resultSet.getString("name");
-        String allergies = resultSet.getString("allergies");
-        double price = resultSet.getDouble("price");
+        PreparedStatement statement = connection.prepareStatement("SELECT p.name FROM product p JOIN menu_product mp ON p.name = mp.product_name WHERE mp.menu_name = ?");
+        statement.setString(1, menuName);
+        ResultSet resultSet = statement.executeQuery();
 
-        return new MenuItem(name, allergies, price);
+        while (resultSet.next())
+        {
+          String name = resultSet.getString("name");
+          components.add(new Product(name));
+        }
       }
-      else
+      catch (SQLException e)
       {
-        return null;
+        e.printStackTrace();
       }
+      return components;
     }
-  }
 
-  @Override public List<MenuItem> readByName(String searchString) throws SQLException
-  {
-    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+    public ArrayList<Ingredient> getAllIngredientsFromProduct(String productName)
     {
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM Menu WHERE name LIKE ?");
-      statement.setString(1, "%" + searchString + "%");
-      ResultSet resultSet = statement.executeQuery();
-      ArrayList<MenuItem> result = new ArrayList<>();
-      while (resultSet.next())
+      ArrayList<Ingredient> ingredients = new ArrayList<>();
+      try (Connection connection = DriverManager.getConnection(
+          "jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb",
+          "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
+        PreparedStatement statement = connection.prepareStatement(
+            "SELECT i.name, i.unit FROM ingredient i " +
+                "JOIN product_ingredient pi ON i.name = pi.ingredient_name " +
+                "WHERE pi.product_name = ?");
+        statement.setString(1, productName);
+        ResultSet resultSet = statement.executeQuery();
 
-        String name = resultSet.getString("name");
-        String allergies = resultSet.getString("allergies");
-        double price = resultSet.getDouble("price");
-        MenuItem menuItem = new MenuItem(name, allergies, price);
-        result.add(menuItem);
+        while (resultSet.next())
+        {
+          String name = resultSet.getString("name");
+          String unit = resultSet.getString("unit");
+          ingredients.add(new Ingredient(name, unit));
+        }
       }
-      return result;
-    }
-  }
-
-  @Override public ArrayList<Component> getAllProductsFromMenuItem(String menuName)
-  {
-    ArrayList<Component> components = new ArrayList<>();
-    try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
-    {
-      PreparedStatement statement = connection.prepareStatement("SELECT p.name FROM product p JOIN menu_product mp ON p.name = mp.product_name WHERE mp.menu_name = ?");
-      statement.setString(1, menuName);
-      ResultSet resultSet = statement.executeQuery();
-
-      while (resultSet.next())
+      catch (SQLException e)
       {
-        String name = resultSet.getString("name");
-        components.add(new Product(name));
+        e.printStackTrace();
+      }
+      return ingredients;
+    }
+
+    /*@Override public void update(MenuItem menuItem) throws SQLException
+    {
+      try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      {
+        PreparedStatement statement =
+            connection.prepareStatement(
+                "UPDATE menu SET name = ?, allergies = ?, price = ? WHERE id = ?");
+        statement.setString(1, menuItem.getName());
+        statement.setString(2, menuItem.getAllergies());
+        statement.setDouble(3, menuItem.getPrice());
+        statement.setInt(4, menuItem.getId());
+        statement.executeUpdate();
       }
     }
-    catch (SQLException e)
-    {
-      e.printStackTrace();
-    }
-    return components;
-  }
 
-  /*@Override public void update(MenuItem menuItem) throws SQLException
-  {
-    try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+    @Override public void delete(MenuItem menuItem) throws SQLException
     {
-      PreparedStatement statement =
-          connection.prepareStatement(
-              "UPDATE menu SET name = ?, allergies = ?, price = ? WHERE id = ?");
-      statement.setString(1, menuItem.getName());
-      statement.setString(2, menuItem.getAllergies());
-      statement.setDouble(3, menuItem.getPrice());
-      statement.setInt(4, menuItem.getId());
-      statement.executeUpdate();
-    }
+      try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      {
+        PreparedStatement statement =
+            connection.prepareStatement("DELETE FROM menu WHERE id = ?");
+        statement.setInt(1, menuItem.getId());
+        statement.executeUpdate();
+      }
+    }*/
   }
-
-  @Override public void delete(MenuItem menuItem) throws SQLException
-  {
-    try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
-    {
-      PreparedStatement statement =
-          connection.prepareStatement("DELETE FROM menu WHERE id = ?");
-      statement.setInt(1, menuItem.getId());
-      statement.executeUpdate();
-    }
-  }*/
-}

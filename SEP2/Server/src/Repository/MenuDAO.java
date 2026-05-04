@@ -1,6 +1,7 @@
 package Repository;
 
 import model.Component;
+import model.Ingredient;
 import model.MenuItem;
 
 import java.sql.SQLException;
@@ -16,4 +17,5 @@ public interface MenuDAO
   void delete (MenuItem menuItem) throws  SQLException;*/
   ArrayList<String> getAllNames ();
   ArrayList<Component> getAllProductsFromMenuItem(String menuName);
+  ArrayList<Ingredient> getAllIngredientsFromProduct(String productName);
 }

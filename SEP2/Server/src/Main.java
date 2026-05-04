@@ -21,6 +21,7 @@ import Repository.MenuDAO;
 import Repository.MenuDAOImpl;
 import mediator.Server;
 import model.Component;
+import model.Ingredient;
 import model.Model;
 import model.ModelManager;
 
@@ -44,6 +45,12 @@ public class Main {
     ArrayList<Component> products = dao.getAllProductsFromMenuItem("Pizza");
     for (Component c : products) {
       System.out.println(c.getName());
+    }
+
+    ArrayList<Ingredient> ingredients = dao.getAllIngredientsFromProduct("Bøf");
+    System.out.println("=== Ingredienser i Bøf ===");
+    for (Ingredient i : ingredients) {
+      System.out.println("Navn: " + i.getName() + " | Enhed: " + i.getUnit());
     }
 
     System.out.println("Names:"+names);
