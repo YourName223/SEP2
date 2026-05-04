@@ -40,7 +40,7 @@ public class MenuManager
     {
       try
       {
-        menuItems.add(menuDAO.readByName(name).get(0));
+        menuItems.add(menuDAO.readByName(name).getFirst());
       }
       catch (Exception e)
       {
@@ -49,6 +49,37 @@ public class MenuManager
     }
 
     return menuItems;
+  }
+
+  public ArrayList<MenuItemDto> getMenuItemsDto()
+  {
+    ArrayList<MenuItemDto> menuItemsDTO = new ArrayList<>();
+
+    for(MenuItem menuItem : menuItems)
+    {
+      try
+      {
+        menuItemsDTO.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),menuDAO.getRecipyIdsFromMenuItem(menuItem.getName())));
+      }
+      catch (Exception e)
+      {
+
+      }
+    }
+
+    return menuItemsDTO;
+  }
+
+  public MenuItem getMenuItemById(String id)
+  {
+    for(MenuItem menuItem : menuItems)
+    {
+      if(menuItem.getName().equals(id))
+      {
+        return menuItem;
+      }
+    }
+    return null;
   }
 
   public MenuItem getMenuItem(int index)

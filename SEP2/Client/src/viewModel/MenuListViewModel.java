@@ -58,18 +58,13 @@ public class MenuListViewModel implements PropertyChangeListener
   {
     if(amount.get() > 0)
     {
-      model.addProductToOrder(menuItem,amount.get());
+      model.addMenuItemToOrder(menuItem,amount.get());
     }
   }
 
   public ObservableList<MenuViewModel> getMenuItems()
   {
     return menuItems;
-  }
-
-  public MenuItem getMenuItem()
-  {
-    return menuItem;
   }
 
   public void loadFromModel()

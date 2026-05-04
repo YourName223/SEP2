@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public interface Model
 {
+  public Order convertOrderDtoToOrder(OrderDto orderDto);
+
+  public ArrayList<MenuItemDto> getMenuItemsDto();
+
   public void receiveTableOrder(Order order, String tableNr);
 
   public ArrayList<MenuItem> getMenuItems();

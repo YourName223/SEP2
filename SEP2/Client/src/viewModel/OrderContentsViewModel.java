@@ -109,9 +109,9 @@ public class OrderContentsViewModel implements PropertyChangeListener
       if (orderItem1.getOrderItem().equals(orderItem))
       {
         if(amount.get()==0)
-          model.removeProductFromOrder(orderItem1.getOrderItem().getItem());
+          model.removeMenuItemFromOrder(orderItem1.getOrderItem().getItem());
         else
-          model.getOrder().setProduct(orderItem1.getOrderItem().getItem(),amount.get());
+          model.getOrder().setMenuItem(orderItem1.getOrderItem().getItem(),amount.get());
         reloadOrderTable();
         break;
       }
@@ -124,7 +124,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
     {
       if (orderItem1.getOrderItem().equals(orderItem))
       {
-        model.getOrder().removeProduct(orderItem1.getOrderItem().getItem());
+        model.getOrder().removeMenuItem(orderItem1.getOrderItem().getItem());
         System.out.println(model.getOrder().getItems().size());
         reloadOrderTable();
         break;

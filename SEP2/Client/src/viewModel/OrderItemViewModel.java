@@ -48,7 +48,7 @@ public class OrderItemViewModel
   public void remove()
   {
     if(orderItem.getItem() != null)
-      model.removeProductFromOrder(orderItem.getItem());
+      model.removeMenuItemFromOrder(orderItem.getItem());
   }
 
 }

@@ -44,31 +44,7 @@ public class Composite implements Component
 
     name.append("}");
 
-    String result = name.toString();
-    return result;
+    return name.toString();
   }
 
-  @Override
-  public ArrayList<Ingredient> getIngredients()
-  {
-    ArrayList<Ingredient> result = new ArrayList<>();
-
-    for (Component child : children)
-    {
-      result.addAll(child.getIngredients());
-    }
-
-    return result;
-  }
-
-  @Override public void addIngredient(Ingredient ingredient)
-  {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public void removeIngredient(Ingredient ingredient)
-  {
-    throw new UnsupportedOperationException();
-  }
 }

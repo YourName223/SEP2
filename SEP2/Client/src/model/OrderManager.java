@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderManager
 {
   private Order order;
@@ -14,19 +17,31 @@ public class OrderManager
     return new Order("An order");
   }
 
-  public void addProductToOrder(MenuItem menuItem, int amount)
+  public void addMenuItemToOrder(MenuItem menuItem, int amount)
   {
-    order.addProduct(menuItem,amount);
+    order.addMenuItem(menuItem,amount);
   }
 
-  public void setProductToOrder(MenuItem menuItem, int amount)
+  public void setMenuItomOnOrder(MenuItem menuItem, int amount)
   {
-    order.setProduct(menuItem,amount);
+    order.setMenuItem(menuItem,amount);
   }
 
-  public void removeProductFromOrder(MenuItem menuItem)
+  public List<OrderItemDto> getOrderItemDto()
   {
-    order.removeProduct(menuItem);
+    List<OrderItemDto> items = new ArrayList<>();
+
+    for(OrderItem orderItem : order.getItems())
+    {
+      items.add(new OrderItemDto(orderItem.getItem().getName(),orderItem.getQuantity()));
+    }
+
+    return items;
+  }
+
+  public void removeMenuItemFromOrder(MenuItem menuItem)
+  {
+    order.removeMenuItem(menuItem);
   }
 
   public Order getOrder()

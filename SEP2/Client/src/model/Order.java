@@ -18,7 +18,7 @@ public class Order
     return content;
   }
 
-  public void setProduct(MenuItem menuItem, int amount)
+  public void setMenuItem(MenuItem menuItem, int amount)
   {
     boolean partOfList = false;
 
@@ -50,7 +50,7 @@ public class Order
     }
   }
 
-  public void addProduct(MenuItem menuItem, int amount)
+  public void addMenuItem(MenuItem menuItem, int amount)
   {
     boolean partOfList = false;
 
@@ -75,7 +75,7 @@ public class Order
     }
   }
 
-  public void removeProduct(MenuItem menuItem)
+  public void removeMenuItem(MenuItem menuItem)
   {
     for (OrderItem item : items)
     {

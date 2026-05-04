@@ -2,18 +2,35 @@ package model;
 
 public class Ingredient
 {
-  private int id;
+  private String id;
   private String name;
-  private Boolean allergen; // or boolean flags later
+  private int stock;
 
-  public Ingredient(int id, String name, Boolean allergen)
+  public void setId(String id)
   {
     this.id = id;
+  }
+  public void setName(String name)
+  {
     this.name = name;
-    this.allergen = allergen;
+  }
+  public void setId(int stock)
+  {
+    this.stock = stock;
   }
 
-  public int getId() { return id; }
-  public String getName() { return name; }
-  public Boolean getAllergen() { return allergen; }
+  public String getName()
+  {
+    return name;
+  }
+
+  public String getId()
+  {
+    return id;
+  }
+
+  public int getStock()
+  {
+    return stock;
+  }
 }

@@ -1,21 +1,21 @@
 package mediator;
 
 import model.MenuItem;
+import model.MenuItemDto;
 
 import java.util.ArrayList;
 
 public class MenuPackage extends BasePackage
 {
+  private ArrayList<MenuItemDto> menuItems;
 
-  private ArrayList<MenuItem> menuItems;
-
-  public MenuPackage(String type, ArrayList<MenuItem> menuItems)
+  public MenuPackage(String type, ArrayList<MenuItemDto> menuItems)
   {
     super(type);
     this.menuItems = menuItems;
   }
 
-  public ArrayList<MenuItem> getMenuItems()
+  public ArrayList<MenuItemDto> getMenuItems()
   {
     return menuItems;
   }

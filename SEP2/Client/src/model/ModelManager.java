@@ -12,14 +12,14 @@ public class ModelManager implements Model
   private PropertyChangeSupport property;
   private OrderManager orderManager;
   private Client client;
-  private ArrayList<MenuItem> menu;
+  private ArrayList<MenuItemDto> menu;
 
   public ModelManager()
   {
     orderManager = new OrderManager();
     property = new PropertyChangeSupport(this);
     orderManager.createOrder();
-    client = new Client(this,"10.154.208.74",2910);
+    client = new Client(this,"10.154.220.81",2910);
     getMenuFromDataBase();
   }
 
@@ -28,19 +28,19 @@ public class ModelManager implements Model
     orderManager.createOrder();
   }
 
-  @Override public void addProductToOrder(MenuItem menuItem, int amount)
+  @Override public void addMenuItemToOrder(MenuItem menuItem, int amount)
   {
-    orderManager.addProductToOrder(menuItem, amount);
+    orderManager.addMenuItemToOrder(menuItem, amount);
   }
 
-  @Override public void setProductToOrder(MenuItem menuItem, int amount)
+  @Override public void setMenuItemOnOrder(MenuItem menuItem, int amount)
   {
-    orderManager.addProductToOrder(menuItem, amount);
+    orderManager.setMenuItomOnOrder(menuItem, amount);
   }
 
-  @Override public void removeProductFromOrder(MenuItem menuItem)
+  @Override public void removeMenuItemFromOrder(MenuItem menuItem)
   {
-    orderManager.removeProductFromOrder(menuItem);
+    orderManager.removeMenuItemFromOrder(menuItem);
   }
 
   @Override public void placeOrder()
@@ -51,7 +51,7 @@ public class ModelManager implements Model
     }
     else
     {
-      client.sendOrder(new OrderPackage("order",orderManager.getOrder(),"Get"));
+      client.sendOrder(new OrderPackage("order",orderManager.getOrderItemDto(),"Get"));
     }
   }
 
@@ -60,7 +60,7 @@ public class ModelManager implements Model
     property.firePropertyChange(propertyName,null,line);
   }
 
-  @Override public void changeMenu(ArrayList<MenuItem> menu)
+  @Override public void changeMenu(ArrayList<MenuItemDto> menu)
   {
     this.menu = menu;
     property.firePropertyChange("Menu",null,menu);
@@ -73,7 +73,15 @@ public class ModelManager implements Model
 
   @Override public ArrayList<MenuItem> getMenu()
   {
-    return menu;
+    ArrayList<MenuItem> menuItems = new ArrayList<>();
+
+    for (MenuItemDto menuItemDto : menu)
+    {
+      MenuItem menuItem = new MenuItem(menuItemDto.getName(),menuItemDto.getAllergies(),menuItemDto.getPrice());
+      menuItems.add(menuItem);
+    }
+
+    return menuItems;
   }
 
   @Override public void addListener(String propertyName,

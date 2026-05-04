@@ -10,9 +10,19 @@ public class ModelManager implements Model
 
   public ModelManager()
   {
-    orderManager = new OrderManager();
-    orderDispatcher = new OrderDispatcher(orderManager);
     menuManager = new MenuManager();
+    orderManager = new OrderManager(menuManager);
+    orderDispatcher = new OrderDispatcher(orderManager);
+  }
+
+  @Override public Order convertOrderDtoToOrder(OrderDto orderDto)
+  {
+    return orderManager.convertOrderDtoToOrder(orderDto);
+  }
+
+  @Override public ArrayList<MenuItemDto> getMenuItemsDto()
+  {
+    return menuManager.getMenuItemsDto();
   }
 
   @Override public void receiveTableOrder(Order order, String tableNr)

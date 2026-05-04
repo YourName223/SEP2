@@ -1,7 +1,6 @@
 package mediator;
 
-import model.MenuItem;
-import model.Model;
+import model.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +10,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
-import model.Order;
-import model.TableOrder;
 
 public class ClientHandler implements Runnable
 {
@@ -81,7 +78,7 @@ public class ClientHandler implements Runnable
             break;
           case "menu":
             System.out.println("Client asked for menu");
-            MenuPackage sendPackage = new MenuPackage("menu",model.getMenuItems());
+            MenuPackage sendPackage = new MenuPackage("menu",model.getMenuItemsDto());
             out.println(parser.toJson(sendPackage));
             break;
         }
@@ -121,21 +118,10 @@ public class ClientHandler implements Runnable
 
   public boolean handlePackage(OrderPackage orderPackage)
   {
-    Order order = orderPackage.getOrder();
+    OrderDto orderDto = new OrderDto(orderPackage.getItems());
+    Order order = model.convertOrderDtoToOrder(orderDto);
 
-    if (order != null)
-    {
-      model.receiveTableOrder(order,socket.getInetAddress().getHostAddress());
-      System.out.println(order.getItems().size());
-      return true;
-    }
-    return false;
-  }
-
-  private Order parseOrder(String line)
-  {
-    OrderPackage packageObj;
-    packageObj = parser.fromJson(line, OrderPackage.class);
-    return (packageObj.getOrder());
+    model.receiveTableOrder(order,socket.getInetAddress().getHostAddress());
+    return true;
   }
 }
