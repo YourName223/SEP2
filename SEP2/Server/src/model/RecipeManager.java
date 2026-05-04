@@ -15,6 +15,6 @@ public class RecipeManager
 
   public Recipe getRecipe(String recipeId)
   {
-    return menuDAO.getRecipeWithIngreDients(recipeId);
+    return menuDAO.getRecipeWithIngredients(recipeId);
   }
 }

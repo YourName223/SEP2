@@ -50,7 +50,7 @@ public class Main {
     ArrayList<Ingredient> ingredients = dao.getAllIngredientsFromProduct("Bøf");
     System.out.println("=== Ingredienser i Bøf ===");
     for (Ingredient i : ingredients) {
-      System.out.println("Navn: " + i.getName() + " | Enhed: " + i.getUnit());
+      System.out.println("Navn: " + i.getName() + " | Enhed: " + i.getStock());
     }
 
     System.out.println("Names:"+names);

@@ -1,9 +1,6 @@
   package Repository;
 
-  import model.Component;
-  import model.Ingredient;
-  import model.MenuItem;
-  import model.Product;
+  import model.*;
 
   import java.sql.*;
   import java.util.ArrayList;
@@ -155,7 +152,8 @@
         {
           String name = resultSet.getString("name");
           String unit = resultSet.getString("unit");
-          ingredients.add(new Ingredient(name, unit));
+          ingredients.add(new Ingredient());
+          //ingredients.add(new Ingredient(name, unit));
         }
       }
       catch (SQLException e)
@@ -163,6 +161,18 @@
         e.printStackTrace();
       }
       return ingredients;
+    }
+
+    @Override public Recipe getRecipeWithIngredients(String recipeId)
+    {
+      return new Recipe("2","4");
+    }
+
+    public List<String> getRecipyIdsFromMenuItem(String name)
+    {
+      List<String> string = new ArrayList<>();
+      string.add("2");
+      return string;
     }
 
     /*@Override public void update(MenuItem menuItem) throws SQLException

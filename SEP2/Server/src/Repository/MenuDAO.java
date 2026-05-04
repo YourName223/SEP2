@@ -3,6 +3,7 @@ package Repository;
 import model.Component;
 import model.Ingredient;
 import model.MenuItem;
+import model.Recipe;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,4 +19,6 @@ public interface MenuDAO
   ArrayList<String> getAllNames ();
   ArrayList<Component> getAllProductsFromMenuItem(String menuName);
   ArrayList<Ingredient> getAllIngredientsFromProduct(String productName);
+  Recipe getRecipeWithIngredients(String recipeId);
+  List<String> getRecipyIdsFromMenuItem(String name);
 }
