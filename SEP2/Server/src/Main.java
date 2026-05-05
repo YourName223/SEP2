@@ -88,8 +88,8 @@ public class Main {
 
     // Test getAllRecipesFromMenuItem
     System.out.println("\n=== Recipes i Burger menu ===");
-    ArrayList<Component> recipes = dao.getAllRecipesFromMenuItem("Burger menu");
-    for (Component c : recipes)
+    ArrayList<Recipe> recipes = dao.getAllRecipesFromMenuItem("Burger menu");
+    for (Recipe c : recipes)
     {
       System.out.println(c.getName());
     }

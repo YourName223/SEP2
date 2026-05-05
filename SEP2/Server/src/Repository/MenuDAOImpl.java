@@ -72,9 +72,9 @@
     }
 
     @Override
-    public ArrayList<Component> getAllRecipesFromMenuItem(String menuName)
+    public ArrayList<Recipe> getAllRecipesFromMenuItem(String menuName)
     {
-      ArrayList<Component> components = new ArrayList<>();
+      ArrayList<Recipe> recipe = new ArrayList<>();
       try (Connection connection = DriverManager.getConnection(
           "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
       {
@@ -89,14 +89,14 @@
         {
           String id   = resultSet.getString("id");
           String name = resultSet.getString("name");
-          components.add(new Recipe(id, name));
+          recipe.add(new Recipe(id, name));
         }
       }
       catch (SQLException e)
       {
         e.printStackTrace();
       }
-      return components;
+      return recipe;
     }
 
     @Override
@@ -165,7 +165,12 @@
           String name = resultSet.getString("name");
           String allergies = resultSet.getString("allergies");
           double price = resultSet.getDouble("price");
-          MenuItem menuItem = new MenuItem(name, allergies, price);
+          ArrayList<String> recipeIds = new ArrayList<>();
+          for (Recipe recipe : getAllRecipesFromMenuItem(name))
+          {
+            recipeIds.add(recipe.getId());
+          }
+          MenuItem menuItem = new MenuItem(name, allergies, price, recipeIds);
           result.add(menuItem);
         }
         return result;
@@ -406,7 +411,12 @@
         menuStatement.setDouble(3, price);
         menuStatement.executeUpdate();
 
-        MenuItem menuItem = new MenuItem(name, allergies, price);
+        ArrayList<String> recipeIds = new ArrayList<>();
+        for (Recipe recipe : getAllRecipesFromMenuItem(name))
+        {
+          recipeIds.add(recipe.getId());
+        }
+        MenuItem menuItem = new MenuItem(name, allergies, price, recipeIds);
 
         // Kobl recipes til menu
         PreparedStatement mrStatement = connection.prepareStatement(

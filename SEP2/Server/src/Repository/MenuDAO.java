@@ -1,6 +1,5 @@
 package Repository;
 
-import model.Component;
 import model.Ingredient;
 import model.MenuItem;
 import model.Recipe;
@@ -13,7 +12,7 @@ public interface MenuDAO
 {
   ArrayList<MenuItem> readByName(String searchString) throws SQLException; // eller behold List<MenuItem>
   ArrayList<String> getAllNames();
-  ArrayList<Component> getAllRecipesFromMenuItem(String menuName);
+  ArrayList<Recipe> getAllRecipesFromMenuItem(String menuName);
   ArrayList<Ingredient> getAllIngredientsFromRecipe(String recipeName);
   List<String> getRecipeNamesFromMenuItem(String menuName);
   Recipe getRecipeWithIngredients(String recipeId);
