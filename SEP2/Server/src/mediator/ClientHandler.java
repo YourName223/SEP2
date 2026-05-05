@@ -77,7 +77,8 @@ public class ClientHandler implements Runnable
             }
             break;
           case "menu":
-            System.out.println("Client asked for menu");
+            model.getMenuItems();
+            System.out.println("Current menu:" + model.getMenuItemsDto());
             MenuPackage sendPackage = new MenuPackage("menu",model.getMenuItemsDto());
             out.println(parser.toJson(sendPackage));
             break;
