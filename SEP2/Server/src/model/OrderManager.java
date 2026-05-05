@@ -26,7 +26,7 @@ public class OrderManager
 
   public Order convertOrderDtoToOrder(OrderDto orderDto)
   {
-    Order order = new Order("An order");
+    Order order = new Order();
 
     ArrayList<OrderItem> items = new ArrayList<>();
 
