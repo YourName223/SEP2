@@ -29,6 +29,7 @@ public class MenuManager
 
     for(String name : menuDAO.getAllNames())
     {
+      System.out.println(name);
       try
       {
         menuItems.add(menuDAO.readByName(name).getFirst());
@@ -39,6 +40,8 @@ public class MenuManager
       }
     }
 
+    System.out.println(menuItems.size());
+
     return menuItems;
   }
 
@@ -46,7 +49,7 @@ public class MenuManager
   {
     ArrayList<MenuItemDto> menuItemsDTO = new ArrayList<>();
 
-    for(MenuItem menuItem : menuItems)
+    for(MenuItem menuItem : getMenuItems())
     {
       try
       {

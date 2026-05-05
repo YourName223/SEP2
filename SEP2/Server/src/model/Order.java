@@ -4,23 +4,17 @@ import java.util.ArrayList;
 
 public class Order
 {
-  private String content;
   private String orderType;
   private ArrayList<OrderItem> items;
 
-  public Order(String content)
+  public Order()
   {
-    this.content = content;
+    items = new ArrayList<>();
   }
 
   public void setOrderType(String orderType)
   {
     this.orderType = orderType;
-  }
-
-  public String getContent()
-  {
-    return content;
   }
 
   public String getOrderType()

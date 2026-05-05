@@ -6,7 +6,7 @@ public class TableOrder extends Order
 
   public TableOrder(Order order, String tableNr)
   {
-    super(order.getContent());
+    super();
     super.setOrderType("Table");
     super.setMenuItems(order.getItems());
     this.tableNr = tableNr;

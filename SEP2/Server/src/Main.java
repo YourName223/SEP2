@@ -123,6 +123,7 @@ public class Main {
     System.out.println("\n=== readByName: Burger menu ===");
     System.out.println(dao.readByName("Burger menu"));
 
+    /*
     // Test createIngredient
     System.out.println("\n=== Opret ingrediens ===");
     Ingredient newIngredient = dao.createIngredient("Løg");
@@ -141,6 +142,8 @@ public class Main {
     menuRecipes.add(newRecipe);
     MenuItem newMenu = dao.createMenu("Løgring menu", "Gluten", 79, menuRecipes);
     System.out.println("Oprettet: " + newMenu.getName());
+
+    test that only works when unipe */
 
     System.out.println("\nServer kører på port 2910...");
   }

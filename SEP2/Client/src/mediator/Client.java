@@ -1,10 +1,12 @@
 package mediator;
 
 import com.google.gson.Gson;
+import model.MenuItemDto;
 import model.Model;
 import parser.ParserException;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -60,6 +62,8 @@ public class Client
 
   public void received(String line) throws ParserException
   {
+    System.out.println("Got something  from the server");
+    System.out.println(parser.fromJson(line, OrderPackage.class).getType());
     switch(parser.fromJson(line, OrderPackage.class).getType())
     {
       case "order":
@@ -68,7 +72,12 @@ public class Client
         break;
       case "menu":
         MenuPackage menuPackage = parser.fromJson(line, MenuPackage.class);
+        System.out.println(menuPackage.getMenuItems());
         model.changeMenu(menuPackage.getMenuItems());
+        for(MenuItemDto menuItemDto : menuPackage.getMenuItems())
+        {
+          System.out.println(menuItemDto.getName());
+        }
         break;
     }
   }
