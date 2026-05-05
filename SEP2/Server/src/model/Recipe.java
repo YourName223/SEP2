@@ -3,21 +3,22 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe implements Component
+public class Recipe
 {
   private String id;
   private String name;
   private List<RecipeIngredient> ingredients;
-  private ArrayList<Component> children;
+  //private ArrayList<Component> children; maybe useful for later
 
   public Recipe(String id, String name)
   {
     this.id = id;
     this.name = name;
     this.ingredients = new ArrayList<>();
-    this.children = new ArrayList<>();
+    //this.children = new ArrayList<>(); maybe useful for later
   }
 
+  /*
   // Component metoder
   @Override
   public void add(Component in)
@@ -37,25 +38,23 @@ public class Recipe implements Component
     return children.get(index);
   }
 
-  @Override
+  maybe useful for later */
+
   public String getName()
   {
     return name;
   }
 
-  @Override
   public void addIngredient(Ingredient ingredient)
   {
     ingredients.add(new RecipeIngredient(ingredient, 0));
   }
 
-  @Override
   public void removeIngredient(Ingredient ingredient)
   {
     ingredients.removeIf(ri -> ri.getIngredient().getName().equals(ingredient.getName()));
   }
 
-  @Override
   public ArrayList<Ingredient> getIngredients()
   {
     ArrayList<Ingredient> result = new ArrayList<>();
