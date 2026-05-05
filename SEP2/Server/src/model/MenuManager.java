@@ -40,6 +40,8 @@ public class MenuManager
       }
     }
 
+    System.out.println(menuItems.size());
+
     return menuItems;
   }
 
