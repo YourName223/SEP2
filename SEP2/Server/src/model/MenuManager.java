@@ -29,6 +29,7 @@ public class MenuManager
 
     for(String name : menuDAO.getAllNames())
     {
+      System.out.println(name);
       try
       {
         menuItems.add(menuDAO.readByName(name).getFirst());
