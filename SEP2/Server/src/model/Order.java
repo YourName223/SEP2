@@ -63,7 +63,7 @@ public class Order
 
   public String toString()
   {
-    StringBuilder string = new StringBuilder("{");
+    StringBuilder string = new StringBuilder("[");
 
     for (OrderItem orderItem : items)
     {
@@ -73,7 +73,7 @@ public class Order
     if (string.length() > 1)
       string.setLength(string.length() - 1);
 
-    string.append("}");
+    string.append("]");
 
     return string.toString();
   }

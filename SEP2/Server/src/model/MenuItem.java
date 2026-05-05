@@ -37,4 +37,18 @@ public class MenuItem
   {
     return recipeIds;
   }
+
+  public String recipesString()
+  {
+    StringBuilder string = new StringBuilder("recipes: {");
+
+    for (String recipeIds : recipeIds)
+    {
+      string.append(recipeIds).append(", ");
+    }
+
+    string.append("}");
+
+    return string.toString();
+  }
 }
