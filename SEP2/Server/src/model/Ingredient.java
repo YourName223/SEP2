@@ -14,7 +14,7 @@ public class Ingredient
   {
     this.name = name;
   }
-  public void setId(int stock)
+  public void setStock(int stock)
   {
     this.stock = stock;
   }
