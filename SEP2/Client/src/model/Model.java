@@ -7,15 +7,15 @@ import java.util.ArrayList;
 public interface Model extends UnnamedPropertyChangeSubject
 {
   public void createOrder();
-  public void addMenuItemToOrder(MenuItem menuItem,int amount);
-  public void setMenuItemOnOrder(MenuItem menuItem, int amount);
-  public void removeMenuItemFromOrder(MenuItem menuItem);
+  public void addToOrder(MenuItemDto menuItem,int amount);
+  public void updateOrderItem(MenuItemDto menuItem,int amount);
+  public void removeFromOrder(MenuItemDto menuItem);
   public void placeOrder();
   public void fireProperty(String propertyName, String line);
 
   public void changeMenu(ArrayList<MenuItemDto> menu);
   public void getMenuFromDataBase();
 
-  public ArrayList<MenuItem> getMenu();
+  public ArrayList<MenuItemDto> getMenu();
   public Order getOrder();
 }

@@ -4,91 +4,68 @@ import java.util.ArrayList;
 
 public class Order
 {
-  private String content;
   private ArrayList<OrderItem> items;
 
-  public Order(String content)
+  public Order()
   {
-    this.content = content;
     items = new ArrayList<>();
   }
 
-  public String getContent()
+  public void setItem(MenuItemDto menuItem, int amount)
   {
-    return content;
-  }
+    OrderItem existing = find(menuItem);
 
-  public void setMenuItem(MenuItem menuItem, int amount)
-  {
-    boolean partOfList = false;
-
-    for (OrderItem item : items)
+    if (existing != null)
     {
-      if(item.getItem().equals(menuItem))
-        partOfList = true;
-    }
-    if(partOfList)
-    {
-      for (OrderItem item : items)
+      if (amount == 0)
       {
-        if(item.getItem().equals(menuItem))
-        {
-          if(amount == 0)
-          {
-            items.remove(item);
-          }
-          else
-          {
-            item.setQuantity(amount);
-          }
-        }
+        items.remove(existing);
+      }
+      else
+      {
+        existing.setQuantity(amount);
       }
     }
-    else
+    else if (amount > 0)
     {
-      items.add(new OrderItem(menuItem,amount));
+      items.add(new OrderItem(menuItem, amount));
     }
   }
 
-  public void addMenuItem(MenuItem menuItem, int amount)
+  public void addMenuItem(MenuItemDto menuItem, int amount)
   {
-    boolean partOfList = false;
+    OrderItem existing = find(menuItem);
+    int currentAmount = 0;
 
-    for (OrderItem item : items)
+    if(existing != null)
     {
-      if(item.getItem().equals(menuItem))
-        partOfList = true;
+      currentAmount = existing.getQuantity();
     }
-    if(partOfList)
-    {
-      for (OrderItem item : items)
-      {
-        if(item.getItem().equals(menuItem))
-        {
-          item.setQuantity(amount+item.getQuantity());
-        }
-      }
-    }
-    else
-    {
-      items.add(new OrderItem(menuItem,amount));
-    }
+    setItem(menuItem,amount+currentAmount);
   }
 
-  public void removeMenuItem(MenuItem menuItem)
+  public void removeItem(MenuItemDto menuItem)
   {
-    for (OrderItem item : items)
+    OrderItem existing = find(menuItem);
+
+    if(existing != null)
     {
-      if(item.getItem().equals(menuItem))
-      {
-        items.remove(item);
-        break;
-      }
+      items.remove(existing);
     }
   }
 
   public ArrayList<OrderItem> getItems()
   {
     return items;
+  }
+
+  private OrderItem find(MenuItemDto menuItemDto)
+  {
+    for (OrderItem item : items)
+    {
+      if (item.getMenuItem().equals(menuItemDto))
+        return item;
+    }
+    return null;
   }
 }

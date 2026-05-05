@@ -2,22 +2,27 @@ package model;
 
 public class OrderItemDto
 {
-  private String recipeId;
+  private String menuItemId;
   private int quantity;
 
-  public OrderItemDto(String recipeId, int quantity)
+  public OrderItemDto(String menuItemId, int quantity)
   {
-    this.recipeId = recipeId;
+    this.menuItemId = menuItemId;
     this.quantity = quantity;
   }
 
-  public String getRecipeId()
+  public String getMenuItemId()
   {
-    return recipeId;
+    return menuItemId;
   }
 
   public int getQuantity()
   {
     return quantity;
+  }
+
+  public void setQuantity(int quantity)
+  {
+    this.quantity = quantity;
   }
 }

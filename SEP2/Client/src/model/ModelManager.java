@@ -19,7 +19,7 @@ public class ModelManager implements Model
     orderManager = new OrderManager();
     property = new PropertyChangeSupport(this);
     orderManager.createOrder();
-    client = new Client(this,"10.154.220.81",2910);
+    client = new Client(this,"10.154.208.75",2910);
     getMenuFromDataBase();
   }
 
@@ -28,19 +28,19 @@ public class ModelManager implements Model
     orderManager.createOrder();
   }
 
-  @Override public void addMenuItemToOrder(MenuItem menuItem, int amount)
+  @Override public void addToOrder(MenuItemDto menuItem, int amount)
   {
-    orderManager.addMenuItemToOrder(menuItem, amount);
+    orderManager.addToOrder(menuItem, amount);
   }
 
-  @Override public void setMenuItemOnOrder(MenuItem menuItem, int amount)
+  @Override public void updateOrderItem(MenuItemDto menuItem, int amount)
   {
-    orderManager.setMenuItomOnOrder(menuItem, amount);
+    orderManager.updateOrderItem(menuItem,amount);
   }
 
-  @Override public void removeMenuItemFromOrder(MenuItem menuItem)
+  @Override public void removeFromOrder(MenuItemDto menuItem)
   {
-    orderManager.removeMenuItemFromOrder(menuItem);
+    orderManager.removeFromOrder(menuItem);
   }
 
   @Override public void placeOrder()
@@ -71,17 +71,9 @@ public class ModelManager implements Model
     client.getMenu();
   }
 
-  @Override public ArrayList<MenuItem> getMenu()
+  @Override public ArrayList<MenuItemDto> getMenu()
   {
-    ArrayList<MenuItem> menuItems = new ArrayList<>();
-
-    for (MenuItemDto menuItemDto : menu)
-    {
-      MenuItem menuItem = new MenuItem(menuItemDto.getName(),menuItemDto.getAllergies(),menuItemDto.getPrice());
-      menuItems.add(menuItem);
-    }
-
-    return menuItems;
+    return menu;
   }
 
   @Override public void addListener(String propertyName,

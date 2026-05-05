@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 import java.util.ArrayList;
 
@@ -71,4 +71,4 @@ public class Composite implements Component
     throw new UnsupportedOperationException();
   }
 
-}
+} can be useful later*/

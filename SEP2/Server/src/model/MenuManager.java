@@ -23,15 +23,6 @@ public class MenuManager
     }
   }
 
-  public void addMenuItem(String name, String allergies, double price)
-  {
-    if(name == null || allergies == null || name.isBlank())
-    {
-      throw new IllegalArgumentException("Arguments cannot be null");
-    }
-    menuItems.add(new MenuItem(name,allergies,price));
-  }
-
   public ArrayList<MenuItem> getMenuItems()
   {
     ArrayList<MenuItem> menuItems = new ArrayList<>();
@@ -59,7 +50,7 @@ public class MenuManager
     {
       try
       {
-        menuItemsDTO.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),menuDAO.getRecipyIdsFromMenuItem(menuItem.getName())));
+        menuItemsDTO.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),menuItem.getRecipeIds()));
       }
       catch (Exception e)
       {
@@ -88,12 +79,12 @@ public class MenuManager
       return menuItems.get(index);
     throw new IllegalArgumentException("index is out of bounds");
   }
-
+/*
   public void addProductToMenuItem(int index, Component product)
   {
     menuItems.get(index).addProduct(product);
   }
-
+can be useful later*/
   public String menuItemToString(int index)
   {
     return menuItems.get(index).toString();

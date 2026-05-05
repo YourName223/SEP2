@@ -36,7 +36,7 @@ public class ModelManager implements Model
   {
     return menuManager.getMenuItems();
   }
-
+/*
   @Override public Component createComponent(String name)
   {
     return new Composite(name);
@@ -68,4 +68,5 @@ public class ModelManager implements Model
   {
     return menuManager.menuItemToString(index);
   }
+  can be useful later*/
 }

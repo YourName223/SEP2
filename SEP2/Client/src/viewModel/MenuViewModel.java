@@ -3,7 +3,7 @@ package viewModel;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.MenuItem;
+import model.MenuItemDto;
 import model.Model;
 
 import java.beans.PropertyChangeEvent;
@@ -12,15 +12,15 @@ import java.beans.PropertyChangeListener;
 public class MenuViewModel
 {
   private Model model;
-  private MenuItem menuItem;
+  private MenuItemDto menuItem;
 
-  public MenuViewModel(Model model, MenuItem menuItem)
+  public MenuViewModel(Model model, MenuItemDto menuItem)
   {
     this.model = model;
     this.menuItem = menuItem;
   }
 
-  public MenuItem getMenuItem()
+  public MenuItemDto getMenuItem()
   {
     return menuItem;
   }

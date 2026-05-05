@@ -1,8 +1,8 @@
 package viewModel;
 
-import model.MenuItem;
 import model.Model;
 import model.OrderItem;
+import model.OrderItemDto;
 
 public class OrderItemViewModel
 {
@@ -22,33 +22,16 @@ public class OrderItemViewModel
 
   public String getName()
   {
-    return orderItem.getItem().getName();
+    return orderItem.getMenuItem().getName();
   }
 
   public double getPrice()
   {
-    return orderItem.getItem().getPrice();
+    return orderItem.getMenuItem().getPrice();
   }
 
   public int getQuantity()
   {
     return orderItem.getQuantity();
   }
-  public void increase()
-  {
-    orderItem.add();
-  }
-
-  public void decrease()
-  {
-    orderItem.remove();
-  }
-
-
-  public void remove()
-  {
-    if(orderItem.getItem() != null)
-      model.removeMenuItemFromOrder(orderItem.getItem());
-  }
-
 }

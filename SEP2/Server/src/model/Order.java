@@ -28,12 +28,12 @@ public class Order
     return orderType;
   }
 
-  public void setProducts(ArrayList<OrderItem> items)
+  public void setMenuItems(ArrayList<OrderItem> items)
   {
     this.items = items;
   }
 
-  public void addProduct(MenuItem menuItem)
+  public void addMenuItem(MenuItem menuItem)
   {
     boolean partOfList = false;
 

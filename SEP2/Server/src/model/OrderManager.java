@@ -6,7 +6,6 @@ public class OrderManager
 {
   private ArrayList<Order> orders;
   private MenuManager menuManager;
-  private RecipeManager recipeManager;
 
   public OrderManager(MenuManager menuManager)
   {
@@ -33,9 +32,7 @@ public class OrderManager
 
     for(OrderItemDto orderItemDto : orderDto.items)
     {
-      Recipe recipe = recipeManager.getRecipe(orderItemDto.getRecipeId());
-
-      MenuItem menuItem = menuManager.getMenuItemById(recipe.getId());
+      MenuItem menuItem = menuManager.getMenuItemById(orderItemDto.getMenuItemId());
 
       OrderItem orderItem = new OrderItem(menuItem);
       orderItem.setQuantity(orderItemDto.getQuantity());
@@ -43,7 +40,7 @@ public class OrderManager
       items.add(orderItem);
     }
 
-    order.setProducts(items);
+    order.setMenuItems(items);
 
     return order;
   }

@@ -1,59 +1,40 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MenuItem
 {
   private String name;
   private String allergies;
   private double price;
-  private ArrayList<Component> products;
+  private ArrayList<String> recipeIds;
 
-  public MenuItem(String name, String allergies, double price)
+  public MenuItem(String name, String allergies, double price, ArrayList<String> recipeIds)
   {
     this.name = name;
     this.allergies = allergies;
     this.price = price;
-    products = new ArrayList<>();
+    this.recipeIds = recipeIds;
   }
 
-  public String getName() { return name; }
-  public String getAllergies() { return allergies; }
-  public double getPrice() { return price; }
-  public ArrayList<Component> getProducts()
+  public String getName()
   {
-    return products;
+    return name;
   }
 
-  public void setName(String name) { this.name = name; }
-  public void setAllergies(String allergies) { this.allergies = allergies; }
-  public void setPrice(double price) { this.price = price; }
-  public void addProduct(Component product)
+  public String getAllergies()
   {
-    products.add(product);
-  }
-  public void removeProduct(Component product)
-  {
-    products.remove(product);
+    return allergies;
   }
 
-  public String toString()
+  public double getPrice()
   {
-    StringBuilder string = new StringBuilder();
-    string.append("Name:").append(name).append("Allergies:").append(allergies).append("Price:").append(price).append("Products:");
+    return price;
+  }
 
-    string.append("{");
-
-    for (Component component : products)
-    {
-      string.append(component.getName()).append(",");
-    }
-
-    if (products.size() > 0)
-      string.setLength(string.length() - 1);
-
-    string.append("}");
-
-    return string.toString();
+  public ArrayList<String> getRecipeIds()
+  {
+    return recipeIds;
   }
 }

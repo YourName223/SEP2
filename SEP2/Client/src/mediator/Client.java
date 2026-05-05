@@ -2,9 +2,7 @@ package mediator;
 
 import com.google.gson.Gson;
 import model.Model;
-import model.Order;
 import parser.ParserException;
-import parser.XmlJsonParser;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -66,7 +64,7 @@ public class Client
     {
       case "order":
         orderPackage = parser.fromJson(line, OrderPackage.class);
-        model.fireProperty("Update",orderPackage.getTxt());
+        model.fireProperty("Update",orderPackage.getMessage());
         break;
       case "menu":
         MenuPackage menuPackage = parser.fromJson(line, MenuPackage.class);

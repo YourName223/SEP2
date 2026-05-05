@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 import java.util.ArrayList;
 
@@ -12,4 +12,4 @@ public interface Component
   void addIngredient(Ingredient ingredient);
   void removeIngredient(Ingredient ingredient);
   ArrayList<Ingredient> getIngredients();
-}
+} can be useful later*/

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuItemDto
@@ -7,9 +8,9 @@ public class MenuItemDto
   private String name;
   private String allergies;
   private double price;
-  private List<String> recipeIds;
+  private ArrayList<String> recipeIds;
 
-  public MenuItemDto(String name, String allergies, double price, List<String> recipeIds)
+  public MenuItemDto(String name, String allergies, double price, ArrayList<String> recipeIds)
   {
     this.name = name;
     this.allergies = allergies;
@@ -30,5 +31,10 @@ public class MenuItemDto
   public double getPrice()
   {
     return price;
+  }
+
+  public ArrayList<String> getRecipeIds()
+  {
+    return recipeIds;
   }
 }

@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 public class Ingredient
 {
@@ -16,4 +16,4 @@ public class Ingredient
     public int getId() { return id; }
     public String getName() { return name; }
     public Boolean getAllergen() { return allergen; }
-}
+}can be useful later*/

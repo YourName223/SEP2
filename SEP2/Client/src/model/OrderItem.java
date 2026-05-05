@@ -2,28 +2,18 @@ package model;
 
 public class OrderItem
 {
-  MenuItem item;
-  int quantity;
+  private MenuItemDto menuItem;
+  private int quantity;
 
-  public OrderItem(MenuItem item,int quantity)
+  public OrderItem(MenuItemDto menuItem,int quantity)
   {
-    this.item = item;
+    this.menuItem = menuItem;
     this.quantity = quantity;
   }
 
-  public void add()
+  public MenuItemDto getMenuItem()
   {
-    quantity++;
-  }
-
-  public void remove()
-  {
-    quantity--;
-  }
-
-  public MenuItem getItem()
-  {
-    return item;
+    return menuItem;
   }
 
   public int getQuantity()
@@ -38,6 +28,6 @@ public class OrderItem
 
   public String toString()
   {
-    return item.getName() + " : " + quantity + " * " + item.getPrice();
+    return menuItem.getName() + " : " + quantity;
   }
 }

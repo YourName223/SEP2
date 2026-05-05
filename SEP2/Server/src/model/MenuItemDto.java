@@ -1,19 +1,40 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuItemDto
 {
-  public String name;
-  public String allergies;
-  public double price;
-  public List<String> recipeIds;
+  private String name;
+  private String allergies;
+  private double price;
+  private ArrayList<String> recipeIds;
 
-  public MenuItemDto(String name, String allergies, double price, List<String> recipeIds)
+  public MenuItemDto(String name, String allergies, double price, ArrayList<String> recipeIds)
   {
     this.name = name;
     this.allergies = allergies;
     this.price = price;
     this.recipeIds = recipeIds;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public String getAllergies()
+  {
+    return allergies;
+  }
+
+  public double getPrice()
+  {
+    return price;
+  }
+
+  public ArrayList<String> getRecipeIds()
+  {
+    return recipeIds;
   }
 }

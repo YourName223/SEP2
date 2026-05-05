@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 import java.util.ArrayList;
 
@@ -31,4 +31,4 @@ public class Product implements Component
   {
     return name;
   }
-}
+}can be useful later*/

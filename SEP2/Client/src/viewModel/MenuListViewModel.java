@@ -4,10 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.MenuItem;
-import model.Model;
-import model.Order;
-import model.OrderItem;
+import model.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -15,20 +12,15 @@ import java.beans.PropertyChangeListener;
 public class MenuListViewModel implements PropertyChangeListener
 {
   private Model model;
-  private MenuItem menuItem;
+  private MenuItemDto selectedMenuItem;
   private final ObservableList<MenuViewModel> menuItems = FXCollections.observableArrayList();
   private IntegerProperty amount;
 
   public MenuListViewModel(Model model)
   {
     this.model = model;
-    menuItem = null;
+    selectedMenuItem = null;
     amount = new SimpleIntegerProperty();
-    loadFromModel();
-  }
-
-  public void clear()
-  {
     loadFromModel();
   }
 
@@ -48,9 +40,9 @@ public class MenuListViewModel implements PropertyChangeListener
       amount.set(amount.get()-1);
   }
 
-  public void setSelectedMenuItem(MenuItem menuItem)
+  public void selectMenuItem(MenuItemDto menuItem)
   {
-    this.menuItem = menuItem;
+    this.selectedMenuItem = menuItem;
     amount.set(0);
   }
 
@@ -58,7 +50,7 @@ public class MenuListViewModel implements PropertyChangeListener
   {
     if(amount.get() > 0)
     {
-      model.addMenuItemToOrder(menuItem,amount.get());
+      model.addToOrder(selectedMenuItem,amount.get());
     }
   }
 
@@ -69,7 +61,9 @@ public class MenuListViewModel implements PropertyChangeListener
 
   public void loadFromModel()
   {
-    for(MenuItem menuItem : model.getMenu())
+    menuItems.clear();
+
+    for(MenuItemDto menuItem : model.getMenu())
     {
       menuItems.add(new MenuViewModel(model,menuItem));
     }
@@ -77,6 +71,6 @@ public class MenuListViewModel implements PropertyChangeListener
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-
+    loadFromModel();
   }
 }

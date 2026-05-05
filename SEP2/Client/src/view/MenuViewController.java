@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
-import model.MenuItem;
 import viewModel.MenuListViewModel;
 import viewModel.MenuViewModel;
 import viewModel.OrderViewModel;
@@ -50,7 +49,7 @@ public class MenuViewController
 
   public void reset()
   {
-    viewModel.clear();
+    viewModel.loadFromModel();
   }
 
   public Region getRoot()
@@ -63,7 +62,7 @@ public class MenuViewController
     MenuViewModel selected = menuTable.getSelectionModel().getSelectedItem();
     if (selected != null)
     {
-      viewModel.setSelectedMenuItem(selected.getMenuItem());
+      viewModel.selectMenuItem(selected.getMenuItem());
     }
   }
 

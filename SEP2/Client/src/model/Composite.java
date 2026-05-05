@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 import java.util.ArrayList;
 
@@ -46,5 +46,4 @@ public class Composite implements Component
 
     return name.toString();
   }
-
-}
+}can be useful later*/
