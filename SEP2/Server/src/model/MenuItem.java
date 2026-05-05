@@ -1,5 +1,7 @@
 package model;
 
+import Repository.MenuDAOImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,14 +42,33 @@ public class MenuItem
 
   public String recipesString()
   {
-    StringBuilder string = new StringBuilder("recipes: {");
+    StringBuilder string = new StringBuilder("[");
+
+    MenuDAOImpl menuDAO = null;
+
+    try{
+      menuDAO = MenuDAOImpl.getInstance();
+    }
+    catch (Exception e){}
 
     for (String recipeIds : recipeIds)
     {
-      string.append(recipeIds).append(", ");
-    }
+      string.append(menuDAO.getRecipeWithIngredients(recipeIds).getName());
+      string.append(" (");
+      System.out.println(recipeIds);
+      System.out.println(menuDAO.getAllIngredientsFromRecipe(recipeIds));
 
-    string.append("}");
+      for(Ingredient ingredient :menuDAO.getRecipeWithIngredients(recipeIds).getIngredients())
+      {
+        string.append(ingredient.getName()).append(", ");
+      }
+        if (string.length() > 1)
+          string.setLength(string.length() - 2);
+      string.append("), ");
+    }
+    if (string.length() > 1)
+      string.setLength(string.length() - 2);
+    string.append("]");
 
     return string.toString();
   }

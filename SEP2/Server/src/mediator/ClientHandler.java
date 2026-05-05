@@ -120,7 +120,9 @@ public class ClientHandler implements Runnable
   public boolean handlePackage(OrderPackage orderPackage)
   {
     OrderDto orderDto = new OrderDto(orderPackage.getItems());
+    System.out.println(orderDto.items.size());
     Order order = model.convertOrderDtoToOrder(orderDto);
+    System.out.println(order.getItems().getFirst().getItem());
 
     model.receiveTableOrder(order,socket.getInetAddress().getHostAddress());
     return true;

@@ -16,6 +16,7 @@ public class MenuManager
     try
     {
       menuDAO = new MenuDAOImpl();
+      saveFromDataBase();
     }
     catch (Exception e)
     {
@@ -23,13 +24,10 @@ public class MenuManager
     }
   }
 
-  public ArrayList<MenuItem> getMenuItems()
+  private void saveFromDataBase()
   {
-    ArrayList<MenuItem> menuItems = new ArrayList<>();
-
     for(String name : menuDAO.getAllNames())
     {
-      System.out.println(name);
       try
       {
         menuItems.add(menuDAO.readByName(name).getFirst());
@@ -39,9 +37,10 @@ public class MenuManager
 
       }
     }
+  }
 
-    System.out.println(menuItems.size());
-
+  public ArrayList<MenuItem> getMenuItems()
+  {
     return menuItems;
   }
 
@@ -66,10 +65,13 @@ public class MenuManager
 
   public MenuItem getMenuItemById(String id)
   {
+    System.out.println(menuItems.size());
     for(MenuItem menuItem : menuItems)
     {
+      System.out.println(menuItem.getName());
       if(menuItem.getName().equals(id))
       {
+        System.out.println("found the menuItem");
         return menuItem;
       }
     }
