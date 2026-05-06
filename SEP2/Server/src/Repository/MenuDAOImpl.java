@@ -7,7 +7,7 @@
   import java.util.List;
 
   // try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
-
+  // try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
   public class MenuDAOImpl implements MenuDAO
   {
     private static MenuDAOImpl instance;
@@ -54,7 +54,7 @@
     @Override public ArrayList<String> getAllNames()
     {
       ArrayList<String> names = new ArrayList<>();
-      try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
         PreparedStatement statement = connection.prepareStatement(
             "SELECT name FROM Menu");
@@ -75,8 +75,7 @@
     public ArrayList<Recipe> getAllRecipesFromMenuItem(String menuName)
     {
       ArrayList<Recipe> recipe = new ArrayList<>();
-      try (Connection connection = DriverManager.getConnection(
-          "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
         PreparedStatement statement = connection.prepareStatement(
             "SELECT r.id, r.name FROM recipe r " +
@@ -103,8 +102,8 @@
     public ArrayList<Ingredient> getAllIngredientsFromRecipe(String recipeName)
     {
       ArrayList<Ingredient> ingredients = new ArrayList<>();
-      try (Connection connection = DriverManager.getConnection(
-          "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+
       {
         PreparedStatement statement = connection.prepareStatement(
             "SELECT i.id, i.name FROM ingredient i " +
@@ -153,7 +152,7 @@
 
     @Override public ArrayList<MenuItem> readByName(String searchString) throws SQLException
     {
-      try(Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Menu WHERE name LIKE ?");
         statement.setString(1, "%" + searchString + "%");
@@ -230,8 +229,8 @@
     public Recipe getRecipeWithIngredients(String recipeId)
     {
       Recipe recipe = null;
-      try (Connection connection = DriverManager.getConnection(
-          "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+
       {
         PreparedStatement recipeStatement = connection.prepareStatement(
             "SELECT id, name FROM recipe WHERE id = ?");
@@ -274,8 +273,8 @@
     public ArrayList<String> getRecipeIdsFromMenuItem(String menuName)
     {
       ArrayList<String> recipeIds = new ArrayList<>();
-      try (Connection connection = DriverManager.getConnection(
-          "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+
       {
         PreparedStatement statement = connection.prepareStatement(
             "SELECT recipe_id FROM menu_recipe WHERE menu_name = ?");
@@ -298,8 +297,8 @@
     public ArrayList<String> getRecipeNamesFromMenuItem(String menuName)
     {
       ArrayList<String> recipeIds = new ArrayList<>();
-      try (Connection connection = DriverManager.getConnection(
-          "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+
       {
         PreparedStatement statement = connection.prepareStatement(
             "SELECT recipe_id FROM menu_recipe WHERE menu_name = ?");
@@ -346,8 +345,8 @@
 
     public Ingredient createIngredient(String name) throws SQLException
     {
-      try (Connection connection = DriverManager.getConnection(
-          "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+
       {
         PreparedStatement statement = connection.prepareStatement(
             "INSERT INTO ingredient(name) VALUES (?) RETURNING id");
@@ -365,8 +364,8 @@
 
     public Recipe createRecipe(String name, ArrayList<Ingredient> ingredients) throws SQLException
     {
-      try (Connection connection = DriverManager.getConnection(
-          "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+
       {
         // Insert recipe og få id tilbage
         PreparedStatement recipeStatement = connection.prepareStatement(
@@ -398,8 +397,8 @@
 
     public MenuItem createMenu(String name, String allergies, double price, ArrayList<Recipe> recipes) throws SQLException
     {
-      try (Connection connection = DriverManager.getConnection(
-          "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+
       {
         // Insert menu
         PreparedStatement menuStatement = connection.prepareStatement(
