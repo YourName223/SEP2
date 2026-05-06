@@ -3,58 +3,64 @@ package view;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import model.Order;
+import java.util.List;
+import model.OrderCurrent;
+import model.OrderState;
+import model.RecipeManager;
 
 public class LiveOrdersViewController
 {
-  @FXML VBox newOrdersBox;
-  @FXML VBox currentOrdersBox;
-  @FXML VBox readyOrdersBox;
+  @FXML VBox incomingOrderBox;
+  @FXML VBox currentOrderBox;
+  @FXML VBox finishedOrderBox;
 
-  private List<LiveOrder> liveOrders;
+  private List<OrderCurrent> ordersCurrent = new java.util.ArrayList<>();
+  private final RecipeManager recipeManager;
 
-  private OrderCardRenderer incomingOrderRenderer = new IncomingOrderRenderer();
-  private OrderCardRenderer currentOrderRenderer = new CurrentOrderRenderer();
-  private OrderCardRenderer finishedOrderRenderer = new FinishedOrderRenderer();
+
+  private OrderCardRenderer incomingOrderRenderer = new IncomingOrderRenderer(this);
+  private OrderCardRenderer currentOrderRenderer = new CurrentOrderRenderer(this, recipeManager);
+  private OrderCardRenderer finishedOrderRenderer = new FinishedOrderRenderer(this);
 
   public void refresh() {
-    newOrdersBox.getChildren().clear();
-    currentOrdersBox.getChildren().clear();
-    readyOrdersBox.getChildren().clear();
+    incomingOrderBox.getChildren().clear();
+    currentOrderBox.getChildren().clear();
+    finishedOrderBox.getChildren().clear();
 
-    for (LiveOrder o : liveOrders) {
+    for (OrderCurrent o : ordersCurrent) {
 
       switch (o.getState()) {
 
-        case INCOMING -> incomingOrderRenderer.render(o, newOrdersBox);
+        case INCOMING -> incomingOrderRenderer.render(o, incomingOrderBox);
 
-        case CURRENT -> currentOrderRenderer.render(o, currentOrdersBox);
+        case CURRENT -> currentOrderRenderer.render(o, currentOrderBox);
 
-        case FINISHED -> finishedOrderRenderer.render(o, readyOrdersBox);
+        case FINISHED -> finishedOrderRenderer.render(o, finishedOrderBox);
       }
     }
   }
 
   public void addOrder(Order order) {
 
-    LiveOrder liveOrder = new LiveOrder(order);
-    liveOrders.add(liveOrder);
+    OrderCurrent liveOrder = new OrderCurrent(order);
+    ordersCurrent.add(liveOrder);
 
     //refresh();
   }
 
-  public void makeButton(LiveOrder order) {
+  public void makeButton(OrderCurrent order) {
     order.setState(OrderState.CURRENT);
 
     //refresh();
   }
 
-  public void doneButton(LiveOrder order) {
+  public void doneButton(OrderCurrent order) {
     order.setState(OrderState.FINISHED);
     // refresh();
   }
 
-  public void takeButton(LiveOrder order) {
-    liveOrders.remove(order);
+  public void takeButton(OrderCurrent order) {
+    ordersCurrent.remove(order);
     // refresh();
   }
 }

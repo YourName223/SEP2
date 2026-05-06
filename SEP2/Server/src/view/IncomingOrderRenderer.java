@@ -2,7 +2,7 @@ package view;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import model.LiveOrder;
+import model.OrderCurrent;
 import model.Order;
 import model.OrderItem;
 
@@ -15,13 +15,13 @@ public class IncomingOrderRenderer implements OrderCardRenderer {
   }
 
   @Override
-  public void render(LiveOrder liveOrder, VBox container) {
+  public void render(OrderCurrent liveOrder, VBox container) {
 
     VBox card = createCard();
 
     Order order = liveOrder.getOrder();
 
-    for (OrderItem item : order.getItems()) {
+    for (OrderItem item : order.getOrderItems()) {
 
       card.getChildren().add(
           createLabel(

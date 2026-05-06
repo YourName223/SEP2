@@ -13,7 +13,7 @@ public class FinishedOrderRenderer implements OrderCardRenderer {
   }
 
   @Override
-  public void render(LiveOrder liveOrder, VBox container) {
+  public void render(OrderCurrent liveOrder, VBox container) {
 
     VBox card = createCard();
 
@@ -25,7 +25,7 @@ public class FinishedOrderRenderer implements OrderCardRenderer {
     );
 
     // Items
-    for (OrderItem item : order.getItems()) {
+    for (OrderItem item : order.getOrderItems()) {
       card.getChildren().add(
           createLabel(item.getItem().getName())
       );

@@ -7,19 +7,21 @@ import model.*;
 public class CurrentOrderRenderer implements OrderCardRenderer {
 
   private final LiveOrdersViewController controller;
+  private final RecipeManager recipeManager;
 
-  public CurrentOrderRenderer(LiveOrdersViewController controller) {
+  public CurrentOrderRenderer(LiveOrdersViewController controller, RecipeManager recipeManager) {
     this.controller = controller;
+    this.recipeManager = recipeManager;
   }
 
   @Override
-  public void render(LiveOrder liveOrder, VBox container) {
+  public void render(OrderCurrent orderCurrent, VBox container) {
 
     VBox card = createCard();
 
-    Order order = liveOrder.getOrder();
+    Order order = orderCurrent.getOrder();
 
-    for (OrderItem item : order.getItems()) {
+    for (OrderItem item : order.getOrderItems()) {
 
       card.getChildren().add(
           createLabel(item.getItem().getName())
@@ -27,7 +29,9 @@ public class CurrentOrderRenderer implements OrderCardRenderer {
 
       for (String recipeId : item.getItem().getRecipeIds()) {
 
-        Recipe recipe = getRecipeById(recipeId);
+        Recipe recipe = recipeManager.getRecipe(recipeId);
+
+        if (recipe == null) continue;
 
         card.getChildren().add(
             createLabel("  " + recipe.getName())
@@ -43,15 +47,10 @@ public class CurrentOrderRenderer implements OrderCardRenderer {
     }
 
     Button btn = createButton("DONE");
-    btn.setOnAction(e -> controller.doneButton(liveOrder));
+    btn.setOnAction(e -> controller.doneButton(orderCurrent));
 
     card.getChildren().add(btn);
 
     container.getChildren().add(card);
-  }
-
-  private Recipe getRecipeById(String recipeId) {
-    // placeholder — should be moved to service layer later
-    return null;
   }
 }

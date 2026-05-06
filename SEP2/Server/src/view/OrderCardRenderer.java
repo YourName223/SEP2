@@ -3,11 +3,11 @@ package view;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import model.LiveOrder;
+import model.OrderCurrent;
 
 public interface OrderCardRenderer {
 
-  void render(LiveOrder order, VBox container);
+  void render(OrderCurrent order, VBox container);
 
   default VBox createCard() {
     VBox card = new VBox();
