@@ -58,10 +58,8 @@ public class Order
   public String toString()
   {
     StringBuilder string = new StringBuilder("[");
-    System.out.println(items.size());
     for (OrderItem orderItem : items)
     {
-      System.out.println(orderItem.getItem().getName());
       string.append("{").append(orderItem).append("},");
     }
     if (string.length() > 1)

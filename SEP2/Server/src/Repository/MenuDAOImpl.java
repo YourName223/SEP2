@@ -116,9 +116,9 @@
 
         while (resultSet.next())
         {
-          Ingredient ingredient = new Ingredient();
-          ingredient.setId(resultSet.getString("id"));
-          ingredient.setName(resultSet.getString("name"));
+          String id = resultSet.getString("id");
+          String name = resultSet.getString("name");
+          Ingredient ingredient = new Ingredient(id,name,100);
           ingredients.add(ingredient);
         }
       }
@@ -256,9 +256,9 @@
 
           while (ingRs.next())
           {
-            Ingredient ingredient = new Ingredient();
-            ingredient.setId(ingRs.getString("id"));
-            ingredient.setName(ingRs.getString("name"));
+            String id = ingRs.getString("id");
+            String name = ingRs.getString("name");
+            Ingredient ingredient = new Ingredient(id,name,100);
             recipe.addIngredient(ingredient, 0);
           }
         }
@@ -271,9 +271,9 @@
     }
 
     @Override
-    public List<String> getRecipeIdsFromMenuItem(String menuName)
+    public ArrayList<String> getRecipeIdsFromMenuItem(String menuName)
     {
-      List<String> recipeIds = new ArrayList<>();
+      ArrayList<String> recipeIds = new ArrayList<>();
       try (Connection connection = DriverManager.getConnection(
           "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
       {
@@ -295,9 +295,9 @@
     }
 
     @Override
-    public List<String> getRecipeNamesFromMenuItem(String menuName)
+    public ArrayList<String> getRecipeNamesFromMenuItem(String menuName)
     {
-      List<String> recipeIds = new ArrayList<>();
+      ArrayList<String> recipeIds = new ArrayList<>();
       try (Connection connection = DriverManager.getConnection(
           "jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
       {
@@ -356,10 +356,8 @@
 
         if (rs.next())
         {
-          Ingredient ingredient = new Ingredient();
-          ingredient.setId(rs.getString("id"));
-          ingredient.setName(name);
-          return ingredient;
+          String id = rs.getString("id");
+          return new Ingredient(id,name,100);
         }
       }
       return null;

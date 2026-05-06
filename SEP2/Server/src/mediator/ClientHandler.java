@@ -60,7 +60,6 @@ public class ClientHandler implements Runnable
       OrderPackage orderPackage;
       try
       {
-        System.out.println("Client asked for something");
         switch(parser.fromJson(clientText, OrderPackage.class).getType())
         {
           case "order":
@@ -78,7 +77,6 @@ public class ClientHandler implements Runnable
             break;
           case "menu":
             model.getMenuItems();
-            System.out.println("Current menu:" + model.getMenuItemsDto());
             MenuPackage sendPackage = new MenuPackage("menu",model.getMenuItemsDto());
             out.println(parser.toJson(sendPackage));
             break;
@@ -120,9 +118,7 @@ public class ClientHandler implements Runnable
   public boolean handlePackage(OrderPackage orderPackage)
   {
     OrderDto orderDto = new OrderDto(orderPackage.getItems());
-    System.out.println(orderDto.items.size());
     Order order = model.convertOrderDtoToOrder(orderDto);
-    System.out.println(order.getItems().getFirst().getItem());
 
     model.receiveTableOrder(order,socket.getInetAddress().getHostAddress());
     return true;

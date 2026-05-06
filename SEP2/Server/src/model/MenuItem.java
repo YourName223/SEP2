@@ -55,8 +55,6 @@ public class MenuItem
     {
       string.append(menuDAO.getRecipeWithIngredients(recipeIds).getName());
       string.append(" (");
-      System.out.println(recipeIds);
-      System.out.println(menuDAO.getAllIngredientsFromRecipe(recipeIds));
 
       for(Ingredient ingredient :menuDAO.getRecipeWithIngredients(recipeIds).getIngredients())
       {

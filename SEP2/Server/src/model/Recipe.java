@@ -7,7 +7,7 @@ public class Recipe
 {
   private String id;
   private String name;
-  private List<RecipeIngredient> ingredients;
+  private ArrayList<RecipeIngredient> ingredients;
   //private ArrayList<Component> children; maybe useful for later
 
   public Recipe(String id, String name)
@@ -40,14 +40,14 @@ public class Recipe
 
   maybe useful for later */
 
+  public String getId()
+  {
+    return id;
+  }
+
   public String getName()
   {
     return name;
-  }
-
-  public void addIngredient(Ingredient ingredient)
-  {
-    ingredients.add(new RecipeIngredient(ingredient, 0));
   }
 
   public void removeIngredient(Ingredient ingredient)
@@ -71,13 +71,8 @@ public class Recipe
     ingredients.add(new RecipeIngredient(ingredient, amount));
   }
 
-  public List<RecipeIngredient> getRecipeIngredients()
+  public ArrayList<RecipeIngredient> getRecipeIngredients()
   {
     return ingredients;
-  }
-
-  public String getId()
-  {
-    return id;
   }
 }

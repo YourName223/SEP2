@@ -6,16 +6,10 @@ public class Ingredient
   private String name;
   private int stock;
 
-  public void setId(String id)
+  public Ingredient(String id, String name, int stock)
   {
     this.id = id;
-  }
-  public void setName(String name)
-  {
     this.name = name;
-  }
-  public void setStock(int stock)
-  {
     this.stock = stock;
   }
 

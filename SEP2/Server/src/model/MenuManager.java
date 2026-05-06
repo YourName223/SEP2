@@ -65,13 +65,10 @@ public class MenuManager
 
   public MenuItem getMenuItemById(String id)
   {
-    System.out.println(menuItems.size());
     for(MenuItem menuItem : menuItems)
     {
-      System.out.println(menuItem.getName());
       if(menuItem.getName().equals(id))
       {
-        System.out.println("found the menuItem");
         return menuItem;
       }
     }
