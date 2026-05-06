@@ -16,12 +16,12 @@ public class OrderListCurrent
     orders.add(new OrderCurrent(order));
   }
 
-  public void click(OrderCurrent order1)
+  public void click(OrderCurrent order)
   {
-    order1.click();
-    if(order1.shouldRemove())
+    order.click();
+    if(order.shouldRemove())
     {
-      orders.remove(order1);
+      orders.remove(order);
     }
   }
 

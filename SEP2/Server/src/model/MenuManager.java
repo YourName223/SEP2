@@ -95,6 +95,20 @@ public class MenuManager
     return null;
   }
 
+  public ArrayList<String> getIngredientNamesFromRecipeId(String recipeId)
+  {
+    ArrayList<String> ingredientNames = new ArrayList<>();
+
+    for (Recipe recipe : recipes)
+    {
+      if (recipe.getId().equals(recipeId))
+      {
+        ingredientNames.add(recipe.getName());
+      }
+    }
+    return ingredientNames;
+  }
+
   public MenuItem getMenuItem(int index)
   {
     if(menuItems.size() >= index)

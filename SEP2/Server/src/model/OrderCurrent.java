@@ -9,7 +9,7 @@ public class OrderCurrent
   public OrderCurrent(Order order)
   {
     this.order = order;
-    orderState = new Incoming();
+    orderState = new OrderStateIncoming();
     remove = false;
   }
 

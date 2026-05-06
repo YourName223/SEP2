@@ -1,9 +1,9 @@
 package model;
 
-public class Incoming extends OrderState
+public class OrderStateFinished extends OrderState
 {
   @Override public void click(OrderCurrent order)
   {
-    order.setState(new Current());
+    order.destroy();
   }
 }
