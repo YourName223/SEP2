@@ -27,7 +27,7 @@ public class ModelManager implements Model
 
   @Override public void receiveTableOrder(Order order, String tableNr)
   {
-    Order tableOrder = orderManager.createTableOrder(order,tableNr);
+    TableOrder tableOrder = orderManager.createTableOrder(order,tableNr);
     orderManager.addOrder(tableOrder);
     orderDispatcher.dispatch(tableOrder);
   }

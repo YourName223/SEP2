@@ -8,7 +8,7 @@ public class TableOrder extends Order
   {
     super();
     super.setOrderType("Table");
-    super.setMenuItems(order.getItems());
+    super.setOrderItems(order.getOrderItems());
     this.tableNr = tableNr;
   }
 

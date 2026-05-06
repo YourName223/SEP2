@@ -74,6 +74,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
     {
       Platform.runLater( () -> successProperty.set(evt.getNewValue().toString()));
     }
+    System.out.println(evt.getNewValue().toString());
   }
 
   public ObservableList<OrderItemViewModel> getOrderItems()

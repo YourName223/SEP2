@@ -22,7 +22,7 @@ public class Order
     return orderType;
   }
 
-  public void setMenuItems(ArrayList<OrderItem> items)
+  public void setOrderItems(ArrayList<OrderItem> items)
   {
     this.items = items;
   }
@@ -50,9 +50,19 @@ public class Order
     }
   }
 
-  public ArrayList<OrderItem> getItems()
+  public ArrayList<OrderItem> getOrderItems()
   {
     return items;
+  }
+
+  public ArrayList<MenuItem> getMenuItems()
+  {
+    ArrayList<MenuItem> menuItems = new ArrayList<>();
+    for (OrderItem orderItem : getOrderItems())
+    {
+      menuItems.add(orderItem.getItem());
+    }
+    return menuItems;
   }
 
   public String toString()

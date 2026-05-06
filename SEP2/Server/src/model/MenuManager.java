@@ -1,6 +1,5 @@
 package model;
 
-import Repository.MenuDAO;
 import Repository.MenuDAOImpl;
 
 import java.util.ArrayList;
@@ -8,15 +7,18 @@ import java.util.ArrayList;
 public class MenuManager
 {
   ArrayList<MenuItem> menuItems;
+  ArrayList<Recipe> recipes;
   MenuDAOImpl menuDAO;
 
   public MenuManager()
   {
     menuItems = new ArrayList<>();
+    recipes = new ArrayList<>();
     try
     {
-      menuDAO = new MenuDAOImpl();
-      saveFromDataBase();
+      menuDAO = MenuDAOImpl.getInstance();
+      getMenuItemsFromDatabase();
+      getRecipesFromDatabase();
     }
     catch (Exception e)
     {
@@ -24,7 +26,7 @@ public class MenuManager
     }
   }
 
-  private void saveFromDataBase()
+  private void getMenuItemsFromDatabase()
   {
     for(String name : menuDAO.getAllNames())
     {
@@ -35,6 +37,24 @@ public class MenuManager
       catch (Exception e)
       {
 
+      }
+    }
+  }
+
+  private void getRecipesFromDatabase()
+  {
+    for(MenuItem menuItem : menuItems)
+    {
+      for(String recipeId : menuDAO.getRecipeIdsFromMenuItem(menuItem.getName()))
+      {
+        try
+        {
+          recipes.add(menuDAO.getRecipeWithIngredients(recipeId));
+        }
+        catch (Exception e)
+        {
+
+        }
       }
     }
   }

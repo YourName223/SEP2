@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 public class OrderManager
 {
-  private ArrayList<Order> orders;
+  private OrderListCurrent orderList;
+
   private MenuManager menuManager;
 
   public OrderManager(MenuManager menuManager)
   {
     this.menuManager = menuManager;
-    orders = new ArrayList<>();
+    orderList = new OrderListCurrent();
   }
 
   public TableOrder createTableOrder(Order order, String tableNr)
@@ -20,8 +21,13 @@ public class OrderManager
 
   public void addOrder(Order order)
   {
-    orders.add(order);
+    orderList.addOrder(order);
     new OrderPrinter().printOrder(order);
+  }
+
+  public OrderListCurrent getOrderList()
+  {
+    return orderList;
   }
 
   public Order convertOrderDtoToOrder(OrderDto orderDto)
@@ -40,7 +46,7 @@ public class OrderManager
       items.add(orderItem);
     }
 
-    order.setMenuItems(items);
+    order.setOrderItems(items);
 
     return order;
   }

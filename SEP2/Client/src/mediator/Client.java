@@ -62,11 +62,10 @@ public class Client
 
   public void received(String line) throws ParserException
   {
-    System.out.println("Got something  from the server");
     System.out.println(parser.fromJson(line, OrderPackage.class).getType());
     switch(parser.fromJson(line, OrderPackage.class).getType())
     {
-      case "order":
+      case "Order":
         orderPackage = parser.fromJson(line, OrderPackage.class);
         model.fireProperty("Update",orderPackage.getMessage());
         break;
