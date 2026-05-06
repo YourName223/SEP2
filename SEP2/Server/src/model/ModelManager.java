@@ -7,12 +7,14 @@ public class ModelManager implements Model
   private OrderManager orderManager;
   private OrderDispatcher orderDispatcher;
   private MenuManager menuManager;
+  private RecipeManager recipeManager;
 
   public ModelManager()
   {
     menuManager = new MenuManager();
     orderManager = new OrderManager(menuManager);
     orderDispatcher = new OrderDispatcher(orderManager);
+    recipeManager = new RecipeManager();
   }
 
   @Override public Order convertOrderDtoToOrder(OrderDto orderDto)

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class MenuManager
 {
   ArrayList<MenuItem> menuItems;
-  ArrayList<Recipe> recipes;
   MenuDAOImpl menuDAO;
 
   public MenuManager()
@@ -37,24 +36,6 @@ public class MenuManager
       catch (Exception e)
       {
 
-      }
-    }
-  }
-
-  private void getRecipesFromDatabase()
-  {
-    for(MenuItem menuItem : menuItems)
-    {
-      for(String recipeId : menuDAO.getRecipeIdsFromMenuItem(menuItem.getName()))
-      {
-        try
-        {
-          recipes.add(menuDAO.getRecipeWithIngredients(recipeId));
-        }
-        catch (Exception e)
-        {
-
-        }
       }
     }
   }
@@ -93,20 +74,6 @@ public class MenuManager
       }
     }
     return null;
-  }
-
-  public ArrayList<String> getIngredientNamesFromRecipeId(String recipeId)
-  {
-    ArrayList<String> ingredientNames = new ArrayList<>();
-
-    for (Recipe recipe : recipes)
-    {
-      if (recipe.getId().equals(recipeId))
-      {
-        ingredientNames.add(recipe.getName());
-      }
-    }
-    return ingredientNames;
   }
 
   public MenuItem getMenuItem(int index)
