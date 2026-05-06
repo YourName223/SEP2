@@ -17,7 +17,6 @@ public class MenuManager
     {
       menuDAO = MenuDAOImpl.getInstance();
       getMenuItemsFromDatabase();
-      getRecipesFromDatabase();
     }
     catch (Exception e)
     {
