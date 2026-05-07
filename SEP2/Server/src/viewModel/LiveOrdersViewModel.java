@@ -1,18 +1,25 @@
 package viewModel;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
 
-public class LiveOrdersViewModel {
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
+public class LiveOrdersViewModel implements PropertyChangeListener
+{
+  private ObservableList<OrderCurrent> orderCurrents = FXCollections.observableArrayList();
   private final Model model;
 
-  public LiveOrdersViewModel(Model model) {
+  public LiveOrdersViewModel(Model model)
+  {
     this.model = model;
+    loadFromModel();
   }
 
   public ObservableList<OrderCurrent> getOrders() {
-    return model.getOrders();
+    return orderCurrents;
   }
 
   public RecipeManager getRecipeManager() {
@@ -25,5 +32,16 @@ public class LiveOrdersViewModel {
 
   public void clickOrder(OrderCurrent order) {
     order.click();
+  }
+
+  public void loadFromModel()
+  {
+    orderCurrents.clear();
+    orderCurrents.addAll(model.getOrdersCurrent());
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt)
+  {
+    loadFromModel();
   }
 }

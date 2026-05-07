@@ -63,8 +63,6 @@ public class OrderManager {
 
   private OrderListCurrent orderList;
   private MenuManager menuManager;
-  private ObservableList<OrderCurrent> observableOrders =
-      FXCollections.observableArrayList();
 
   public OrderManager(MenuManager menuManager) {
     this.menuManager = menuManager;
@@ -74,11 +72,6 @@ public class OrderManager {
   public void addOrder(Order order) {
     orderList.addOrder(order);
     new OrderPrinter().printOrder(order);
-    Platform.runLater(() -> observableOrders.add(new OrderCurrent(order)));
-  }
-
-  public ObservableList<OrderCurrent> getOrders() {
-    return observableOrders;
   }
 
   public OrderListCurrent getOrderList() {

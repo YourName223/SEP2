@@ -2,10 +2,13 @@ package model;
 
 import javafx.collections.ObservableList;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 public class ModelManager implements Model
 {
+  private PropertyChangeSupport property;
   private OrderManager orderManager;
   private OrderDispatcher orderDispatcher;
   private MenuManager menuManager;
@@ -17,6 +20,7 @@ public class ModelManager implements Model
     orderManager = new OrderManager(menuManager);
     orderDispatcher = new OrderDispatcher(orderManager);
     recipeManager = new RecipeManager();
+    property = new PropertyChangeSupport(this);
   }
 
   @Override public Order convertOrderDtoToOrder(OrderDto orderDto)
@@ -45,12 +49,24 @@ public class ModelManager implements Model
     orderManager.addOrder(order);
   }
 
-  @Override public ObservableList<OrderCurrent> getOrders() {
-    return orderManager.getOrders();
+  @Override public ArrayList<OrderCurrent> getOrdersCurrent() {
+    return orderManager.getOrderList().getOrders();
   }
 
   @Override public RecipeManager getRecipeManager() {
     return recipeManager;
+  }
+
+  @Override public void addListener(String propertyName,
+      PropertyChangeListener listener)
+  {
+    property.addPropertyChangeListener(propertyName,listener);
+  }
+
+  @Override public void removeListener(String propertyName,
+      PropertyChangeListener listener)
+  {
+    property.removePropertyChangeListener(propertyName,listener);
   }
 /*
   @Override public Component createComponent(String name)

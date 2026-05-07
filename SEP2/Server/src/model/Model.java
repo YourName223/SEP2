@@ -1,10 +1,11 @@
 package model;
 
 import javafx.collections.ObservableList;
+import utility.UnnamedPropertyChangeSubject;
 
 import java.util.ArrayList;
 
-public interface Model
+public interface Model extends UnnamedPropertyChangeSubject
 {
   public Order convertOrderDtoToOrder(OrderDto orderDto);
 
@@ -16,7 +17,7 @@ public interface Model
 
   void addOrder(Order order);
 
-  ObservableList<OrderCurrent> getOrders();
+  ArrayList<OrderCurrent> getOrdersCurrent();
 
   RecipeManager getRecipeManager();
 /*
