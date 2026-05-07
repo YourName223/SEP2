@@ -2,90 +2,65 @@ package view;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
-import model.*;
-
-import java.util.ArrayList;
+import model.Order;
 import java.util.List;
+import model.OrderCurrent;
+import model.OrderState;
+import model.RecipeManager;
 
-public class LiveOrdersViewController {
-
+public class LiveOrdersViewController
+{
   @FXML VBox incomingOrderBox;
   @FXML VBox currentOrderBox;
   @FXML VBox finishedOrderBox;
 
-  private IncomingOrderRenderer incomingRenderer;
-  private CurrentOrderRenderer currentRenderer;
-  private FinishedOrderRenderer finishedRenderer;
-
+  private List<OrderCurrent> ordersCurrent = new java.util.ArrayList<>();
   private final RecipeManager recipeManager;
 
-  private final List<OrderCurrent> ordersCurrent = new ArrayList<>();
 
-  private OrderCardRenderer renderer;
-
-  public LiveOrdersViewController(RecipeManager recipeManager) {
-    this.recipeManager = recipeManager;
-  }
-
-  @FXML
-  public void initialize() {
-
-    incomingRenderer = new IncomingOrderRenderer(this);
-
-    currentRenderer = new CurrentOrderRenderer(
-        this,
-        recipeManager
-    );
-
-    finishedRenderer = new FinishedOrderRenderer(this);
-  }
+  private OrderCardRenderer incomingOrderRenderer = new IncomingOrderRenderer(this);
+  private OrderCardRenderer currentOrderRenderer = new CurrentOrderRenderer(this, recipeManager);
+  private OrderCardRenderer finishedOrderRenderer = new FinishedOrderRenderer(this);
 
   public void refresh() {
-
     incomingOrderBox.getChildren().clear();
     currentOrderBox.getChildren().clear();
     finishedOrderBox.getChildren().clear();
 
     for (OrderCurrent o : ordersCurrent) {
 
-      VBox container;
+      switch (o.getState()) {
 
-      if (o.getState() instanceof OrderStateCurrent) {
-        container = currentOrderBox;
-      }
-      else if (o.getState() instanceof OrderStateFinished) {
-        container = finishedOrderBox;
-      }
-      else {
-        container = incomingOrderBox;
-      }
+        case INCOMING -> incomingOrderRenderer.render(o, incomingOrderBox);
 
-      o.getState().render(o, container, renderer);
+        case CURRENT -> currentOrderRenderer.render(o, currentOrderBox);
+
+        case FINISHED -> finishedOrderRenderer.render(o, finishedOrderBox);
+      }
     }
   }
 
   public void addOrder(Order order) {
-    ordersCurrent.add(new OrderCurrent(order));
-    refresh();
+
+    OrderCurrent liveOrder = new OrderCurrent(order);
+    ordersCurrent.add(liveOrder);
+
+    //refresh();
   }
 
   public void makeButton(OrderCurrent order) {
-    order.click();
-    refresh();
+    order.setState(OrderState.CURRENT);
+
+    //refresh();
   }
 
   public void doneButton(OrderCurrent order) {
-    order.click();
-    refresh();
+    order.setState(OrderState.FINISHED);
+    // refresh();
   }
 
   public void takeButton(OrderCurrent order) {
-    order.destroy();
     ordersCurrent.remove(order);
-    refresh();
+    // refresh();
   }
-
-  public VBox getIncomingOrderBox() { return incomingOrderBox; }
-  public VBox getCurrentOrderBox() { return currentOrderBox; }
-  public VBox getFinishedOrderBox() { return finishedOrderBox; }
 }

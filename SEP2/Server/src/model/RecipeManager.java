@@ -36,9 +36,9 @@ public class RecipeManager
 
   private void getRecipesFromDatabase()
   {
-    for(String menuName : menuDAO.getAllNames())
+    for(String menuName : menuDAO.getAllMenuNames())
     {
-      for(String recipeId : menuDAO.getRecipeIdsFromMenuItem(menuName))
+      for(String recipeId : menuDAO.getRecipeIdsFromMenuItemName(menuName))
       {
         try
         {

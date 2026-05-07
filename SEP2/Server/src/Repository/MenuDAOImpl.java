@@ -51,7 +51,7 @@
       return null;
     }*/
 
-    @Override public ArrayList<String> getAllNames()
+    @Override public ArrayList<String> getAllMenuNames()
     {
       ArrayList<String> names = new ArrayList<>();
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
@@ -266,7 +266,7 @@
     }
 
     @Override
-    public ArrayList<String> getRecipeIdsFromMenuItem(String menuName)
+    public ArrayList<String> getRecipeIdsFromMenuItemName(String menuName)
     {
       ArrayList<String> recipeIds = new ArrayList<>();
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))

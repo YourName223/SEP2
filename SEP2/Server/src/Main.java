@@ -82,7 +82,7 @@ public class Main {
     MenuDAOImpl dao = MenuDAOImpl.getInstance();
 
     // Test getAllNames
-    ArrayList<String> names = dao.getAllNames();
+    ArrayList<String> names = dao.getAllMenuNames();
     System.out.println("=== Menu navne ===");
     System.out.println(names);
 
@@ -104,7 +104,7 @@ public class Main {
 
     // Test getRecipeIdsFromMenuItem
     System.out.println("\n=== Recipe IDs i Pizza menu ===");
-    List<String> recipeIds = dao.getRecipeIdsFromMenuItem("Pizza menu");
+    List<String> recipeIds = dao.getRecipeIdsFromMenuItemName("Pizza menu");
     System.out.println(recipeIds);
 
     // Test getRecipeWithIngredients med første recipe id

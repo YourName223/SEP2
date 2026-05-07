@@ -11,12 +11,12 @@ import java.util.List;
 public interface MenuDAO
 {
   ArrayList<MenuItem> readByName(String searchString) throws SQLException; // eller behold List<MenuItem>
-  ArrayList<String> getAllNames();
+  ArrayList<String> getAllMenuNames();
   ArrayList<Recipe> getAllRecipesFromMenuItem(String menuName);
   ArrayList<Ingredient> getAllIngredientsFromRecipe(String recipeName);
   ArrayList<String> getRecipeNamesFromMenuItem(String menuName);
   Recipe getRecipeWithIngredients(String recipeId);
-  ArrayList<String> getRecipeIdsFromMenuItem(String name);
+  ArrayList<String> getRecipeIdsFromMenuItemName(String name);
   Ingredient createIngredient(String name) throws SQLException;
   Recipe createRecipe(String name, ArrayList<Ingredient> ingredients) throws SQLException;
   MenuItem createMenu(String name, String allergies, double price, ArrayList<Recipe> recipes) throws SQLException;
