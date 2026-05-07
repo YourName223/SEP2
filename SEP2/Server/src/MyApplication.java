@@ -16,15 +16,15 @@ public class MyApplication extends Application
       ViewModelFactory viewModelFactory = new ViewModelFactory(model);
       ViewHandler view = new ViewHandler(viewModelFactory);
       view.start(primaryStage);
+
+      Order order = new Order();
+      order.addMenuItem(model.getMenuItems().get(0));
+
+      model.receiveTableOrder(order,"23");
     }
     catch (Exception e)
     {
       e.printStackTrace();
     }
-
-    Order order = new Order();
-    order.addMenuItem(model.getMenuItems().get(0));
-
-    model.receiveTableOrder(order,"23");
   }
 }
