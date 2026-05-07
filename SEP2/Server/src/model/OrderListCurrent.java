@@ -25,6 +25,11 @@ public class OrderListCurrent
     }
   }
 
+  public void removeOrder(OrderCurrent order)
+  {
+    orders.remove(order);
+  }
+
   public ArrayList<OrderCurrent> getOrders()
   {
     return orders;

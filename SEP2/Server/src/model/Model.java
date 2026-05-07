@@ -13,6 +13,8 @@ public interface Model extends UnnamedPropertyChangeSubject
 
   public void clickOnOrder(OrderCurrent order);
 
+  public void removeOrder(OrderCurrent order);
+
   public void receiveTableOrder(Order order, String tableNr);
 
   public ArrayList<MenuItem> getMenuItems();

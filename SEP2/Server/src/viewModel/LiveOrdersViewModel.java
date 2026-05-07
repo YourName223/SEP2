@@ -32,6 +32,11 @@ public class LiveOrdersViewModel implements PropertyChangeListener
     model.clickOnOrder(order);
   }
 
+  public void removeOrder(OrderCurrent order)
+  {
+    model.removeOrder(order);
+  }
+
   public void loadFromModel()
   {
     System.out.println("Test3");

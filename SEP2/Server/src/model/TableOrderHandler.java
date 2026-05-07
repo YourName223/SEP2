@@ -3,13 +3,11 @@ package model;
 public class TableOrderHandler implements OrderHandler
 {
   private TableManager tableManager;
-  private OrderManager orderManager;
   private String type;
 
-  public TableOrderHandler(OrderManager orderManager)
+  public TableOrderHandler(TableManager tableManager)
   {
-    tableManager = new TableManager();
-    this.orderManager = orderManager;
+    this.tableManager = tableManager;
     type = "Table";
   }
 

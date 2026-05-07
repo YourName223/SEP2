@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TableList
 {
-  ArrayList<Table> tables;
+  private ArrayList<Table> tables;
 
   public TableList()
   {
@@ -19,6 +19,11 @@ public class TableList
   public void addOrder(String tableNr, Order order)
   {
     getTable(tableNr).assignOrder(order);
+  }
+
+  public void removeOrder(Order order, String tableNr)
+  {
+    getTable(tableNr).removeOrder(order);
   }
 
   public Table getTable(String tableNr)

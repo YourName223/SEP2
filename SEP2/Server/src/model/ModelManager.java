@@ -13,12 +13,14 @@ public class ModelManager implements Model
   private OrderDispatcher orderDispatcher;
   private MenuManager menuManager;
   private RecipeManager recipeManager;
+  private TableManager tableManager;
 
   public ModelManager()
   {
     menuManager = new MenuManager();
+    tableManager = new TableManager();
     orderManager = new OrderManager(menuManager);
-    orderDispatcher = new OrderDispatcher(orderManager);
+    orderDispatcher = new OrderDispatcher(tableManager);
     recipeManager = new RecipeManager();
     property = new PropertyChangeSupport(this);
   }
@@ -36,6 +38,13 @@ public class ModelManager implements Model
   @Override public void clickOnOrder(OrderCurrent order)
   {
     orderManager.clickOnOrder(order);
+    property.firePropertyChange("Update",null,null);
+  }
+
+  @Override public void removeOrder(OrderCurrent order)
+  {
+    orderManager.removeOrder(order);
+    tableManager.removeOrder(order.getOrder());
     property.firePropertyChange("Update",null,null);
   }
 

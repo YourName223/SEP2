@@ -9,10 +9,10 @@ public class OrderDispatcher
   private List<OrderHandler> handlerList;
   private Map<String, OrderHandler> orderHandlerMap;
 
-  public OrderDispatcher(OrderManager orderManager)
+  public OrderDispatcher(TableManager tableManager)
   {
     handlerList = List.of(
-        new TableOrderHandler(orderManager)
+        new TableOrderHandler(tableManager)
     );
 
     orderHandlerMap = new HashMap<>();

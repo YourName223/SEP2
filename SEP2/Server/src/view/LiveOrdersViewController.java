@@ -117,6 +117,12 @@ public class LiveOrdersViewController
     refresh();
   }
 
+  public void deleteButton(OrderCurrent order)
+  {
+    viewModel.removeOrder(order);
+    refresh();
+  }
+
   public VBox getIncomingOrderBox()
   {
     return incomingOrderBox;

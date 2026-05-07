@@ -79,6 +79,11 @@ public class OrderManager {
     orderList.click(order);
   }
 
+  public void removeOrder(OrderCurrent order)
+  {
+    orderList.removeOrder(order);
+  }
+
   public OrderListCurrent getOrderList() {
     return orderList;
   }

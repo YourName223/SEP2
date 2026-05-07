@@ -28,6 +28,11 @@ public class Table
     return totalOrder;
   }
 
+  public void removeOrder(Order order)
+  {
+    totalOrder.remove(order);
+  }
+
   public Table copy()
   {
     Table table = new Table(tableNr);

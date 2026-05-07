@@ -31,10 +31,14 @@ public class IncomingOrderRenderer implements OrderCardRenderer {
       );
     }
 
+    Button btn1 = createButton("Delete");
+    btn1.setOnAction(e -> controller.deleteButton(liveOrder));
+
     Button btn = createButton("MAKE");
     btn.setOnAction(e -> controller.makeButton(liveOrder));
 
     card.getChildren().add(btn);
+    card.getChildren().add(btn1);
 
     container.getChildren().add(card);
   }

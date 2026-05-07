@@ -17,4 +17,15 @@ public class TableManager
     }
     return tableList.getTable(tableNr);
   }
+
+  public void removeOrder(Order order)
+  {
+    if(order.getOrderType().equals("Table"))
+    {
+      TableOrder tableOrder = (TableOrder)order;
+      String tableNr = tableOrder.getTableNr();
+
+      tableList.removeOrder(order,tableNr);
+    }
+  }
 }
