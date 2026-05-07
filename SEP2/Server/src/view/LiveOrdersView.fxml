@@ -46,7 +46,7 @@
                                     VBox.vgrow="ALWAYS">
 
                             <content>
-                                <VBox fx:id="incomingOrderContainer"
+                                <VBox fx:id="incomingOrderBox"
                                       maxWidth="-Infinity"
                                       minHeight="-Infinity"
                                       minWidth="-Infinity"
@@ -81,7 +81,7 @@
                                     VBox.vgrow="ALWAYS">
 
                             <content>
-                                <VBox fx:id="currentOrderContainer"
+                                <VBox fx:id="currentOrderBox"
                                       maxWidth="-Infinity"
                                       minHeight="-Infinity"
                                       minWidth="-Infinity"
@@ -120,7 +120,7 @@
                                     VBox.vgrow="ALWAYS">
 
                             <content>
-                                <VBox fx:id="finishedOrderContainer"
+                                <VBox fx:id="finishedOrderBox"
                                       maxWidth="-Infinity"
                                       minHeight="-Infinity"
                                       minWidth="-Infinity"
