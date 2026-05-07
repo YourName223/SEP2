@@ -28,7 +28,7 @@ public class MenuManager
 
   private void getMenuItemsFromDatabase()
   {
-    for(String name : menuDAO.getAllNames())
+    for(String name : menuDAO.getAllMenuNames())
     {
       try
       {
@@ -50,9 +50,14 @@ public class MenuManager
   {
     for(MenuItem menuItem : getMenuItems())
     {
+      ArrayList<String> recipeId = new ArrayList<>();
+      for(Recipe recipe : menuItem.getRecipes())
+      {
+        recipeId.add(recipe.getId());
+      }
       try
       {
-        menuItemsDto.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),menuItem.getRecipeIds()));
+        menuItemsDto.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),recipeId));
       }
       catch (Exception e)
       {
