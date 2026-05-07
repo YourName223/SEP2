@@ -46,6 +46,7 @@ public class LiveOrdersViewController
 
   public void reset()
   {
+    viewModel.loadFromModel();
     refresh();
   }
 
