@@ -113,7 +113,7 @@ public class LiveOrdersViewController
 
   public void takeButton(OrderCurrent order)
   {
-    viewModel.clickOrder(order);
+    order.click();
     refresh();
   }
 
