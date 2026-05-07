@@ -1,5 +1,7 @@
 package view;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -21,17 +23,29 @@ public class LiveOrdersViewController
   private CurrentOrderRenderer currentRenderer;
   private FinishedOrderRenderer finishedRenderer;
 
-  private final List<OrderCurrent> ordersCurrent = new ArrayList<>();
+  private List<OrderCurrent> ordersCurrent;
 
   private ViewHandler viewHandler;
   private LiveOrdersViewModel viewModel;
   private Region root;
 
-  public LiveOrdersViewController()
+  public void init(ViewHandler viewHandler, LiveOrdersViewModel viewModel,
+      Region root)
   {
+    this.viewHandler = viewHandler;
+    this.viewModel = viewModel;
+    this.root = root;
+
+    incomingRenderer = new IncomingOrderRenderer(this);
+
+    currentRenderer = new CurrentOrderRenderer(this);
+
+    finishedRenderer = new FinishedOrderRenderer(this);
+
   }
 
-  public void reset() {
+  public void reset()
+  {
     refresh();
   }
 
@@ -41,26 +55,17 @@ public class LiveOrdersViewController
   }
 
 
-  @FXML public void initialize()
-  {
-
-    incomingRenderer = new IncomingOrderRenderer(this);
-
-    currentRenderer = new CurrentOrderRenderer(this);
-
-    finishedRenderer = new FinishedOrderRenderer(this);
-  }
 
   public void refresh()
   {
-
     incomingOrderBox.getChildren().clear();
     currentOrderBox.getChildren().clear();
     finishedOrderBox.getChildren().clear();
 
+    ordersCurrent = viewModel.getOrders();
+
     for (OrderCurrent o : ordersCurrent)
     {
-
       VBox container;
       OrderCardRenderer renderer;
 
