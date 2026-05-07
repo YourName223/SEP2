@@ -52,7 +52,12 @@ public class MenuManager
     {
       try
       {
-        menuItemsDto.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),menuItem.getRecipeIds()));
+        ArrayList<String> recipeId = new ArrayList<>();
+        for(Recipe recipe : menuItem.getRecipes())
+        {
+          recipeId.add(recipe.getId());
+        }
+        menuItemsDto.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),recipeId));
       }
       catch (Exception e)
       {
