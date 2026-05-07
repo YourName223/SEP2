@@ -16,6 +16,7 @@ public class LiveOrdersViewModel implements PropertyChangeListener
   {
     this.model = model;
     loadFromModel();
+    model.addListener("Update",this);
   }
 
   public ObservableList<OrderCurrent> getOrders() {
