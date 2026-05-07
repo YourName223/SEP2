@@ -39,6 +39,7 @@ public class ModelManager implements Model
     orderManager.addOrder(tableOrder);
     orderDispatcher.dispatch(tableOrder);
     property.firePropertyChange("Update",null,null);
+    System.out.println("Test1");
   }
 
   @Override public ArrayList<MenuItem> getMenuItems()

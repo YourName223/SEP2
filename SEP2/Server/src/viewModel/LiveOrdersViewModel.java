@@ -33,12 +33,16 @@ public class LiveOrdersViewModel implements PropertyChangeListener
 
   public void loadFromModel()
   {
+    System.out.println("Test3");
     orderCurrents.clear();
+    System.out.println("Test4");
     orderCurrents.addAll(model.getOrdersCurrent());
+    System.out.println("Test5");
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
+    System.out.println("Test2");
     loadFromModel();
   }
 }
