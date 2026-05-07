@@ -42,8 +42,9 @@ public class LiveOrdersViewController
 
     finishedRenderer = new FinishedOrderRenderer(this);
 
-    viewModel.getOrders().addListener(
-        (InvalidationListener) change -> refresh());
+    viewModel.getOrders().addListener((javafx.collections.ListChangeListener<OrderCurrent>) change -> {
+      refresh();
+    });
 
   }
 
