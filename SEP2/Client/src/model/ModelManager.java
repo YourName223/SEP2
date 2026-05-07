@@ -19,7 +19,7 @@ public class ModelManager implements Model
     orderManager = new OrderManager();
     property = new PropertyChangeSupport(this);
     orderManager.createOrder();
-    client = new Client(this,"10.154.218.20",2910);
+    client = new Client(this,"10.154.208.74",2910);
     getMenuFromDataBase();
   }
 
