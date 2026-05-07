@@ -1,5 +1,6 @@
 package viewModel;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
@@ -42,7 +43,9 @@ public class LiveOrdersViewModel implements PropertyChangeListener
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    System.out.println("Test2");
-    loadFromModel();
+    Platform.runLater(() -> {
+      System.out.println("Test2");
+      loadFromModel();
+    });
   }
 }
