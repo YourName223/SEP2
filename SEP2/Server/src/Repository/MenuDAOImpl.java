@@ -160,13 +160,18 @@
         ArrayList<MenuItem> result = new ArrayList<>();
         while (resultSet.next())
         {
-
           String name = resultSet.getString("name");
           String allergies = resultSet.getString("allergies");
           double price = resultSet.getDouble("price");
-          ArrayList<Recipe> recipeList = new ArrayList<>(getAllRecipesFromMenuItem(name));
-          MenuItem menuItem = new MenuItem(name, allergies, price, recipeList);
-          result.add(menuItem);
+
+          ArrayList<String> recipeIds = getRecipeIdsFromMenuItemName(name);
+          ArrayList<Recipe> recipeList = new ArrayList<>();
+          for (String recipeId : recipeIds)
+          {
+            recipeList.add(getRecipeWithIngredients(recipeId));
+          }
+
+          result.add(new MenuItem(name, allergies, price, recipeList));
         }
         return result;
       }

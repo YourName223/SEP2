@@ -13,7 +13,7 @@ public interface OrderCardRenderer {
     VBox card = new VBox();
 
     card.setStyle(
-        "-fx-background-color: #2e2e2e;" +
+        "-fx-background-color: #FFFFFF;" +
             "-fx-padding: 10;" +
             "-fx-background-radius: 8;"
     );
