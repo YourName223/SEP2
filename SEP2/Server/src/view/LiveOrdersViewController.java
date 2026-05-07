@@ -1,5 +1,6 @@
 package view;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -40,6 +41,9 @@ public class LiveOrdersViewController
     currentRenderer = new CurrentOrderRenderer(this);
 
     finishedRenderer = new FinishedOrderRenderer(this);
+
+    viewModel.getOrders().addListener(
+        (InvalidationListener) change -> refresh());
 
   }
 
@@ -92,12 +96,6 @@ public class LiveOrdersViewController
   {
 
     renderer.render(order, container);
-  }
-
-  public void addOrder(Order order)
-  {
-    viewModel.addOrder(order);
-    refresh();
   }
 
   public void makeButton(OrderCurrent order)

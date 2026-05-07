@@ -15,8 +15,6 @@ public interface Model extends UnnamedPropertyChangeSubject
 
   public ArrayList<MenuItem> getMenuItems();
 
-  void addOrder(Order order);
-
   ArrayList<OrderCurrent> getOrdersCurrent();
 
   RecipeManager getRecipeManager();

@@ -46,10 +46,6 @@ public class ModelManager implements Model
     return menuManager.getMenuItems();
   }
 
-  @Override public void addOrder(Order order) {
-    orderManager.addOrder(order);
-  }
-
   @Override public ArrayList<OrderCurrent> getOrdersCurrent() {
     return orderManager.getOrderList().getOrders();
   }
