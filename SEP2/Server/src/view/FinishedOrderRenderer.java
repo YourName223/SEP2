@@ -19,19 +19,26 @@ public class FinishedOrderRenderer implements OrderCardRenderer {
 
     Order order = liveOrder.getOrder();
 
-    // Table number
-    card.getChildren().add(
-        createLabel("Table: " + order.getTableNumber())
-    );
 
-    // Items
+    if (order instanceof TableOrder) {
+      TableOrder tableOrder = (TableOrder) order;
+
+      card.getChildren().add(
+          createLabel( tableOrder.getTableNr())
+      );
+    } else {
+      card.getChildren().add(
+          createLabel("Not for here")
+      );
+    }
+
     for (OrderItem item : order.getOrderItems()) {
       card.getChildren().add(
           createLabel(item.getItem().getName())
       );
     }
 
-    // TAKE button
+
     Button btn = createButton("TAKE");
     btn.setOnAction(e -> controller.takeButton(liveOrder));
 
