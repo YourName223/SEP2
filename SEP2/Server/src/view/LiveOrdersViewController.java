@@ -23,7 +23,6 @@ public class LiveOrdersViewController
   private CurrentOrderRenderer currentRenderer;
   private FinishedOrderRenderer finishedRenderer;
 
-  private List<OrderCurrent> ordersCurrent;
 
   private ViewHandler viewHandler;
   private LiveOrdersViewModel viewModel;
@@ -63,9 +62,7 @@ public class LiveOrdersViewController
     currentOrderBox.getChildren().clear();
     finishedOrderBox.getChildren().clear();
 
-    ordersCurrent = viewModel.getOrders();
-
-    for (OrderCurrent o : ordersCurrent)
+    for (OrderCurrent o : viewModel.getOrders())
     {
       VBox container;
       OrderCardRenderer renderer;
@@ -99,7 +96,7 @@ public class LiveOrdersViewController
 
   public void addOrder(Order order)
   {
-    ordersCurrent.add(new OrderCurrent(order));
+    viewModel.addOrder(order);
     refresh();
   }
 
@@ -117,8 +114,7 @@ public class LiveOrdersViewController
 
   public void takeButton(OrderCurrent order)
   {
-    order.destroy();
-    ordersCurrent.remove(order);
+    viewModel.clickOrder(order);
     refresh();
   }
 
