@@ -62,6 +62,7 @@ public class Main {
 
 import Repository.MenuDAO;
 import Repository.MenuDAOImpl;
+import javafx.application.Application;
 import mediator.Server;
 import model.*;
 
@@ -81,7 +82,7 @@ public class Main {
 
     MenuDAOImpl dao = MenuDAOImpl.getInstance();
 
-    // Test getAllNames
+    /*// Test getAllNames
     ArrayList<String> names = dao.getAllMenuNames();
     System.out.println("=== Menu navne ===");
     System.out.println(names);
@@ -149,8 +150,9 @@ public class Main {
     System.out.println("=== Menu navne ===");
     System.out.println(newNames);
     Test
-     */
 
-    System.out.println("\nServer kører på port 2910...");
+
+    System.out.println("\nServer kører på port 2910...");*/
+    Application.launch(MyApplication.class);
   }
 }

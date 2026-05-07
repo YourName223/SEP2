@@ -1,44 +1,29 @@
 package viewModel;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
 
 public class LiveOrdersViewModel {
 
-  private final OrderManager orderManager;
-  private final RecipeManager recipeManager;
-  private final ObservableList<OrderCurrent> orders =
-      FXCollections.observableArrayList();
+  private final Model model;
 
-  public LiveOrdersViewModel(OrderManager orderManager, RecipeManager recipeManager) {
-    this.orderManager = orderManager;
-    this.recipeManager = recipeManager;
+  public LiveOrdersViewModel(Model model) {
+    this.model = model;
   }
 
   public ObservableList<OrderCurrent> getOrders() {
-    return orders;
+    return model.getOrders();
   }
 
   public RecipeManager getRecipeManager() {
-    return recipeManager;
+    return model.getRecipeManager();
   }
 
   public void addOrder(Order order) {
-    orderManager.addOrder(order);
-    OrderCurrent oc = new OrderCurrent(order);
-    orders.add(oc);
+    model.addOrder(order);
   }
 
   public void clickOrder(OrderCurrent order) {
     order.click();
-    if (order.shouldRemove()) {
-      orders.remove(order);
-    } else {
-      int idx = orders.indexOf(order);
-      if (idx >= 0) {
-        orders.set(idx, order);
-      }
-    }
   }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public class ModelManager implements Model
@@ -37,6 +39,18 @@ public class ModelManager implements Model
   @Override public ArrayList<MenuItem> getMenuItems()
   {
     return menuManager.getMenuItems();
+  }
+
+  @Override public void addOrder(Order order) {
+    orderManager.addOrder(order);
+  }
+
+  @Override public ObservableList<OrderCurrent> getOrders() {
+    return orderManager.getOrders();
+  }
+
+  @Override public RecipeManager getRecipeManager() {
+    return recipeManager;
   }
 /*
   @Override public Component createComponent(String name)

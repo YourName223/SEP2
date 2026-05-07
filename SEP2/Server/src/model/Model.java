@@ -1,5 +1,7 @@
 package model;
 
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 public interface Model
@@ -11,6 +13,12 @@ public interface Model
   public void receiveTableOrder(Order order, String tableNr);
 
   public ArrayList<MenuItem> getMenuItems();
+
+  void addOrder(Order order);
+
+  ObservableList<OrderCurrent> getOrders();
+
+  RecipeManager getRecipeManager();
 /*
   public Component createComponent(String name);
 

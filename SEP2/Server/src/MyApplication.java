@@ -12,13 +12,13 @@ public class MyApplication extends Application
     Model model = new ModelManager();
     try
     {
-      ViewModelFactory viewModelFactory = ViewModelFactory.getInstance();
+      ViewModelFactory viewModelFactory = new ViewModelFactory(model);
       ViewHandler view = new ViewHandler(viewModelFactory);
       view.start(primaryStage);
     }
     catch (Exception e)
     {
-
+      e.printStackTrace();
     }
   }
 }

@@ -17,6 +17,7 @@ public class TableOrderHandler implements OrderHandler
   {
     Table table = tableManager.secureTable(((TableOrder)order).getTableNr());
     table.assignOrder(order);
+    orderManager.addOrder(order); // Tilføj denne linje
   }
 
   @Override public String getType()
