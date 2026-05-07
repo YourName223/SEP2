@@ -38,8 +38,8 @@ public class OrderCurrent
     return order;
   }
 
-  public String getState()
+  public OrderState getState()
   {
-    return orderState.status();
+    return orderState;
   }
 }
