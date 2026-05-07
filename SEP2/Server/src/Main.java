@@ -71,9 +71,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+  public static Model model;
   public static void main(String[] args) throws SQLException
   {
-    Model model = new ModelManager();
+    model = new ModelManager();
 
     Server server = new Server(model);
     Thread serverThread = new Thread(server);
