@@ -12,8 +12,7 @@ public class MyApplication extends Application
     Model model = new ModelManager();
     try
     {
-      Thread.sleep(1000); //waiting for server response
-      ViewModelFactory viewModelFactory = new ViewModelFactory(model);
+      ViewModelFactory viewModelFactory = ViewModelFactory.getInstance();
       ViewHandler view = new ViewHandler(viewModelFactory);
       view.start(primaryStage);
     }
