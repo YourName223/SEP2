@@ -71,7 +71,6 @@ public class OrderManager {
 
   public void addOrder(Order order) {
     orderList.addOrder(order);
-    new OrderPrinter().printOrder(order);
   }
 
   public void clickOnOrder(OrderCurrent order)

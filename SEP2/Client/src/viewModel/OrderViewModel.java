@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Model;
-import model.Order;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

@@ -1,7 +1,6 @@
 package model;
 
 import utility.UnnamedPropertyChangeSubject;
-
 import java.util.ArrayList;
 
 public interface Model extends UnnamedPropertyChangeSubject

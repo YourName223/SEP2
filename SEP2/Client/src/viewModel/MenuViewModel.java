@@ -1,22 +1,14 @@
 package viewModel;
 
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import model.MenuItemDto;
-import model.Model;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class MenuViewModel
 {
-  private Model model;
   private MenuItemDto menuItem;
 
-  public MenuViewModel(Model model, MenuItemDto menuItem)
+  public MenuViewModel(MenuItemDto menuItem)
   {
-    this.model = model;
     this.menuItem = menuItem;
   }
 

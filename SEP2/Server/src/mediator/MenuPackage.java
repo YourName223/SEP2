@@ -1,6 +1,5 @@
 package mediator;
 
-import model.MenuItem;
 import model.MenuItemDto;
 
 import java.util.ArrayList;

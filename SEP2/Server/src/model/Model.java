@@ -1,6 +1,5 @@
 package model;
 
-import javafx.collections.ObservableList;
 import utility.UnnamedPropertyChangeSubject;
 
 import java.util.ArrayList;

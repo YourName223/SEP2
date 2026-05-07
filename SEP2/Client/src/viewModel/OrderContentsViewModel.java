@@ -53,9 +53,8 @@ public class OrderContentsViewModel implements PropertyChangeListener
     orderItems.clear();
     for(OrderItem item : model.getOrder().getItems())
     {
-      orderItems.add(new OrderItemViewModel(model,item));
+      orderItems.add(new OrderItemViewModel(item));
     }
-    System.out.println(model.getOrder().getItems().size());
   }
 
   public StringProperty getSuccessProperty()
@@ -74,7 +73,6 @@ public class OrderContentsViewModel implements PropertyChangeListener
     {
       Platform.runLater( () -> successProperty.set(evt.getNewValue().toString()));
     }
-    System.out.println(evt.getNewValue().toString());
   }
 
   public ObservableList<OrderItemViewModel> getOrderItems()

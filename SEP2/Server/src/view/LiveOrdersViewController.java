@@ -1,17 +1,11 @@
 package view;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import model.*;
 import viewModel.LiveOrdersViewModel;
 
-import java.text.spi.DateFormatSymbolsProvider;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LiveOrdersViewController
 {

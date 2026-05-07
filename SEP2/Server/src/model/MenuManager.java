@@ -1,7 +1,6 @@
 package model;
 
 import Repository.MenuDAOImpl;
-
 import java.util.ArrayList;
 
 public class MenuManager

@@ -1,9 +1,6 @@
 package model;
 
-import Repository.MenuDAOImpl;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MenuItem
 {

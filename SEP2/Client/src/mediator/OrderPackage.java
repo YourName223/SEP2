@@ -3,7 +3,6 @@ package mediator;
 import model.OrderItemDto;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderPackage extends BasePackage
 {

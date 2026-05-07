@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
@@ -122,7 +121,6 @@ public class ClientHandler implements Runnable
 
     model.receiveTableOrder(order,socket.getInetAddress().getHostAddress());
 
-    System.out.println("Handled an order");
     return true;
   }
 }

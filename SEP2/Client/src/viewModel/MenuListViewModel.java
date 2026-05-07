@@ -65,7 +65,7 @@ public class MenuListViewModel implements PropertyChangeListener
 
     for(MenuItemDto menuItem : model.getMenu())
     {
-      menuItems.add(new MenuViewModel(model,menuItem));
+      menuItems.add(new MenuViewModel(menuItem));
     }
   }
 

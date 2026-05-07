@@ -1,7 +1,6 @@
 package mediator;
 
 import model.Model;
-import model.OrderManager;
 
 import java.io.IOException;
 import java.net.ServerSocket;
