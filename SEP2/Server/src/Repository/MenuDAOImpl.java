@@ -164,12 +164,8 @@
           String name = resultSet.getString("name");
           String allergies = resultSet.getString("allergies");
           double price = resultSet.getDouble("price");
-          ArrayList<String> recipeIds = new ArrayList<>();
-          for (Recipe recipe : getAllRecipesFromMenuItem(name))
-          {
-            recipeIds.add(recipe.getId());
-          }
-          MenuItem menuItem = new MenuItem(name, allergies, price, recipeIds);
+          ArrayList<Recipe> recipeList = new ArrayList<>(getAllRecipesFromMenuItem(name));
+          MenuItem menuItem = new MenuItem(name, allergies, price, recipeList);
           result.add(menuItem);
         }
         return result;
@@ -408,12 +404,8 @@
         menuStatement.setDouble(3, price);
         menuStatement.executeUpdate();
 
-        ArrayList<String> recipeIds = new ArrayList<>();
-        for (Recipe recipe : getAllRecipesFromMenuItem(name))
-        {
-          recipeIds.add(recipe.getId());
-        }
-        MenuItem menuItem = new MenuItem(name, allergies, price, recipeIds);
+        ArrayList<Recipe> recipeList = new ArrayList<>(getAllRecipesFromMenuItem(name));
+        MenuItem menuItem = new MenuItem(name, allergies, price, recipeList);
 
         // Kobl recipes til menu
         PreparedStatement mrStatement = connection.prepareStatement(

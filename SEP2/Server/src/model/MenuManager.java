@@ -7,15 +7,18 @@ import java.util.ArrayList;
 public class MenuManager
 {
   ArrayList<MenuItem> menuItems;
+  ArrayList<MenuItemDto> menuItemsDto;
   MenuDAOImpl menuDAO;
 
   public MenuManager()
   {
     menuItems = new ArrayList<>();
+    menuItemsDto = new ArrayList<>();
     try
     {
       menuDAO = MenuDAOImpl.getInstance();
       getMenuItemsFromDatabase();
+      getMenuItemsDtoFromDatabase();
     }
     catch (Exception e)
     {
@@ -43,23 +46,24 @@ public class MenuManager
     return menuItems;
   }
 
-  public ArrayList<MenuItemDto> getMenuItemsDto()
+  private void getMenuItemsDtoFromDatabase()
   {
-    ArrayList<MenuItemDto> menuItemsDTO = new ArrayList<>();
-
     for(MenuItem menuItem : getMenuItems())
     {
       try
       {
-        menuItemsDTO.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),menuItem.getRecipeIds()));
+        menuItemsDto.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),menuItem.getRecipeIds()));
       }
       catch (Exception e)
       {
 
       }
     }
+  }
 
-    return menuItemsDTO;
+  public ArrayList<MenuItemDto> getMenuItemsDto()
+  {
+    return menuItemsDto;
   }
 
   public MenuItem getMenuItemById(String id)

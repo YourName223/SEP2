@@ -10,14 +10,14 @@ public class MenuItem
   private String name;
   private String allergies;
   private double price;
-  private ArrayList<String> recipeIds;
+  private ArrayList<Recipe> recipes;
 
-  public MenuItem(String name, String allergies, double price, ArrayList<String> recipeIds)
+  public MenuItem(String name, String allergies, double price, ArrayList<Recipe> recipes)
   {
     this.name = name;
     this.allergies = allergies;
     this.price = price;
-    this.recipeIds = recipeIds;
+    this.recipes = recipes;
   }
 
   public String getName()
@@ -35,28 +35,21 @@ public class MenuItem
     return price;
   }
 
-  public ArrayList<String> getRecipeIds()
+  public ArrayList<Recipe> getRecipes()
   {
-    return recipeIds;
+    return recipes;
   }
 
   public String recipesString()
   {
     StringBuilder string = new StringBuilder("[");
 
-    MenuDAOImpl menuDAO = null;
-
-    try{
-      menuDAO = MenuDAOImpl.getInstance();
-    }
-    catch (Exception e){}
-
-    for (String recipeIds : recipeIds)
+    for (Recipe recipe : recipes)
     {
-      string.append(menuDAO.getRecipeWithIngredients(recipeIds).getName());
+      string.append(recipe.getName());
       string.append(" (");
 
-      for(Ingredient ingredient :menuDAO.getRecipeWithIngredients(recipeIds).getIngredients())
+      for(Ingredient ingredient :recipe.getIngredients())
       {
         string.append(ingredient.getName()).append(", ");
       }
