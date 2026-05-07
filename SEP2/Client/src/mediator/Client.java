@@ -85,6 +85,7 @@ public class Client
   {
     String message = parser.toJson(orderPackage);
     out.println(message);
+    System.out.println("I sent stuff");
   }
 
   public void getMenu()

@@ -121,6 +121,8 @@ public class ClientHandler implements Runnable
     Order order = model.convertOrderDtoToOrder(orderDto);
 
     model.receiveTableOrder(order,socket.getInetAddress().getHostAddress());
+
+    System.out.println("Handled an order");
     return true;
   }
 }
