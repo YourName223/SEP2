@@ -12,7 +12,6 @@ public class MenuManager
   public MenuManager()
   {
     menuItems = new ArrayList<>();
-    recipes = new ArrayList<>();
     try
     {
       menuDAO = MenuDAOImpl.getInstance();
