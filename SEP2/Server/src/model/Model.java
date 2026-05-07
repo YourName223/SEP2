@@ -11,6 +11,8 @@ public interface Model extends UnnamedPropertyChangeSubject
 
   public ArrayList<MenuItemDto> getMenuItemsDto();
 
+  public void clickOnOrder(OrderCurrent order);
+
   public void receiveTableOrder(Order order, String tableNr);
 
   public ArrayList<MenuItem> getMenuItems();

@@ -101,19 +101,19 @@ public class LiveOrdersViewController
 
   public void makeButton(OrderCurrent order)
   {
-    order.click();
+    viewModel.clickOrder(order);
     refresh();
   }
 
   public void doneButton(OrderCurrent order)
   {
-    order.click();
+    viewModel.clickOrder(order);
     refresh();
   }
 
   public void takeButton(OrderCurrent order)
   {
-    order.click();
+    viewModel.clickOrder(order);
     refresh();
   }
 

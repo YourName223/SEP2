@@ -33,13 +33,18 @@ public class ModelManager implements Model
     return menuManager.getMenuItemsDto();
   }
 
+  @Override public void clickOnOrder(OrderCurrent order)
+  {
+    orderManager.clickOnOrder(order);
+    property.firePropertyChange("Update",null,null);
+  }
+
   @Override public void receiveTableOrder(Order order, String tableNr)
   {
     TableOrder tableOrder = orderManager.createTableOrder(order,tableNr);
     orderManager.addOrder(tableOrder);
     orderDispatcher.dispatch(tableOrder);
     property.firePropertyChange("Update",null,null);
-    System.out.println("Test1");
   }
 
   @Override public ArrayList<MenuItem> getMenuItems()

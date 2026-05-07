@@ -16,6 +16,7 @@ public class OrderCurrent
   public void click()
   {
     orderState.click(this);
+    System.out.println(getState());
   }
 
   public void setState(OrderState state)

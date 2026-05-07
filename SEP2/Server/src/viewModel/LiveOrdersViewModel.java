@@ -29,7 +29,7 @@ public class LiveOrdersViewModel implements PropertyChangeListener
   }
 
   public void clickOrder(OrderCurrent order) {
-    order.click();
+    model.clickOnOrder(order);
   }
 
   public void loadFromModel()
@@ -44,7 +44,6 @@ public class LiveOrdersViewModel implements PropertyChangeListener
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
     Platform.runLater(() -> {
-      System.out.println("Test2");
       loadFromModel();
     });
   }

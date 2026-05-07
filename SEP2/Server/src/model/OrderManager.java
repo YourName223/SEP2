@@ -74,6 +74,11 @@ public class OrderManager {
     new OrderPrinter().printOrder(order);
   }
 
+  public void clickOnOrder(OrderCurrent order)
+  {
+    orderList.click(order);
+  }
+
   public OrderListCurrent getOrderList() {
     return orderList;
   }
