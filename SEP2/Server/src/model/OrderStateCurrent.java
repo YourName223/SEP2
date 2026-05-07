@@ -5,7 +5,6 @@ import view.OrderCardRenderer;
 
 public class OrderStateCurrent extends OrderState
 {
-
   @Override public void click(OrderCurrent order)
   {
     order.setState(new OrderStateFinished());
@@ -16,6 +15,6 @@ public class OrderStateCurrent extends OrderState
       VBox container,
       OrderCardRenderer renderer) {
 
-    renderer.renderCurrent(order, container);
+    renderer.render(order, container);
   }
 }

@@ -15,6 +15,6 @@ public class OrderStateFinished extends OrderState
       VBox container,
       OrderCardRenderer renderer) {
 
-    renderer.renderFinished(order, container);
+    renderer.render(order, container);
   }
 }

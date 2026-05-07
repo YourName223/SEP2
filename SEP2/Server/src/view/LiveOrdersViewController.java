@@ -39,6 +39,7 @@ public class LiveOrdersViewController {
 
     finishedRenderer = new FinishedOrderRenderer(this);
   }
+
   public void refresh() {
 
     incomingOrderBox.getChildren().clear();

@@ -15,6 +15,6 @@ public class OrderStateIncoming extends OrderState
       VBox container,
       OrderCardRenderer renderer) {
 
-    renderer.renderIncoming(order, container);
+    renderer.render(order, container);
   }
 }
