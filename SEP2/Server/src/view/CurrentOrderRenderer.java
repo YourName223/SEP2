@@ -7,11 +7,9 @@ import model.*;
 public class CurrentOrderRenderer implements OrderCardRenderer {
 
   private final LiveOrdersViewController controller;
-  private final RecipeManager recipeManager;
 
-  public CurrentOrderRenderer(LiveOrdersViewController controller, RecipeManager recipeManager) {
+  public CurrentOrderRenderer(LiveOrdersViewController controller) {
     this.controller = controller;
-    this.recipeManager = recipeManager;
   }
 
   @Override

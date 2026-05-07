@@ -9,12 +9,4 @@ public class OrderStateFinished extends OrderState
   {
     order.destroy();
   }
-
-  @Override
-  public void render(OrderCurrent order,
-      VBox container,
-      OrderCardRenderer renderer) {
-
-    renderer.render(order, container);
-  }
 }

@@ -10,11 +10,4 @@ public class OrderStateCurrent extends OrderState
     order.setState(new OrderStateFinished());
   }
 
-  @Override
-  public void render(OrderCurrent order,
-      VBox container,
-      OrderCardRenderer renderer) {
-
-    renderer.render(order, container);
-  }
 }
