@@ -1,14 +1,17 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import model.*;
+import viewModel.LiveOrdersViewModel;
 
 import java.text.spi.DateFormatSymbolsProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LiveOrdersViewController {
+public class LiveOrdersViewController
+{
 
   @FXML VBox incomingOrderBox;
   @FXML VBox currentOrderBox;
@@ -18,75 +21,113 @@ public class LiveOrdersViewController {
   private CurrentOrderRenderer currentRenderer;
   private FinishedOrderRenderer finishedRenderer;
 
-  private final RecipeManager recipeManager;
-
   private final List<OrderCurrent> ordersCurrent = new ArrayList<>();
 
-  private OrderCardRenderer renderer;
+  private ViewHandler viewHandler;
+  private LiveOrdersViewModel viewModel;
+  private Region root;
 
-  public LiveOrdersViewController(RecipeManager recipeManager) {
-    this.recipeManager = recipeManager;
+  public LiveOrdersViewController()
+  {
   }
 
-  @FXML
-  public void initialize() {
+  public void reset() {
+    refresh();
+  }
+
+  public Region getRoot()
+  {
+    return root;
+  }
+
+
+  @FXML public void initialize()
+  {
 
     incomingRenderer = new IncomingOrderRenderer(this);
 
-    currentRenderer = new CurrentOrderRenderer(
-        this,
-        recipeManager
-    );
+    currentRenderer = new CurrentOrderRenderer(this);
 
     finishedRenderer = new FinishedOrderRenderer(this);
   }
 
-  public void refresh() {
+  public void refresh()
+  {
 
     incomingOrderBox.getChildren().clear();
     currentOrderBox.getChildren().clear();
     finishedOrderBox.getChildren().clear();
 
-    for (OrderCurrent o : ordersCurrent) {
+    for (OrderCurrent o : ordersCurrent)
+    {
 
       VBox container;
+      OrderCardRenderer renderer;
 
-      if (o.getState() instanceof OrderStateCurrent) {
+      if (o.getState() instanceof OrderStateCurrent)
+      {
         container = currentOrderBox;
+        renderer = currentRenderer;
       }
-      else if (o.getState() instanceof OrderStateFinished) {
+      else if (o.getState() instanceof OrderStateFinished)
+      {
         container = finishedOrderBox;
+        renderer = finishedRenderer;
       }
-      else {
+      else
+      {
         container = incomingOrderBox;
+        renderer = incomingRenderer;
       }
 
-      o.getState().render(o, container, renderer);
+      renderer.render(o, container);
     }
   }
 
-  public void addOrder(Order order) {
+  public void render(OrderCurrent order, VBox container,
+      OrderCardRenderer renderer)
+  {
+
+    renderer.render(order, container);
+  }
+
+  public void addOrder(Order order)
+  {
     ordersCurrent.add(new OrderCurrent(order));
     refresh();
   }
 
-  public void makeButton(OrderCurrent order) {
+  public void makeButton(OrderCurrent order)
+  {
     order.click();
     refresh();
   }
 
-  public void doneButton(OrderCurrent order) {
+  public void doneButton(OrderCurrent order)
+  {
     order.click();
     refresh();
   }
 
-  public void takeButton(OrderCurrent order) {
+  public void takeButton(OrderCurrent order)
+  {
     order.destroy();
     ordersCurrent.remove(order);
     refresh();
   }
 
-  public VBox getIncomingOrderBox() { return incomingOrderBox; }
-  public VBox getCurrentOrderBox() { return currentOrderBox; }
-  public VBox getFinishedOrderBox() { return finishedOrderBox; }
+  public VBox getIncomingOrderBox()
+  {
+    return incomingOrderBox;
+  }
+
+  public VBox getCurrentOrderBox()
+  {
+    return currentOrderBox;
+  }
+
+  public VBox getFinishedOrderBox()
+  {
+    return finishedOrderBox;
+  }
 }
