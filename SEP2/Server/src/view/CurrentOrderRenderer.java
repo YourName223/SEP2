@@ -27,9 +27,7 @@ public class CurrentOrderRenderer implements OrderCardRenderer {
           createLabel(item.getItem().getName())
       );
 
-      for (String recipeId : item.getItem().getRecipeIds()) {
-
-        Recipe recipe = recipeManager.getRecipe(recipeId);
+      for (Recipe recipe : item.getItem().getRecipes()) {
 
         if (recipe == null) continue;
 
