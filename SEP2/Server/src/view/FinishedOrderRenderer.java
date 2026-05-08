@@ -34,7 +34,8 @@ public class FinishedOrderRenderer implements OrderCardRenderer {
 
     for (OrderItem item : order.getOrderItems()) {
       card.getChildren().add(
-          createLabel(item.getItem().getName())
+          createLabel(item.getQuantity() + "x " +
+              item.getItem().getName())
       );
     }
 
