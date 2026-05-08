@@ -71,7 +71,12 @@ public class OrderContentsViewModel implements PropertyChangeListener
   {
     if(evt.getPropertyName().equals("Update"))
     {
-      Platform.runLater( () -> successProperty.set(evt.getNewValue().toString()));
+      Platform.runLater( () ->
+      {
+        successProperty.set(evt.getNewValue().toString());
+        reloadOrderTable();
+      }
+      );
     }
   }
 

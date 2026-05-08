@@ -43,6 +43,11 @@ public class ModelManager implements Model
     orderManager.removeFromOrder(menuItem);
   }
 
+  @Override public void removeOrder()
+  {
+    orderManager.removeOrder();
+  }
+
   @Override public void placeOrder()
   {
     if(orderManager.getOrder().getItems().isEmpty())
@@ -51,7 +56,7 @@ public class ModelManager implements Model
     }
     else
     {
-      client.sendOrder(new OrderPackage("order",orderManager.getOrderItemDto(),"Get"));
+      client.sendOrder(new OrderPackage("Order",orderManager.getOrderItemDto(),"Get"));
     }
   }
 
