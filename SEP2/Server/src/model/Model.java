@@ -1,25 +1,17 @@
 package model;
 
 import utility.UnnamedPropertyChangeSubject;
-
 import java.util.ArrayList;
 
 public interface Model extends UnnamedPropertyChangeSubject
 {
   public Order convertOrderDtoToOrder(OrderDto orderDto);
-
   public ArrayList<MenuItemDto> getMenuItemsDto();
-
   public void clickOnOrder(OrderCurrent order);
-
   public void removeOrder(OrderCurrent order);
-
   public void receiveTableOrder(Order order, String tableNr);
-
   public ArrayList<MenuItem> getMenuItems();
-
   ArrayList<OrderCurrent> getOrdersCurrent();
-
   RecipeManager getRecipeManager();
 /*
   public Component createComponent(String name);

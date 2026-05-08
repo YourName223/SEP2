@@ -1,9 +1,7 @@
 package view;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -41,9 +39,7 @@ public class MenuViewController
 
     menuTable.setItems(viewModel.getMenuItems());
 
-    qtyLabel.textProperty().bind(
-        viewModel.getAmount().asString()
-    );
+    qtyLabel.textProperty().bind(viewModel.getAmount().asString());
   }
 
   public void reset()

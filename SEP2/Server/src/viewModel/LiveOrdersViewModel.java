@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -16,19 +15,23 @@ public class LiveOrdersViewModel implements PropertyChangeListener
   public LiveOrdersViewModel(Model model)
   {
     this.model = model;
+
     loadFromModel();
     model.addListener("Update",this);
   }
 
-  public ObservableList<OrderCurrent> getOrders() {
+  public ObservableList<OrderCurrent> getOrders()
+  {
     return orderCurrents;
   }
 
-  public RecipeManager getRecipeManager() {
+  public RecipeManager getRecipeManager()
+  {
     return model.getRecipeManager();
   }
 
-  public void clickOrder(OrderCurrent order) {
+  public void clickOrder(OrderCurrent order)
+  {
     model.clickOnOrder(order);
   }
 
@@ -45,8 +48,6 @@ public class LiveOrdersViewModel implements PropertyChangeListener
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    Platform.runLater(() -> {
-      loadFromModel();
-    });
+    Platform.runLater(() -> loadFromModel());
   }
 }

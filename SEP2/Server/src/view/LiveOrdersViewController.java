@@ -6,10 +6,8 @@ import javafx.scene.layout.VBox;
 import model.*;
 import viewModel.LiveOrdersViewModel;
 
-
 public class LiveOrdersViewController
 {
-
   @FXML VBox incomingOrderBox;
   @FXML VBox currentOrderBox;
   @FXML VBox finishedOrderBox;
@@ -18,28 +16,24 @@ public class LiveOrdersViewController
   private CurrentOrderRenderer currentRenderer;
   private FinishedOrderRenderer finishedRenderer;
 
-
   private ViewHandler viewHandler;
   private LiveOrdersViewModel viewModel;
   private Region root;
 
-  public void init(ViewHandler viewHandler, LiveOrdersViewModel viewModel,
-      Region root)
+  public void init(ViewHandler viewHandler, LiveOrdersViewModel viewModel, Region root)
   {
     this.viewHandler = viewHandler;
     this.viewModel = viewModel;
     this.root = root;
 
     incomingRenderer = new IncomingOrderRenderer(this);
-
     currentRenderer = new CurrentOrderRenderer(this);
-
     finishedRenderer = new FinishedOrderRenderer(this);
 
-    viewModel.getOrders().addListener((javafx.collections.ListChangeListener<OrderCurrent>) change -> {
-      refresh();
-    });
-
+    viewModel.getOrders().addListener(
+        (javafx.collections.ListChangeListener<OrderCurrent>)
+            change -> refresh()
+    );
   }
 
   public void reset()
@@ -53,8 +47,6 @@ public class LiveOrdersViewController
     return root;
   }
 
-
-
   public void refresh()
   {
     incomingOrderBox.getChildren().clear();
@@ -63,8 +55,8 @@ public class LiveOrdersViewController
 
     for (OrderCurrent o : viewModel.getOrders())
     {
-      VBox container;
-      OrderCardRenderer renderer;
+      VBox container = null;
+      OrderCardRenderer renderer = null;
 
       if (o.getState() instanceof OrderStateCurrent)
       {
@@ -76,20 +68,21 @@ public class LiveOrdersViewController
         container = finishedOrderBox;
         renderer = finishedRenderer;
       }
-      else
+      else if (o.getState() instanceof OrderStateIncoming)
       {
         container = incomingOrderBox;
         renderer = incomingRenderer;
       }
 
-      renderer.render(o, container);
+      if(renderer != null && container != null)
+      {
+        renderer.render(o, container);
+      }
     }
   }
 
-  public void render(OrderCurrent order, VBox container,
-      OrderCardRenderer renderer)
+  public void render(OrderCurrent order, VBox container, OrderCardRenderer renderer)
   {
-
     renderer.render(order, container);
   }
 

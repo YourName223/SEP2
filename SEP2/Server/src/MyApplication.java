@@ -10,6 +10,7 @@ public class MyApplication extends Application
   public void start(Stage primaryStage)
   {
     Model model = Main.model;
+
     try
     {
       ViewModelFactory viewModelFactory = new ViewModelFactory(model);

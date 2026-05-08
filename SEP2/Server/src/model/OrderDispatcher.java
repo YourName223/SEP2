@@ -11,11 +11,10 @@ public class OrderDispatcher
 
   public OrderDispatcher(TableManager tableManager)
   {
-    handlerList = List.of(
-        new TableOrderHandler(tableManager)
-    );
+    handlerList = List.of(new TableOrderHandler(tableManager));
 
     orderHandlerMap = new HashMap<>();
+
     for (OrderHandler h : handlerList) {
       orderHandlerMap.put(h.getType(), h);
     }

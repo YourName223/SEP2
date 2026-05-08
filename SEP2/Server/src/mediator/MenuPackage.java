@@ -1,7 +1,6 @@
 package mediator;
 
 import model.MenuItemDto;
-
 import java.util.ArrayList;
 
 public class MenuPackage extends BasePackage

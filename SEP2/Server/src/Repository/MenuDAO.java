@@ -3,7 +3,6 @@ package Repository;
 import model.Ingredient;
 import model.MenuItem;
 import model.Recipe;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 

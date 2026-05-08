@@ -31,11 +31,12 @@ public class Order
   {
     boolean partOfList = false;
 
-    for (OrderItem item : items)
+    for(OrderItem item : items)
     {
       if(item.getItem().equals(menuItem))
         partOfList = true;
     }
+
     if(partOfList)
     {
       for (OrderItem item : items)

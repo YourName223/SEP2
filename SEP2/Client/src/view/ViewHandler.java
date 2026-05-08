@@ -61,8 +61,7 @@ public class ViewHandler
         loader.setLocation(getClass().getResource(fxmlFile));
         Region root = loader.load();
         menuViewController = loader.getController();
-        menuViewController
-            .init(this, viewModelFactory.getMenuListViewModel(), root);
+        menuViewController.init(this, viewModelFactory.getMenuListViewModel(), root);
       }
       catch (Exception e)
       {
@@ -76,8 +75,10 @@ public class ViewHandler
     return menuViewController.getRoot();
   }
 
-  public void openPopup(String fxml) {
-    try {
+  public void openPopup(String fxml)
+  {
+    try
+    {
       FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
       Region root = loader.load();
 
@@ -92,7 +93,9 @@ public class ViewHandler
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.show();
 
-    } catch (IOException e) {
+    }
+    catch (IOException e)
+    {
       e.printStackTrace();
     }
   }

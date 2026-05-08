@@ -13,24 +13,22 @@ public class IncomingOrderRenderer implements OrderCardRenderer {
 
   private final LiveOrdersViewController controller;
 
-  public IncomingOrderRenderer(LiveOrdersViewController controller) {
+  public IncomingOrderRenderer(LiveOrdersViewController controller)
+  {
     this.controller = controller;
   }
 
   @Override
-  public void render(OrderCurrent liveOrder, VBox container) {
-
+  public void render(OrderCurrent liveOrder, VBox container)
+  {
     VBox card = createCard();
-
     Order order = liveOrder.getOrder();
 
-    for (OrderItem item : order.getOrderItems()) {
-
+    for (OrderItem item : order.getOrderItems())
+    {
       card.getChildren().add(
-          createLabel(
-              item.getQuantity() + "x " +
-                  item.getItem().getName()
-          )
+          createLabel(item.getQuantity() + "x " +
+              item.getItem().getName())
       );
     }
 

@@ -19,5 +19,7 @@ public class ViewModelFactory
   }
 
   public OrderContentsViewModel getOrderContentsViewModel()
-  {return orderContentsViewModel;}
+  {
+    return orderContentsViewModel;
+  }
 }

@@ -50,12 +50,16 @@ public class MenuItem
       {
         string.append(ingredient.getName()).append(", ");
       }
-        if (string.length() > 1)
-          string.setLength(string.length() - 2);
+
+      if (string.length() > 1)
+        string.setLength(string.length() - 2);
+
       string.append("), ");
     }
+
     if (string.length() > 1)
       string.setLength(string.length() - 2);
+
     string.append("]");
 
     return string.toString();

@@ -2,8 +2,6 @@ package mediator;
 
 import com.google.gson.Gson;
 import model.Model;
-import model.OrderItemDto;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -25,6 +23,7 @@ public class Server implements Runnable, PropertyChangeListener
     this.model = model;
     this.clients = new ArrayList<>();
     parser = new Gson();
+
     model.addListener("RemoveOrder",this);
   }
 
@@ -53,6 +52,7 @@ public class Server implements Runnable, PropertyChangeListener
   @Override public void run()
   {
     running = true;
+
     try
     {
       welcomeSocket = new ServerSocket(PORT);
@@ -61,6 +61,7 @@ public class Server implements Runnable, PropertyChangeListener
     {
       throw new RuntimeException(e);
     }
+
     while (running)
     {
       ClientHandler c = null;

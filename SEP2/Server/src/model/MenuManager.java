@@ -13,6 +13,7 @@ public class MenuManager
   {
     menuItems = new ArrayList<>();
     menuItemsDto = new ArrayList<>();
+
     try
     {
       menuDAO = MenuDAOImpl.getInstance();
@@ -50,10 +51,12 @@ public class MenuManager
     for(MenuItem menuItem : getMenuItems())
     {
       ArrayList<String> recipeId = new ArrayList<>();
+
       for(Recipe recipe : menuItem.getRecipes())
       {
         recipeId.add(recipe.getId());
       }
+
       try
       {
         menuItemsDto.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),recipeId));

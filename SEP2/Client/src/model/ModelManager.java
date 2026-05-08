@@ -2,7 +2,6 @@ package model;
 
 import mediator.OrderPackage;
 import mediator.Client;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class ModelManager implements Model
     orderManager = new OrderManager();
     property = new PropertyChangeSupport(this);
     orderManager.createOrder();
-    client = new Client(this,"10.154.208.74",2910);
+    client = new Client(this,"10.154.208.59",2910);
     getMenuFromDataBase();
   }
 
@@ -81,14 +80,12 @@ public class ModelManager implements Model
     return menu;
   }
 
-  @Override public void addListener(String propertyName,
-      PropertyChangeListener listener)
+  @Override public void addListener(String propertyName, PropertyChangeListener listener)
   {
     property.addPropertyChangeListener(propertyName,listener);
   }
 
-  @Override public void removeListener(String propertyName,
-      PropertyChangeListener listener)
+  @Override public void removeListener(String propertyName, PropertyChangeListener listener)
   {
     property.removePropertyChangeListener(propertyName,listener);
   }

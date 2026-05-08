@@ -6,5 +6,4 @@ public class OrderStateCurrent extends OrderState
   {
     order.setState(new OrderStateFinished());
   }
-
 }

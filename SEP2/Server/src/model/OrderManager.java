@@ -54,22 +54,21 @@ public class OrderManager
 
 package model;
 
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
-public class OrderManager {
-
+public class OrderManager
+{
   private OrderListCurrent orderList;
   private MenuManager menuManager;
 
-  public OrderManager(MenuManager menuManager) {
+  public OrderManager(MenuManager menuManager)
+  {
     this.menuManager = menuManager;
     orderList = new OrderListCurrent();
   }
 
-  public void addOrder(Order order) {
+  public void addOrder(Order order)
+  {
     orderList.addOrder(order);
   }
 
@@ -83,19 +82,23 @@ public class OrderManager {
     orderList.removeOrder(order);
   }
 
-  public OrderListCurrent getOrderList() {
+  public OrderListCurrent getOrderList()
+  {
     return orderList;
   }
 
-  public TableOrder createTableOrder(Order order, String tableNr) {
+  public TableOrder createTableOrder(Order order, String tableNr)
+  {
     return new TableOrder(order, tableNr);
   }
 
-  public Order convertOrderDtoToOrder(OrderDto orderDto) {
+  public Order convertOrderDtoToOrder(OrderDto orderDto)
+  {
     Order order = new Order();
     ArrayList<OrderItem> items = new ArrayList<>();
 
-    for (OrderItemDto orderItemDto : orderDto.items) {
+    for (OrderItemDto orderItemDto : orderDto.items)
+    {
       MenuItem menuItem = menuManager.getMenuItemById(orderItemDto.getMenuItemId());
       OrderItem orderItem = new OrderItem(menuItem);
       orderItem.setQuantity(orderItemDto.getQuantity());
@@ -103,6 +106,7 @@ public class OrderManager {
     }
 
     order.setOrderItems(items);
+
     return order;
   }
 }

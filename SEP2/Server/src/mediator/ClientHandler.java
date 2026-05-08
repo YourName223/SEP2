@@ -1,13 +1,11 @@
 package mediator;
 
 import model.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
 import com.google.gson.Gson;
 
 public class ClientHandler implements Runnable
@@ -41,7 +39,8 @@ public class ClientHandler implements Runnable
     running = true;
 
     while (running)
-    {String clientText = null;
+    {
+      String clientText = null;
       try
       {
         clientText = in.readLine();

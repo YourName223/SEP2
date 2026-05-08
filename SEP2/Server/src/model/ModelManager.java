@@ -43,7 +43,9 @@ public class ModelManager implements Model
   {
     orderManager.removeOrder(order);
     tableManager.removeOrder(order.getOrder());
+
     property.firePropertyChange("Update",null,null);
+
     if(order.getOrder().getOrderType().equals("Table"))
     {
       property.firePropertyChange("RemoveOrder",null,(((TableOrder)order.getOrder()).getTableNr()));
@@ -55,6 +57,7 @@ public class ModelManager implements Model
     TableOrder tableOrder = orderManager.createTableOrder(order,tableNr);
     orderManager.addOrder(tableOrder);
     orderDispatcher.dispatch(tableOrder);
+
     property.firePropertyChange("Update",null,null);
   }
 
@@ -63,7 +66,8 @@ public class ModelManager implements Model
     return menuManager.getMenuItems();
   }
 
-  @Override public ArrayList<OrderCurrent> getOrdersCurrent() {
+  @Override public ArrayList<OrderCurrent> getOrdersCurrent()
+  {
     return orderManager.getOrderList().getOrders();
   }
 
@@ -71,14 +75,12 @@ public class ModelManager implements Model
     return recipeManager;
   }
 
-  @Override public void addListener(String propertyName,
-      PropertyChangeListener listener)
+  @Override public void addListener(String propertyName, PropertyChangeListener listener)
   {
     property.addPropertyChangeListener(propertyName,listener);
   }
 
-  @Override public void removeListener(String propertyName,
-      PropertyChangeListener listener)
+  @Override public void removeListener(String propertyName, PropertyChangeListener listener)
   {
     property.removePropertyChangeListener(propertyName,listener);
   }

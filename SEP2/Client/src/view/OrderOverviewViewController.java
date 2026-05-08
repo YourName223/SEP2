@@ -24,8 +24,7 @@ public class OrderOverviewViewController
   private OrderContentsViewModel viewModel;
   private Region root;
 
-  public void init(ViewHandler viewHandler, OrderContentsViewModel viewModel,
-      Region root)
+  public void init(ViewHandler viewHandler, OrderContentsViewModel viewModel, Region root)
   {
     this.viewHandler = viewHandler;
     this.viewModel = viewModel;
@@ -40,10 +39,11 @@ public class OrderOverviewViewController
 
     errorLabel.textProperty().bind(viewModel.getErrorProperty());
     successLabel.textProperty().bind(viewModel.getSuccessProperty());
+    qtyLabel.textProperty().bind(viewModel.getAmount().asString());
 
     orderTable.setItems(viewModel.getOrderItems());
+
     viewModel.loadFromModel();
-    qtyLabel.textProperty().bind(viewModel.getAmount().asString());
   }
 
   public void reset()
@@ -58,8 +58,7 @@ public class OrderOverviewViewController
 
   @FXML private void onOrderItemSelected()
   {
-    OrderItemViewModel selected = orderTable.getSelectionModel()
-        .getSelectedItem();
+    OrderItemViewModel selected = orderTable.getSelectionModel().getSelectedItem();
     if (selected != null)
     {
       viewModel.setSelectedOrderItem(selected.getOrderItem());

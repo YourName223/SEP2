@@ -36,10 +36,12 @@ public class Table
   public Table copy()
   {
     Table table = new Table(tableNr);
+
     for(Order order : totalOrder)
     {
       table.assignOrder(order);
     }
+
     return table;
   }
 }

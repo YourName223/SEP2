@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Model;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -17,6 +16,7 @@ public class OrderViewModel implements PropertyChangeListener
   {
     this.model = model;
     this.successProperty = new SimpleStringProperty();
+
     model.addListener("Update",this);
   }
 

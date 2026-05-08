@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Model;
 import model.OrderItem;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -21,7 +20,6 @@ public class OrderContentsViewModel implements PropertyChangeListener
   private StringProperty successProperty;
   private StringProperty errorProperty;
   private IntegerProperty amount;
-
 
   public OrderContentsViewModel(Model model)
   {
@@ -45,6 +43,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
     successProperty.set("");
     errorProperty.set("");
     amount.set(0);
+
     reloadOrderTable();
   }
 
@@ -75,8 +74,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
       {
         successProperty.set(evt.getNewValue().toString());
         reloadOrderTable();
-      }
-      );
+      });
     }
   }
 

@@ -1,7 +1,6 @@
   package Repository;
 
   import model.*;
-
   import java.sql.*;
   import java.util.ArrayList;
 
@@ -11,7 +10,7 @@
   {
     private static MenuDAOImpl instance;
 
-    public MenuDAOImpl() throws SQLException
+    private MenuDAOImpl() throws SQLException
     {
       DriverManager.registerDriver(new org.postgresql.Driver());
     }
@@ -53,11 +52,12 @@
     @Override public ArrayList<String> getAllMenuNames()
     {
       ArrayList<String> names = new ArrayList<>();
+
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
-        PreparedStatement statement = connection.prepareStatement(
-            "SELECT name FROM Menu");
+        PreparedStatement statement = connection.prepareStatement("SELECT name FROM Menu");
         ResultSet resultSet = statement.executeQuery();
+
         while (resultSet.next())
         {
           names.add(resultSet.getString("name"));
@@ -67,6 +67,7 @@
       {
         e.printStackTrace();
       }
+
       return names;
     }
 
@@ -74,6 +75,7 @@
     public ArrayList<Recipe> getAllRecipesFromMenuItem(String menuName)
     {
       ArrayList<Recipe> recipe = new ArrayList<>();
+
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
         PreparedStatement statement = connection.prepareStatement(
@@ -94,6 +96,7 @@
       {
         e.printStackTrace();
       }
+
       return recipe;
     }
 
@@ -102,7 +105,6 @@
     {
       ArrayList<Ingredient> ingredients = new ArrayList<>();
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
-
       {
         PreparedStatement statement = connection.prepareStatement(
             "SELECT i.id, i.name FROM ingredient i " +
@@ -124,6 +126,7 @@
       {
         e.printStackTrace();
       }
+
       return ingredients;
     }
 
@@ -172,6 +175,7 @@
 
           result.add(new MenuItem(name, allergies, price, recipeList));
         }
+
         return result;
       }
     }
@@ -230,7 +234,6 @@
     {
       Recipe recipe = null;
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
-
       {
         PreparedStatement recipeStatement = connection.prepareStatement(
             "SELECT id, name FROM recipe WHERE id = ?");
@@ -266,6 +269,7 @@
       {
         e.printStackTrace();
       }
+
       return recipe;
     }
 
@@ -274,7 +278,6 @@
     {
       ArrayList<String> recipeIds = new ArrayList<>();
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
-
       {
         PreparedStatement statement = connection.prepareStatement(
             "SELECT recipe_id FROM menu_recipe WHERE menu_name = ?");
@@ -290,6 +293,7 @@
       {
         e.printStackTrace();
       }
+
       return recipeIds;
     }
 
@@ -298,7 +302,6 @@
     {
       ArrayList<String> recipeIds = new ArrayList<>();
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
-
       {
         PreparedStatement statement = connection.prepareStatement(
             "SELECT recipe_id FROM menu_recipe WHERE menu_name = ?");
@@ -314,6 +317,7 @@
       {
         e.printStackTrace();
       }
+
       return recipeIds;
     }
 
@@ -346,7 +350,6 @@
     public Ingredient createIngredient(String name) throws SQLException
     {
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
-
       {
         PreparedStatement statement = connection.prepareStatement(
             "INSERT INTO ingredient(name) VALUES (?) RETURNING id");
@@ -359,13 +362,13 @@
           return new Ingredient(id,name,100);
         }
       }
+
       return null;
     }
 
     public Recipe createRecipe(String name, ArrayList<Ingredient> ingredients) throws SQLException
     {
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
-
       {
         // Insert recipe og få id tilbage
         PreparedStatement recipeStatement = connection.prepareStatement(
@@ -392,13 +395,13 @@
           return recipe;
         }
       }
+
       return null;
     }
 
     public MenuItem createMenu(String name, String allergies, double price, ArrayList<Recipe> recipes) throws SQLException
     {
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
-
       {
         // Insert menu
         PreparedStatement menuStatement = connection.prepareStatement(

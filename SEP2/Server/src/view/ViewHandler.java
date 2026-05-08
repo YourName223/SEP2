@@ -37,15 +37,20 @@ public class ViewHandler
 
     currentScene.setRoot(root);
     String title = "";
-    if (root.getUserData() != null)
+
+    if (root != null && root.getUserData() != null)
     {
-      title += root.getUserData();
+      if(root.getUserData() != null)
+      {
+        title += root.getUserData();
+      }
+
+      primaryStage.setTitle(title);
+      primaryStage.setScene(currentScene);
+      primaryStage.setWidth(root.getPrefWidth());
+      primaryStage.setHeight(root.getPrefHeight());
+      primaryStage.show();
     }
-    primaryStage.setTitle(title);
-    primaryStage.setScene(currentScene);
-    primaryStage.setWidth(root.getPrefWidth());
-    primaryStage.setHeight(root.getPrefHeight());
-    primaryStage.show();
   }
 
   private Region loadMenuView(String fxmlFile)
@@ -70,6 +75,7 @@ public class ViewHandler
     {
       liveOrdersViewController.reset();
     }
+
     return liveOrdersViewController.getRoot();
   }
 }

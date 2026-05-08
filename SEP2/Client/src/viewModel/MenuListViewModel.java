@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -21,6 +20,7 @@ public class MenuListViewModel implements PropertyChangeListener
     this.model = model;
     selectedMenuItem = null;
     amount = new SimpleIntegerProperty();
+
     loadFromModel();
   }
 

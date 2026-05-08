@@ -15,14 +15,13 @@ public class TableOrder extends Order
   public String getTableNr()
   {
     return tableNr;
-  };
+  }
 
   public String toString()
   {
     StringBuilder string = new StringBuilder();
 
     string.append("TableNr:").append(tableNr);
-
     string.append(super.toString());
 
     return string.toString();

@@ -34,6 +34,7 @@ public class OrderItem
   public String toString()
   {
     StringBuilder string = new StringBuilder("");
+
     string.append(quantity + "pc : " + item.getName() + " " + item.getPrice() + "DKK " + item.recipesString());
 
     return string.toString();

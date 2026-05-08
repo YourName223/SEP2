@@ -1,11 +1,12 @@
 import javafx.application.Application;
 import mediator.Server;
 import model.*;
-
 import java.sql.SQLException;
 
-public class Main {
+public class Main
+{
   public static Model model;
+
   public static void main(String[] args) throws SQLException
   {
     model = new ModelManager();
@@ -36,8 +37,6 @@ public class Main {
     MenuItem newMenu = dao.createMenu("Løgring menu", "Gluten", 79, menuRecipes);
     System.out.println("Oprettet: " + newMenu.getName());
 */
-
-
     System.out.println("\nServer kører på port 2910...");
     Application.launch(MyApplication.class);
   }
