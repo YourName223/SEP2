@@ -8,83 +8,53 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:controller="view.LiveOrdersViewController"
-      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity"
-      prefHeight="500.0" prefWidth="900.0" spacing="10.0"
-      xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" spacing="10.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LiveOrdersViewController">
 
     <children>
         <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
 
             <children>
 
-                <VBox maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity"
-                      prefWidth="250.0" spacing="10.0">
+                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="250.0" spacing="10.0">
 
                     <padding>
-                        <Insets right="20.0"/>
+                        <Insets right="20.0" />
                     </padding>
 
                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER"
-                               maxHeight="-Infinity" maxWidth="-Infinity"
-                               minHeight="-Infinity" minWidth="-Infinity"
-                               prefWidth="230.0"
-                               text="New Orders">
+                        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="230.0" text="New Orders">
                             <font>
-                                <Font name="System Bold" size="18.0"/>
+                                <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
 
-                        <Separator prefWidth="200.0"/>
+                        <Separator prefWidth="200.0" />
 
-                        <ScrollPane hbarPolicy="NEVER"
-                                    prefHeight="200.0" prefWidth="200.0"
-                                    VBox.vgrow="ALWAYS">
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="410.0" prefWidth="230.0" VBox.vgrow="ALWAYS">
 
                             <content>
-                                <VBox fx:id="incomingOrderBox"
-                                      maxWidth="-Infinity"
-                                      minHeight="-Infinity"
-                                      minWidth="-Infinity"
-                                      prefWidth="210.0"/>
+                                <VBox fx:id="incomingOrderBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="210.0" />
                             </content>
 
                         </ScrollPane>
                     </children>
                 </VBox>
 
-                <VBox maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity"
-                      prefHeight="460.0" prefWidth="360.0" spacing="10.0"
-                      HBox.hgrow="ALWAYS">
+                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="360.0" spacing="10.0" HBox.hgrow="ALWAYS">
 
                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER"
-                               maxHeight="-Infinity" maxWidth="-Infinity"
-                               minHeight="-Infinity" minWidth="-Infinity"
-                               prefWidth="360.0"
-                               text="Current Orders">
+                        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="360.0" text="Current Orders">
                             <font>
-                                <Font name="System Bold" size="18.0"/>
+                                <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
 
-                        <Separator prefWidth="200.0"/>
+                        <Separator prefWidth="200.0" />
 
-                        <ScrollPane hbarPolicy="NEVER"
-                                    prefHeight="200.0" prefWidth="200.0"
-                                    VBox.vgrow="ALWAYS">
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
 
                             <content>
-                                <VBox fx:id="currentOrderBox"
-                                      maxWidth="-Infinity"
-                                      minHeight="-Infinity"
-                                      minWidth="-Infinity"
-                                      prefWidth="340.0"/>
+                                <VBox fx:id="currentOrderBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="340.0" />
                             </content>
 
                         </ScrollPane>
@@ -92,37 +62,25 @@
                 </VBox>
 
 
-                <VBox maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity"
-                      prefHeight="460.0" prefWidth="250.0" spacing="10.0">
+                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="250.0" spacing="10.0">
 
                     <padding>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </padding>
 
                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER"
-                               maxHeight="-Infinity" maxWidth="-Infinity"
-                               minHeight="-Infinity" minWidth="-Infinity"
-                               prefWidth="230.0"
-                               text="Ready Orders">
+                        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="230.0" text="Ready Orders">
                             <font>
-                                <Font name="System Bold" size="18.0"/>
+                                <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
 
-                        <Separator prefWidth="200.0"/>
+                        <Separator prefWidth="200.0" />
 
-                        <ScrollPane hbarPolicy="NEVER"
-                                    prefHeight="200.0" prefWidth="200.0"
-                                    VBox.vgrow="ALWAYS">
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
 
                             <content>
-                                <VBox fx:id="finishedOrderBox"
-                                      maxWidth="-Infinity"
-                                      minHeight="-Infinity"
-                                      minWidth="-Infinity"
-                                      prefWidth="210.0"/>
+                                <VBox fx:id="finishedOrderBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="210.0" />
                             </content>
 
                         </ScrollPane>
@@ -134,7 +92,7 @@
     </children>
 
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
 </VBox>
