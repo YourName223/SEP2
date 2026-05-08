@@ -44,6 +44,10 @@ public class ModelManager implements Model
     orderManager.removeOrder(order);
     tableManager.removeOrder(order.getOrder());
     property.firePropertyChange("Update",null,null);
+    if(order.getOrder().getOrderType().equals("Table"))
+    {
+      property.firePropertyChange("RemoveOrder",null,(((TableOrder)order.getOrder()).getTableNr()));
+    }
   }
 
   @Override public void receiveTableOrder(Order order, String tableNr)

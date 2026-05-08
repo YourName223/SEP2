@@ -61,7 +61,7 @@ public class ClientHandler implements Runnable
       {
         switch(parser.fromJson(clientText, OrderPackage.class).getType())
         {
-          case "order":
+          case "Order":
             orderPackage = parser.fromJson(clientText, OrderPackage.class);
             if(handlePackage(orderPackage))
             {
@@ -74,9 +74,9 @@ public class ClientHandler implements Runnable
               out.println(parser.toJson(sendPackage));
             }
             break;
-          case "menu":
+          case "Menu":
             model.getMenuItems();
-            MenuPackage sendPackage = new MenuPackage("menu",model.getMenuItemsDto());
+            MenuPackage sendPackage = new MenuPackage("Menu",model.getMenuItemsDto());
             out.println(parser.toJson(sendPackage));
             break;
         }
@@ -108,9 +108,13 @@ public class ClientHandler implements Runnable
     }
   }
 
+  public String getIp()
+  {
+    return socket.getInetAddress().getHostAddress();
+  }
+
   public void sendMessage(String message)
   {
-    String e = parser.toJson(message);
     out.println(message);
   }
 

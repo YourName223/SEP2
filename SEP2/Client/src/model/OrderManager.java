@@ -32,6 +32,11 @@ public class OrderManager
     order.removeItem(menuItem);
   }
 
+  public void removeOrder()
+  {
+    order = new Order();
+  }
+
   public ArrayList<OrderItemDto> getOrderItemDto()
   {
     ArrayList<OrderItemDto> items = new ArrayList<>();

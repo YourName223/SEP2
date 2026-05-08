@@ -1,24 +1,31 @@
 package mediator;
 
+import com.google.gson.Gson;
 import model.Model;
+import model.OrderItemDto;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Server implements Runnable
+public class Server implements Runnable, PropertyChangeListener
 {
   private Model model;
   private static int PORT = 2910;
   private boolean running;
   private ServerSocket welcomeSocket;
+  private Gson parser;
   private List<ClientHandler> clients;
 
   public Server(Model model)
   {
     this.model = model;
     this.clients = new ArrayList<>();
+    parser = new Gson();
+    model.addListener("RemoveOrder",this);
   }
 
   public void close()
@@ -60,6 +67,7 @@ public class Server implements Runnable
       try
       {
         c = new ClientHandler(welcomeSocket.accept(), model);
+        clients.add(c);
         Thread t1 = new Thread(c);
         t1.setDaemon(true);
         t1.start();
@@ -69,5 +77,23 @@ public class Server implements Runnable
         throw new RuntimeException(e);
       }
     }
+  }
+
+  public void removeOrderFromClient(String ip)
+  {
+    for(ClientHandler client : clients)
+    {
+      if(client.getIp().equals(ip))
+      {
+        OrderPackage sentPackage = new OrderPackage("Order",null,"Remove");
+        client.sendMessage(parser.toJson(sentPackage));
+        break;
+      }
+    }
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt)
+  {
+    removeOrderFromClient(evt.getNewValue().toString());
   }
 }
