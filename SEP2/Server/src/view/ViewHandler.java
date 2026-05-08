@@ -22,7 +22,9 @@ public class ViewHandler
   public void start(Stage primaryStage)
   {
     this.primaryStage = primaryStage;
+    System.out.println("test5");
     openView("live Orders");
+    System.out.println("what?");
   }
 
   public void openView(String id)
@@ -38,13 +40,8 @@ public class ViewHandler
     currentScene.setRoot(root);
     String title = "";
 
-    if (root != null && root.getUserData() != null)
+    if (root != null)
     {
-      if(root.getUserData() != null)
-      {
-        title += root.getUserData();
-      }
-
       primaryStage.setTitle(title);
       primaryStage.setScene(currentScene);
       primaryStage.setWidth(root.getPrefWidth());
