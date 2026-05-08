@@ -40,7 +40,7 @@ public interface OrderCardRenderer {
 
   default Button createButton(String text) {
     Button btn = new Button(text);
-    btn.setStyle("-fx-font-size: 18px;");
+    btn.setStyle("-fx-font-size: 14px;");
     return btn;
   }
 }

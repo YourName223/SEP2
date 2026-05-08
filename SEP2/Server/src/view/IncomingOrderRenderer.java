@@ -1,6 +1,9 @@
 package view;
 
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import model.OrderCurrent;
 import model.Order;
@@ -31,14 +34,18 @@ public class IncomingOrderRenderer implements OrderCardRenderer {
       );
     }
 
-    Button btn1 = createButton("Delete");
-    btn1.setOnAction(e -> controller.deleteButton(liveOrder));
+    Button btnMake = createButton("MAKE");
+    btnMake.setOnAction(e -> controller.makeButton(liveOrder));
 
-    Button btn = createButton("MAKE");
-    btn.setOnAction(e -> controller.makeButton(liveOrder));
+    Button btnDelete = createButton("X");
+    btnDelete.setOnAction(e -> controller.deleteButton(liveOrder));
 
-    card.getChildren().add(btn);
-    card.getChildren().add(btn1);
+    Region space = new Region();
+    HBox.setHgrow(space, Priority.ALWAYS);
+
+    HBox doOrDont = new HBox(btnMake, space, btnDelete);
+
+    card.getChildren().add(doOrDont);
 
     container.getChildren().add(card);
   }

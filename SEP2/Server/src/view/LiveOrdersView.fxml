@@ -33,7 +33,7 @@
                         <ScrollPane hbarPolicy="NEVER" prefHeight="410.0" prefWidth="230.0" VBox.vgrow="ALWAYS">
 
                             <content>
-                                <VBox fx:id="incomingOrderBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="210.0" />
+                                <VBox fx:id="incomingOrderBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="210.0" spacing="5"/>
                             </content>
 
                         </ScrollPane>
@@ -54,7 +54,7 @@
                         <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
 
                             <content>
-                                <VBox fx:id="currentOrderBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="340.0" />
+                                <VBox fx:id="currentOrderBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="340.0" spacing="5"/>
                             </content>
 
                         </ScrollPane>
@@ -80,7 +80,7 @@
                         <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
 
                             <content>
-                                <VBox fx:id="finishedOrderBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="210.0" />
+                                <VBox fx:id="finishedOrderBox" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="210.0" spacing="8"/>
                             </content>
 
                         </ScrollPane>

@@ -22,7 +22,10 @@ public class CurrentOrderRenderer implements OrderCardRenderer {
     for (OrderItem item : order.getOrderItems()) {
 
       card.getChildren().add(
-          createLabel(item.getItem().getName())
+          createLabel(
+              item.getQuantity() + "x " +
+                  item.getItem().getName()
+          )
       );
 
       for (Recipe recipe : item.getItem().getRecipes()) {
