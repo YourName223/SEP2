@@ -13,21 +13,14 @@ public class Ingredient
     this.amount = amount;
   }
 
-  public Ingredient(Ingredient ingredient, int amount)
+  public String getId()
   {
-    this.id = ingredient.getId();
-    this.name = ingredient.getName();
-    this.amount = amount;
+    return id;
   }
 
   public String getName()
   {
     return name;
-  }
-
-  public String getId()
-  {
-    return id;
   }
 
   public double getAmount()

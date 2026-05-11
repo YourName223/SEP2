@@ -11,6 +11,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void removeOrder(OrderCurrent order);
   public boolean receiveTableOrder(Order order, String tableNr);
   public ArrayList<MenuItem> getMenuItems();
+  public ArrayList<String> getAllTableNr();
   ArrayList<OrderCurrent> getOrdersCurrent();
   public ArrayList<Order> getOrdersFromTable(String tableNr);
   public void removeAllOrdersFromTable(String tableNr);

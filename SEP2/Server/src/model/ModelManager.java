@@ -76,6 +76,11 @@ public class ModelManager implements Model
     return menuManager.getMenuItems();
   }
 
+  @Override public ArrayList<String> getAllTableNr()
+  {
+    return tableManager.getAllTableNr();
+  }
+
   @Override public ArrayList<OrderCurrent> getOrdersCurrent()
   {
     return orderManager.getOrderList().getOrders();

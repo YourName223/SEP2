@@ -52,4 +52,16 @@ public class TableList
   {
     return getTable(tableNr).getTotalPrice();
   }
+
+  public ArrayList<String> getAllTableNr()
+  {
+    ArrayList<String> tableNrs = new ArrayList<>();
+
+    for (Table table : tables)
+    {
+      tableNrs.add(table.getTableNr());
+    }
+
+    return tableNrs;
+  }
 }

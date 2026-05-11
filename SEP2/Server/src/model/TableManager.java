@@ -45,4 +45,9 @@ public class TableManager
   {
     return tableList.getPriceFromTable(tableNr);
   }
+
+  public ArrayList<String> getAllTableNr()
+  {
+    return tableList.getAllTableNr();
+  }
 }
