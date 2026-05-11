@@ -70,7 +70,7 @@ public class IngredientManager
     {
       if (ingredient1.getId().equals(recipeIngredient.getIngredient().getId()))
       {
-        ingredient1.setAmount(ingredient1.getAmount()+recipeIngredient.getIngredient().getAmount());
+        ingredient1.setAmount(ingredient1.getAmount()+recipeIngredient.getAmount());
         break;
       }
     }
