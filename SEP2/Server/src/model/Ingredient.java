@@ -4,13 +4,13 @@ public class Ingredient
 {
   private String id;
   private String name;
-  private int amount;
+  private double amount;
 
-  public Ingredient(String id, String name, int stock)
+  public Ingredient(String id, String name, double amount)
   {
     this.id = id;
     this.name = name;
-    this.amount = stock;
+    this.amount = amount;
   }
 
   public Ingredient(Ingredient ingredient, int amount)
@@ -30,12 +30,12 @@ public class Ingredient
     return id;
   }
 
-  public int getAmount()
+  public double getAmount()
   {
     return amount;
   }
 
-  public void setAmount(int amount)
+  public void setAmount(double amount)
   {
     this.amount = amount;
   }

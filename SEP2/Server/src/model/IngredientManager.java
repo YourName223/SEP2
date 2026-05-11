@@ -56,6 +56,7 @@ public class IngredientManager
       {
         for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients())
         {
+          System.out.println(recipeIngredient.getIngredient().getName() + ", " + recipeIngredient.getAmount() + ", " + recipeIngredient.getIngredient().getAmount());
           addIngredientToList(ingredientsInOrder,recipeIngredient);
         }
       }
@@ -71,10 +72,12 @@ public class IngredientManager
       if (ingredient1.getId().equals(recipeIngredient.getIngredient().getId()))
       {
         ingredient1.setAmount(ingredient1.getAmount()+recipeIngredient.getAmount());
-        break;
+      }
+      else
+      {
+        ingredientList.add(recipeIngredient.getIngredient());
       }
     }
-    ingredientList.add(recipeIngredient.getIngredient());
   }
 
   public void removeIngredients(ArrayList<Ingredient> ingredientsInOrder)
@@ -85,7 +88,7 @@ public class IngredientManager
       {
         if (ingredient.getId().equals(ingredientInOrder.getId()))
         {
-          int amount = ingredient.getAmount()-ingredientInOrder.getAmount();
+          double amount = ingredient.getAmount()-ingredientInOrder.getAmount();
           menuDAO.setAmountOnIngredient(ingredient.getId(),ingredientInOrder.getAmount());
           ingredient.setAmount(amount);
         }
@@ -101,7 +104,7 @@ public class IngredientManager
       {
         if (ingredient.getId().equals(ingredientInOrder.getId()))
         {
-          int amount = ingredient.getAmount()+ingredientInOrder.getAmount();
+          double amount = ingredient.getAmount()+ingredientInOrder.getAmount();
           menuDAO.setAmountOnIngredient(ingredient.getId(),-ingredientInOrder.getAmount());
           ingredient.setAmount(amount);
         }
