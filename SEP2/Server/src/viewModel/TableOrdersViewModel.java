@@ -80,4 +80,8 @@ public class TableOrdersViewModel
   public void backToTables()
   {
   }
+
+  public void clear()
+  {
+  }
 }

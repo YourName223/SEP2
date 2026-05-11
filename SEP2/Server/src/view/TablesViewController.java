@@ -41,7 +41,6 @@ public class TablesViewController
   @FXML
   private void onTableSelected()
   {
-    // selection is ONLY used for navigation, not stored anywhere
     TableRow selected = tablesTable.getSelectionModel().getSelectedItem();
 
     if (selected != null)
