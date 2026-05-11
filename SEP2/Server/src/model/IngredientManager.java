@@ -85,7 +85,7 @@ public class IngredientManager
         if (ingredient.getId().equals(ingredientInOrder.getId()))
         {
           int amount = ingredient.getAmount()-ingredientInOrder.getAmount();
-          menuDAO.setAmountOnIngredient(ingredient,amount);
+          menuDAO.setAmountOnIngredient(ingredient.getId(),amount);
           ingredient.setAmount(amount);
         }
       }
@@ -101,7 +101,7 @@ public class IngredientManager
         if (ingredient.getId().equals(ingredientInOrder.getId()))
         {
           int amount = ingredient.getAmount()+ingredientInOrder.getAmount();
-          menuDAO.setAmountOnIngredient(ingredient,amount);
+          menuDAO.setAmountOnIngredient(ingredient.getId(),amount);
           ingredient.setAmount(amount);
         }
       }
