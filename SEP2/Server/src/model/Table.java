@@ -33,6 +33,11 @@ public class Table
     totalOrder.remove(order);
   }
 
+  public void removeAllOrders()
+  {
+    totalOrder.clear();
+  }
+
   public Table copy()
   {
     Table table = new Table(tableNr);
@@ -43,5 +48,15 @@ public class Table
     }
 
     return table;
+  }
+
+  public double getTotalPrice()
+  {
+    double price = 0;
+    for (Order order : totalOrder)
+    {
+      price += order.getTotalPrice();
+    }
+    return price;
   }
 }

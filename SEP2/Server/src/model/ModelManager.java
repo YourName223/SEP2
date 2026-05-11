@@ -12,6 +12,7 @@ public class ModelManager implements Model
   private MenuManager menuManager;
   private RecipeManager recipeManager;
   private TableManager tableManager;
+  private IngredientManager ingredientManager;
 
   public ModelManager()
   {
@@ -20,6 +21,7 @@ public class ModelManager implements Model
     orderManager = new OrderManager(menuManager);
     orderDispatcher = new OrderDispatcher(tableManager);
     recipeManager = new RecipeManager();
+    ingredientManager = new IngredientManager();
     property = new PropertyChangeSupport(this);
   }
 
@@ -43,6 +45,8 @@ public class ModelManager implements Model
   {
     orderManager.removeOrder(order);
     tableManager.removeOrder(order.getOrder());
+    ArrayList<Ingredient> ingredientsInOrder = ingredientManager.getIngredientsInOrder(order.getOrder());
+    ingredientManager.addIngredients(ingredientsInOrder);
 
     property.firePropertyChange("Update",null,null);
 
@@ -52,13 +56,19 @@ public class ModelManager implements Model
     }
   }
 
-  @Override public void receiveTableOrder(Order order, String tableNr)
+  @Override public boolean receiveTableOrder(Order order, String tableNr)
   {
-    TableOrder tableOrder = orderManager.createTableOrder(order,tableNr);
-    orderManager.addOrder(tableOrder);
-    orderDispatcher.dispatch(tableOrder);
-
-    property.firePropertyChange("Update",null,null);
+    ArrayList<Ingredient> ingredientsInOrder = ingredientManager.getIngredientsInOrder(order);
+    if(ingredientManager.hasStockForIngredients(ingredientsInOrder))
+    {
+      TableOrder tableOrder = orderManager.createTableOrder(order, tableNr);
+      orderManager.addOrder(tableOrder);
+      orderDispatcher.dispatch(tableOrder);
+      property.firePropertyChange("Update", null, null);
+      ingredientManager.removeIngredients(ingredientsInOrder);
+      return true;
+    }
+    return false;
   }
 
   @Override public ArrayList<MenuItem> getMenuItems()
@@ -71,8 +81,19 @@ public class ModelManager implements Model
     return orderManager.getOrderList().getOrders();
   }
 
-  @Override public RecipeManager getRecipeManager() {
-    return recipeManager;
+  @Override public ArrayList<Order> getOrdersFromTable(String tableNr)
+  {
+    return tableManager.getOrdersFromTable(tableNr);
+  }
+
+  @Override public void removeAllOrdersFromTable(String tableNr)
+  {
+    tableManager.removeAllOrdersFromTable(tableNr);
+  }
+
+  @Override public double getPriceFromTable(String tableNr)
+  {
+    return tableManager.getPriceFromTable(tableNr);
   }
 
   @Override public void addListener(String propertyName, PropertyChangeListener listener)

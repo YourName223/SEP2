@@ -9,10 +9,12 @@ public interface Model extends UnnamedPropertyChangeSubject
   public ArrayList<MenuItemDto> getMenuItemsDto();
   public void clickOnOrder(OrderCurrent order);
   public void removeOrder(OrderCurrent order);
-  public void receiveTableOrder(Order order, String tableNr);
+  public boolean receiveTableOrder(Order order, String tableNr);
   public ArrayList<MenuItem> getMenuItems();
   ArrayList<OrderCurrent> getOrdersCurrent();
-  RecipeManager getRecipeManager();
+  public ArrayList<Order> getOrdersFromTable(String tableNr);
+  public void removeAllOrdersFromTable(String tableNr);
+  public double getPriceFromTable(String tableNr);
 /*
   public Component createComponent(String name);
 

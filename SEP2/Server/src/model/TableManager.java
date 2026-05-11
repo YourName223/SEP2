@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class TableManager
 {
   public TableList tableList;
@@ -27,5 +29,20 @@ public class TableManager
 
       tableList.removeOrder(order,tableNr);
     }
+  }
+
+  public void removeAllOrdersFromTable(String tableNr)
+  {
+    tableList.removeAllOrdersFromTable(tableNr);
+  }
+
+  public ArrayList<Order> getOrdersFromTable(String tableNr)
+  {
+    return tableList.getOrdersFromTable(tableNr);
+  }
+
+  public double getPriceFromTable(String tableNr)
+  {
+    return tableList.getPriceFromTable(tableNr);
   }
 }

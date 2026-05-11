@@ -25,11 +25,6 @@ public class LiveOrdersViewModel implements PropertyChangeListener
     return orderCurrents;
   }
 
-  public RecipeManager getRecipeManager()
-  {
-    return model.getRecipeManager();
-  }
-
   public void clickOrder(OrderCurrent order)
   {
     model.clickOnOrder(order);

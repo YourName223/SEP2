@@ -37,4 +37,19 @@ public class TableList
     }
     return null;
   }
+
+  public void removeAllOrdersFromTable(String tableNr)
+  {
+    getTable(tableNr).removeAllOrders();
+  }
+
+  public ArrayList<Order> getOrdersFromTable(String tableNr)
+  {
+    return getTable(tableNr).getOrders();
+  }
+
+  public double getPriceFromTable(String tableNr)
+  {
+    return getTable(tableNr).getTotalPrice();
+  }
 }

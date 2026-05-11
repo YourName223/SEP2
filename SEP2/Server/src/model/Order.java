@@ -78,4 +78,14 @@ public class Order
     string.append("]");
     return string.toString();
   }
+
+  public double getTotalPrice()
+  {
+    double price = 0;
+    for (OrderItem orderItem : getOrderItems())
+    {
+      price += (orderItem.getQuantity()*orderItem.getItem().getPrice());
+    }
+    return price;
+  }
 }
