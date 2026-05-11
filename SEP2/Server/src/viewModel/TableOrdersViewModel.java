@@ -5,7 +5,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Model;
+import model.Order;
 import model.OrderItem;
+import model.Table;
 
 public class TableOrdersViewModel
 {
@@ -14,6 +16,8 @@ public class TableOrdersViewModel
   private StringProperty errorProperty;
   private DoubleProperty total;
   private StringProperty tableNumber;
+
+  private final ObservableList<OrderItemRow> rows = FXCollections.observableArrayList();
 
   public TableOrdersViewModel(Model model)
   {
@@ -35,8 +39,28 @@ public class TableOrdersViewModel
   {
     successProperty.set("");
     errorProperty.set("");
-    //table number
-    //total
+
+    rows.clear();
+
+    Table table = model.getSelectedTable();
+
+    tableNumber.set(String.valueOf(table.getTableNr()));
+    total.set(String.format("%.2f", table.getTotal()));
+
+    for (Order order : table.getOrders())
+    {
+      for (OrderItem item : order.getOrderItems())
+      {
+        rows.add(
+            new OrderItemRow(item.getQuantity(), item.getItem().getName(),
+                item.getItem().getPrice()));
+      }
+    }
+  }
+
+  public ObservableList<OrderItemRow> getRows()
+  {
+    return rows;
   }
 
   public StringProperty getSuccessProperty()
@@ -49,13 +73,14 @@ public class TableOrdersViewModel
     return errorProperty;
   }
 
-
   public ObservableValue<String> getTotal()
   {
+return total;
   }
 
   public ObservableValue<String> getTableNumber()
   {
+    return tableNumber;
   }
 
   public void backToTables()
@@ -64,5 +89,7 @@ public class TableOrdersViewModel
 
   public void resetOrders()
   {
+    model.resetOrdersForSelectedTable();
+    loadFromModel();
   }
 }
