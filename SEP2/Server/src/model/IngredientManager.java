@@ -32,6 +32,7 @@ public class IngredientManager
       {
         if (ingredientStock.getId().equals(ingredientOrder.getId()) && ingredientStock.getAmount() >= ingredientOrder.getAmount())
         {
+          System.out.println(ingredientStock.getId() + ingredientStock.getAmount() + "Spørger om" + ingredientOrder.getId() + ingredientOrder.getAmount());
           found = true;
           break;
         }
