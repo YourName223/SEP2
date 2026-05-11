@@ -65,7 +65,7 @@ public class Recipe
   }
 
   // Eksisterende metoder
-  public void addIngredient(Ingredient ingredient, int amount)
+  public void addIngredient(Ingredient ingredient, double amount)
   {
     ingredients.add(new RecipeIngredient(ingredient, amount));
   }

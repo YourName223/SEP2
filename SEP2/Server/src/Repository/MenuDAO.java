@@ -20,7 +20,7 @@ public interface MenuDAO
   Recipe createRecipe(String name, ArrayList<Ingredient> ingredients) throws SQLException;
   MenuItem createMenu(String name, String allergies, double price, ArrayList<Recipe> recipes) throws SQLException;
   List<Ingredient> getStock();
-  void setAmountOnIngredient(String id, int amountToRemove);
+  void setAmountOnIngredient(String id, double amountToRemove);
 }
 
 

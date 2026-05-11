@@ -251,7 +251,7 @@
         if (recipe != null)
         {
           PreparedStatement ingStatement = connection.prepareStatement(
-              "SELECT i.id, i.name FROM ingredient i " +
+              "SELECT i.id, i.name, ri.amount FROM ingredient i " +
                   "JOIN recipe_ingredient ri ON i.id = ri.ingredient_id " +
                   "WHERE ri.recipe_id = ?");
           ingStatement.setInt(1, Integer.parseInt(recipeId));
@@ -261,8 +261,9 @@
           {
             String id = ingRs.getString("id");
             String name = ingRs.getString("name");
-            Ingredient ingredient = new Ingredient(id,name,100);
-            recipe.addIngredient(ingredient, 0);
+            Double amount = ingRs.getDouble("amount");
+            Ingredient ingredient = new Ingredient(id,name,amount);
+            recipe.addIngredient(ingredient, amount);
           }
         }
       }
@@ -437,7 +438,7 @@
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
         PreparedStatement statement = connection.prepareStatement(
-            "SELECT id, name, amount FROM ingredient");
+            "SELECT id, name, stock FROM ingredient");
 
         ResultSet resultSet = statement.executeQuery();
 
@@ -445,7 +446,7 @@
         {
           String id = resultSet.getString("id");
           String name = resultSet.getString("name");
-          int stock = resultSet.getInt("amount");
+          double stock = resultSet.getInt("stock");
 
           ingredients.add(new Ingredient(id, name, stock));
         }
@@ -459,12 +460,12 @@
     }
 
     @Override
-    public void setAmountOnIngredient(String id, int amountToRemove)
+    public void setAmountOnIngredient(String id, double amountToRemove)
     {
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
-        PreparedStatement statement = connection.prepareStatement("UPDATE ingredient SET amount = amount - ? WHERE id = ?");
-        statement.setInt(1, amountToRemove);
+        PreparedStatement statement = connection.prepareStatement("UPDATE ingredient SET stock = stock - ? WHERE id = ?");
+        statement.setDouble(1, amountToRemove);
         statement.setInt(2, Integer.parseInt(id));
         statement.executeUpdate();
       }

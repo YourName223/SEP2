@@ -3,9 +3,9 @@ package model;
 public class RecipeIngredient
 {
   private Ingredient ingredient;
-  private int amount;
+  private double amount;
 
-  public RecipeIngredient(Ingredient ingredient, int amount)
+  public RecipeIngredient(Ingredient ingredient, double amount)
   {
     this.ingredient = ingredient;
     this.amount = amount;
@@ -16,7 +16,7 @@ public class RecipeIngredient
     return ingredient;
   }
 
-  public int getAmount()
+  public double getAmount()
   {
     return amount;
   }
