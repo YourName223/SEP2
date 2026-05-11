@@ -1,59 +1,60 @@
 package viewModel;
 
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Model;
-import model.Order;
-import model.OrderItem;
-import model.Table;
+import model.*;
 
 public class TableOrdersViewModel
 {
-  private Model model;
-  private StringProperty successProperty;
-  private StringProperty errorProperty;
-  private DoubleProperty total;
-  private StringProperty tableNumber;
+  private final Model model;
 
-  private final ObservableList<OrderItemRow> rows = FXCollections.observableArrayList();
+  private final StringProperty successProperty = new SimpleStringProperty();
+  private final StringProperty errorProperty = new SimpleStringProperty();
+  private final DoubleProperty total = new SimpleDoubleProperty();
+  private final StringProperty tableNumber = new SimpleStringProperty();
+
+  private String selectedTableNr;
+
+  private final ObservableList<OrderItemRow> rows =
+      FXCollections.observableArrayList();
 
   public TableOrdersViewModel(Model model)
   {
-    total = new SimpleDoubleProperty();
     this.model = model;
-    this.successProperty = new SimpleStringProperty();
-    this.errorProperty = new SimpleStringProperty();
-
-    //model.addListener("Update",this);
-    loadFromModel();
   }
 
-  public void clear()
+  public void setSelectedTableNr(String tableNr)
   {
+    this.selectedTableNr = tableNr;
     loadFromModel();
   }
 
   public void loadFromModel()
   {
+    if (selectedTableNr == null)
+    {
+      return;
+    }
+
     successProperty.set("");
     errorProperty.set("");
 
     rows.clear();
 
-    Table table = model.getSelectedTable();
+    tableNumber.set(selectedTableNr);
 
-    tableNumber.set(String.valueOf(table.getTableNr()));
-    total.set(String.format("%.2f", table.getTotal()));
+    total.set(model.getPriceFromTable(selectedTableNr));
 
-    for (Order order : table.getOrders())
+    for (Order order : model.getOrdersFromTable(selectedTableNr))
     {
       for (OrderItem item : order.getOrderItems())
       {
-        rows.add(
-            new OrderItemRow(item.getQuantity(), item.getItem().getName(),
-                item.getItem().getPrice()));
+        rows.add(new OrderItemRow(
+            item.getQuantity(),
+            item.getItem().getName(),
+            item.getItem().getPrice()
+        ));
       }
     }
   }
@@ -63,33 +64,20 @@ public class TableOrdersViewModel
     return rows;
   }
 
-  public StringProperty getSuccessProperty()
-  {
-    return successProperty;
-  }
+  public StringProperty getSuccessProperty() { return successProperty; }
+  public StringProperty getErrorProperty() { return errorProperty; }
+  public DoubleProperty getTotal() { return total; }
+  public StringProperty getTableNumber() { return tableNumber; }
 
-  public StringProperty getErrorProperty()
+  public void resetOrders()
   {
-    return errorProperty;
-  }
+    if (selectedTableNr == null) return;
 
-  public ObservableValue<String> getTotal()
-  {
-return total;
-  }
-
-  public ObservableValue<String> getTableNumber()
-  {
-    return tableNumber;
+    model.removeAllOrdersFromTable(selectedTableNr);
+    loadFromModel();
   }
 
   public void backToTables()
   {
-  }
-
-  public void resetOrders()
-  {
-    model.resetOrdersForSelectedTable();
-    loadFromModel();
   }
 }

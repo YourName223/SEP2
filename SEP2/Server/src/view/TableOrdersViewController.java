@@ -1,6 +1,7 @@
 package view;
 
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -25,7 +26,8 @@ public class TableOrdersViewController
   private TableOrdersViewModel viewModel;
   private Region root;
 
-  public void init(ViewHandler viewHandler, TableOrdersViewModel viewModel, Region root)
+  public void init(ViewHandler viewHandler, TableOrdersViewModel viewModel,
+      Region root)
   {
     this.viewHandler = viewHandler;
     this.viewModel = viewModel;
@@ -33,16 +35,19 @@ public class TableOrdersViewController
 
     errorLabel.textProperty().bind(viewModel.getErrorProperty());
     successLabel.textProperty().bind(viewModel.getSuccessProperty());
-    totalLabel.textProperty().bind(viewModel.getTotal());
+
     tableNumberLabel.textProperty().bind(viewModel.getTableNumber());
 
-    viewModel.getOrders().addListener((obs) -> renderOrders());
+    totalLabel.textProperty().bind(
+        Bindings.format("%.2f", viewModel.getTotal())
+    );
 
-    viewModel.loadFromModel();
     viewModel.getRows().addListener((Observable obs) -> renderRows());
+
     viewModel.loadFromModel();
     renderRows();
   }
+
   public void reset()
   {
     viewModel.clear();
@@ -77,7 +82,6 @@ public class TableOrdersViewController
       ordersBox.getChildren().add(row);
     }
   }
-
 
   public void backToTablesButton()
   {

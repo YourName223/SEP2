@@ -6,12 +6,16 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import viewModel.ViewModelFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ViewHandler
 {
   private Stage primaryStage;
   private Scene currentScene;
   private ViewModelFactory viewModelFactory;
-  private LiveOrdersViewController liveOrdersViewController;
+
+  private final Map<String, Object> controllers = new HashMap<>();
 
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
@@ -22,57 +26,104 @@ public class ViewHandler
   public void start(Stage primaryStage)
   {
     this.primaryStage = primaryStage;
-    System.out.println("test5");
-    openView("live Orders");
-    System.out.println("what?");
+    openView("liveOrders");
   }
 
+  // MAIN ENTRY POINT (no parameters yet)
   public void openView(String id)
   {
+    openView(id, null);
+  }
+
+  // OVERLOAD with parameter support
+  public void openView(String id, Object data)
+  {
     Region root = null;
+
     switch (id)
     {
-      case "live Orders":
-        root = loadMenuView("LiveOrdersView.fxml");
+      case "liveOrders":
+        root = loadView("LiveOrdersView.fxml", id, data);
+        break;
+
+      case "tables":
+        root = loadView("TablesView.fxml", id, data);
+        break;
+
+      case "tableOrders":
+        root = loadView("TableOrdersView.fxml", id, data);
         break;
     }
 
-    currentScene.setRoot(root);
-    String title = "";
-
     if (root != null)
     {
-      primaryStage.setTitle(title);
+      currentScene.setRoot(root);
       primaryStage.setScene(currentScene);
-      primaryStage.setWidth(root.getPrefWidth());
-      primaryStage.setHeight(root.getPrefHeight());
       primaryStage.show();
     }
   }
 
-  private Region loadMenuView(String fxmlFile)
+  private Region loadView(String fxml, String id, Object data)
   {
-    if (liveOrdersViewController == null)
+    try
     {
-      try
+      if (!controllers.containsKey(id))
       {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(fxmlFile));
-        Region root = loader.load();
-        liveOrdersViewController = loader.getController();
-        liveOrdersViewController
-            .init(this, viewModelFactory.getLiveOrdersViewModel(), root);
-      }
-      catch (Exception e)
-      {
-        e.printStackTrace();
-      }
-    }
-    else
-    {
-      liveOrdersViewController.reset();
-    }
+        loader.setLocation(getClass().getResource(fxml));
 
-    return liveOrdersViewController.getRoot();
+        Region root = loader.load();
+        Object controller = loader.getController();
+
+        controllers.put(id, controller);
+
+        if (id.equals("liveOrders"))
+        {
+          ((LiveOrdersViewController) controller)
+              .init(this, viewModelFactory.getLiveOrdersViewModel(), root);
+        }
+
+        if (id.equals("tables"))
+        {
+          ((TablesViewController) controller)
+              .init(this, viewModelFactory.getTablesViewModel(), root);
+        }
+
+        if (id.equals("tableOrders"))
+        {
+          TableOrdersViewController c =
+              (TableOrdersViewController) controller;
+
+          c.init(this, viewModelFactory.getTableOrdersViewModel(), root);
+
+          if (data instanceof String)
+          {
+            viewModelFactory.getTableOrdersViewModel()
+                .setSelectedTableNr((String) data);
+          }
+        }
+
+        return root;
+      }
+      else
+      {
+        Object controller = controllers.get(id);
+
+        if (id.equals("tableOrders"))
+        {
+          TableOrdersViewController c =
+              (TableOrdersViewController) controller;
+
+          c.reset();
+        }
+      }
+
+      return ((Region) ((javafx.scene.Node) primaryStage.getScene().getRoot()));
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+      return null;
+    }
   }
 }
