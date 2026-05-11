@@ -28,7 +28,7 @@ public class IngredientManager
     {
       boolean found = false;
 
-      for(Ingredient ingredientStock : ingredients)
+      for(Ingredient ingredientStock : stock)
       {
         if (ingredientStock.getId().equals(ingredientOrder.getId()) && ingredientStock.getAmount() >= ingredientOrder.getAmount())
         {
