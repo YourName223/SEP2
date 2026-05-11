@@ -3,6 +3,7 @@
   import model.*;
   import java.sql.*;
   import java.util.ArrayList;
+  import java.util.List;
 
   // try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
   // try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=jdbc", "postgres", "admin"))
@@ -426,6 +427,45 @@
         }
 
         return menuItem;
+      }
+    }
+    @Override
+    public List<Ingredient> getStock()
+    {
+      List<Ingredient> ingredients = new ArrayList<>();
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+      {
+        PreparedStatement statement = connection.prepareStatement("SELECT id, name, amount FROM ingredient");
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next())
+        {
+          String id = resultSet.getString("id");
+          String name = resultSet.getString("name");
+          int stock = resultSet.getInt("amount");
+          ingredients.add(new Ingredient(id, name, stock));
+        }
+      }
+      catch (SQLException e)
+      {
+        e.printStackTrace();
+      }
+      return ingredients;
+    }
+
+    @Override
+    public void setAmountOnIngredient(String id, int amountToRemove)
+    {
+      try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
+      {
+        PreparedStatement statement = connection.prepareStatement("UPDATE ingredient SET amount = amount - ? WHERE id = ?");
+        statement.setInt(1, amountToRemove);
+        statement.setInt(2, Integer.parseInt(id));
+        statement.executeUpdate();
+      }
+      catch (SQLException e)
+      {
+        e.printStackTrace();
       }
     }
   }

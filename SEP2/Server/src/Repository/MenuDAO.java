@@ -5,6 +5,7 @@ import model.MenuItem;
 import model.Recipe;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface MenuDAO
 {
@@ -18,6 +19,8 @@ public interface MenuDAO
   Ingredient createIngredient(String name) throws SQLException;
   Recipe createRecipe(String name, ArrayList<Ingredient> ingredients) throws SQLException;
   MenuItem createMenu(String name, String allergies, double price, ArrayList<Recipe> recipes) throws SQLException;
+  List<Ingredient> getStock();
+  void setAmountOnIngredient(String id, int amountToRemove);
 }
 
 
