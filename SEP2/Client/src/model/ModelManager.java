@@ -68,11 +68,6 @@ public class ModelManager implements Model
     property.firePropertyChange("Update",null,message);
   }
 
-  @Override public void fireProperty(String propertyName, String line)
-  {
-    property.firePropertyChange(propertyName,null,line);
-  }
-
   @Override public void changeMenu(ArrayList<MenuItemDto> menu)
   {
     this.menu = menu;

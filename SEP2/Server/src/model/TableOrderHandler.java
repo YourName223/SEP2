@@ -13,8 +13,8 @@ public class TableOrderHandler implements OrderHandler
 
   @Override public void handle(Order order)
   {
-    Table table = tableManager.secureTable(((TableOrder)order).getTableNr());
-    table.assignOrder(order);
+    tableManager.secureTable(((TableOrder)order).getTableNr());
+    tableManager.assignOrderOnTable(order,((TableOrder) order).getTableNr());
   }
 
   @Override public String getType()
