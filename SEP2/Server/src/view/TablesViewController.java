@@ -48,16 +48,22 @@ public class TablesViewController
   @FXML
   private void onTableSelected()
   {
-    openSelectedTable();
+    setSelectedTable();
   }
 
   @FXML
   private void showOrdersButton()
   {
-    openSelectedTable();
+    TableRow selected = tablesTable.getSelectionModel().getSelectedItem();
+
+    if (selected != null)
+    {
+      viewModel.openTable(selected.getTableNumber());
+    }
+    System.out.println("Tabs controller = " + tabsViewController);
   }
 
-  private void openSelectedTable()
+  private void setSelectedTable()
   {
     TableRow selected =
         tablesTable.getSelectionModel().getSelectedItem();
@@ -66,6 +72,7 @@ public class TablesViewController
     {
       tabsViewController.showTableOrdersView(selected.getTableNumber());
     }
+    System.out.println("Table selected " + selected);
   }
 
   public void reset()
