@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<?import javafx.scene.layout.StackPane?>
+<TabPane fx:controller="view.TabsViewController" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25">
+  <tabs>
+    <Tab text="Active Orders" fx:id="liveOrdersTab"/>
+      <Tab text="Tables" fx:id="tablesTab">
+          <StackPane fx:id="tablesContainer"/>
+      </Tab>
+  </tabs>
+</TabPane>

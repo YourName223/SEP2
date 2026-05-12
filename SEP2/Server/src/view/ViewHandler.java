@@ -1,113 +1,71 @@
 package view;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import viewModel.TableOrdersViewModel;
 import viewModel.ViewModelFactory;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ViewHandler
 {
   private Stage primaryStage;
   private Scene currentScene;
-  private final ViewModelFactory viewModelFactory;
 
-  private final Map<String, Object> controllers = new HashMap<>();
+  private final ViewModelFactory viewModelFactory;
 
   public ViewHandler(ViewModelFactory viewModelFactory)
   {
     this.viewModelFactory = viewModelFactory;
-    this.currentScene = new Scene(new Region());
+    this.currentScene = new Scene(new javafx.scene.layout.Region());
   }
 
   public void start(Stage primaryStage)
   {
     this.primaryStage = primaryStage;
-    openView("liveOrders");
+    openTabs();
   }
 
-  // -------------------------
-  // NAVIGATION API
-  // -------------------------
-
-  public void openView(String id)
-  {
-    Region root = loadView(id);
-
-    if (root != null)
-    {
-      currentScene.setRoot(root);
-      primaryStage.setScene(currentScene);
-      primaryStage.show();
-    }
-  }
-
-  public void openTableOrders(String tableNr)
-  {
-    TableOrdersViewModel vm = viewModelFactory.getTableOrdersViewModel();
-
-    vm.setSelectedTableNr(tableNr);
-
-    openView("tableOrders");
-  }
-
-
-  private Region loadView(String id)
+  private <T> Parent load(String fxml, T viewModel)
   {
     try
     {
-      if (!controllers.containsKey(id))
+      FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+      Parent root = loader.load();
+
+      Object controller = loader.getController();
+
+
+      if (controller instanceof ViewController<?> vc)
       {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(getFxml(id)));
+        @SuppressWarnings("unchecked")
+        ViewController<T> typedController = (ViewController<T>) vc;
 
-        Region root = loader.load();
-        Object controller = loader.getController();
-
-        controllers.put(id, controller);
-
-        switch (id)
-        {
-          case "liveOrders":
-            ((LiveOrdersViewController) controller)
-                .init(this, viewModelFactory.getLiveOrdersViewModel(), root);
-            break;
-
-          case "tables":
-            ((TablesViewController) controller)
-                .init(this, viewModelFactory.getTablesViewModel(), root);
-            break;
-
-          case "tableOrders":
-            ((TableOrdersViewController) controller)
-                .init(this, viewModelFactory.getTableOrdersViewModel(), root);
-            break;
-        }
-
-        return root;
+        typedController.init(viewModel);
       }
 
-      return (Region) ((javafx.scene.Node) primaryStage.getScene().getRoot());
+      return root;
     }
     catch (Exception e)
     {
-      e.printStackTrace();
-      return null;
+      throw new RuntimeException("Failed to load: " + fxml, e);
     }
   }
 
-  private String getFxml(String id)
+
+  private void setScene(Parent root)
   {
-    return switch (id)
-    {
-      case "liveOrders" -> "LiveOrdersView.fxml";
-      case "tables" -> "TablesView.fxml";
-      case "tableOrders" -> "TableOrdersView.fxml";
-      default -> throw new IllegalArgumentException("Unknown view: " + id);
-    };
+    currentScene.setRoot(root);
+    primaryStage.setScene(currentScene);
+    primaryStage.show();
   }
-}
+
+
+  public void openTabs()
+  {
+    Parent root = load(
+        "TabsView.fxml",
+        viewModelFactory
+    );
+
+    setScene(root);
+}}

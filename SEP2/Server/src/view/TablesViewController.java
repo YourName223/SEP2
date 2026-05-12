@@ -5,32 +5,34 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.Region;
 import viewModel.TableRow;
 import viewModel.TablesViewModel;
 
 public class TablesViewController
+    implements ViewController<TablesViewModel>
 {
   @FXML private TableView<TableRow> tablesTable;
   @FXML private TableColumn<TableRow, String> tableNumberColumn;
   @FXML private TableColumn<TableRow, Double> totalColumn;
 
-  private ViewHandler viewHandler;
   private TablesViewModel viewModel;
-  private Region root;
+  private TabsViewController tabsViewController;
 
-  public void init(ViewHandler viewHandler, TablesViewModel viewModel, Region root)
+  @Override
+  public void init(TablesViewModel viewModel)
   {
-    this.viewHandler = viewHandler;
     this.viewModel = viewModel;
-    this.root = root;
 
     tableNumberColumn.setCellValueFactory(
-        cell -> new SimpleStringProperty(cell.getValue().getTableNumber())
+        cell -> new SimpleStringProperty(
+            cell.getValue().getTableNumber()
+        )
     );
 
     totalColumn.setCellValueFactory(
-        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getTotal())
+        cell -> new ReadOnlyObjectWrapper<>(
+            cell.getValue().getTotal()
+        )
     );
 
     tablesTable.setItems(viewModel.getTables());
@@ -38,34 +40,36 @@ public class TablesViewController
     viewModel.loadFromModel();
   }
 
+  public void setTabsController(TabsViewController tabsViewController)
+  {
+    this.tabsViewController = tabsViewController;
+  }
+
   @FXML
   private void onTableSelected()
   {
-    TableRow selected = tablesTable.getSelectionModel().getSelectedItem();
-
-    if (selected != null)
-    {
-      viewHandler.openTableOrders(selected.getTableNumber());
-    }
+    openSelectedTable();
   }
 
-  public void showOrdersButton()
+  @FXML
+  private void showOrdersButton()
   {
-    TableRow selected = tablesTable.getSelectionModel().getSelectedItem();
+    openSelectedTable();
+  }
 
-    if (selected != null)
+  private void openSelectedTable()
+  {
+    TableRow selected =
+        tablesTable.getSelectionModel().getSelectedItem();
+
+    if (selected != null && tabsViewController != null)
     {
-      viewHandler.openTableOrders(selected.getTableNumber());
+      tabsViewController.showTableOrdersView(selected.getTableNumber());
     }
   }
 
   public void reset()
   {
     viewModel.clear();
-  }
-
-  public Region getRoot()
-  {
-    return root;
   }
 }

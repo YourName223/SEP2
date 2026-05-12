@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import model.*;
 import viewModel.LiveOrdersViewModel;
 
-public class LiveOrdersViewController
+public class LiveOrdersViewController implements ViewController<LiveOrdersViewModel>
 {
   @FXML VBox incomingOrderBox;
   @FXML VBox currentOrderBox;
@@ -16,15 +16,13 @@ public class LiveOrdersViewController
   private CurrentOrderRenderer currentRenderer;
   private FinishedOrderRenderer finishedRenderer;
 
-  private ViewHandler viewHandler;
-  private LiveOrdersViewModel viewModel;
-  private Region root;
 
-  public void init(ViewHandler viewHandler, LiveOrdersViewModel viewModel, Region root)
+  private LiveOrdersViewModel viewModel;
+
+  @Override
+  public void init(LiveOrdersViewModel viewModel)
   {
-    this.viewHandler = viewHandler;
     this.viewModel = viewModel;
-    this.root = root;
 
     incomingRenderer = new IncomingOrderRenderer(this);
     currentRenderer = new CurrentOrderRenderer(this);
@@ -36,16 +34,13 @@ public class LiveOrdersViewController
     );
   }
 
+
   public void reset()
   {
     viewModel.loadFromModel();
     refresh();
   }
 
-  public Region getRoot()
-  {
-    return root;
-  }
 
   public void refresh()
   {

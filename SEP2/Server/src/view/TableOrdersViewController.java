@@ -2,9 +2,6 @@ package view;
 
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -15,23 +12,20 @@ import viewModel.OrderItemRow;
 import viewModel.TableOrdersViewModel;
 
 public class TableOrdersViewController
+    implements ViewController<TableOrdersViewModel>
 {
-  @FXML VBox ordersBox;
+  @FXML private VBox ordersBox;
   @FXML private Label tableNumberLabel;
   @FXML private Label totalLabel;
   @FXML private Label successLabel;
   @FXML private Label errorLabel;
 
-  private ViewHandler viewHandler;
   private TableOrdersViewModel viewModel;
-  private Region root;
 
-  public void init(ViewHandler viewHandler, TableOrdersViewModel viewModel,
-      Region root)
+  @Override
+  public void init(TableOrdersViewModel viewModel)
   {
-    this.viewHandler = viewHandler;
     this.viewModel = viewModel;
-    this.root = root;
 
     errorLabel.textProperty().bind(viewModel.getErrorProperty());
     successLabel.textProperty().bind(viewModel.getSuccessProperty());
@@ -51,11 +45,6 @@ public class TableOrdersViewController
   public void reset()
   {
     viewModel.clear();
-  }
-
-  public Region getRoot()
-  {
-    return root;
   }
 
   private void renderRows()
@@ -83,12 +72,8 @@ public class TableOrdersViewController
     }
   }
 
-  public void backToTablesButton()
-  {
-    viewModel.backToTables();
-  }
-
-  public void resetOrdersButton()
+  @FXML
+  private void resetOrdersButton()
   {
     viewModel.resetOrders();
   }
