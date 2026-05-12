@@ -40,7 +40,7 @@ public class MenuViewController
 
     menuTable.setItems(viewModel.getMenuItems());
 
-    qtyLabel.textProperty().bind(viewModel.getAmount().asString());
+    qtyLabel.textProperty().bind(viewModel.getAmountProperty().asString());
 
     errorLabel.textProperty().bind(viewModel.getErrorProperty());
   }

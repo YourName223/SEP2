@@ -9,7 +9,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import viewModel.OrderContentsViewModel;
 import viewModel.OrderItemRowViewModel;
-import viewModel.OrderItemViewModel;
 
 public class OrderOverviewViewController
 {
@@ -46,7 +45,7 @@ public class OrderOverviewViewController
 
     errorLabel.textProperty().bind(viewModel.getErrorProperty());
     successLabel.textProperty().bind(viewModel.getSuccessProperty());
-    qtyLabel.textProperty().bind(viewModel.getAmount().asString());
+    qtyLabel.textProperty().bind(viewModel.getAmountProperty().asString());
 
     orderTable.setItems(viewModel.getOrderItems());
 

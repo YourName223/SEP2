@@ -15,49 +15,49 @@ public class MenuListViewModel implements PropertyChangeListener
   private Model model;
   private MenuItemDto selectedMenuItem;
   private final ObservableList<MenuViewModel> menuItems = FXCollections.observableArrayList();
-  private IntegerProperty amount;
+  private IntegerProperty amountProperty;
   private StringProperty errorProperty;
 
   public MenuListViewModel(Model model)
   {
     this.model = model;
     selectedMenuItem = null;
-    amount = new SimpleIntegerProperty();
+    amountProperty = new SimpleIntegerProperty();
     this.errorProperty = new SimpleStringProperty();
 
     loadFromModel();
   }
 
-  public IntegerProperty getAmount()
+  public IntegerProperty getAmountProperty()
   {
-    return amount;
+    return amountProperty;
   }
 
   public void increase()
   {
-    amount.set(amount.get()+1);
+    amountProperty.set(amountProperty.get()+1);
   }
 
   public void decrease()
   {
-    if(amount.get() > 0)
-      amount.set(amount.get()-1);
+    if(amountProperty.get() > 0)
+      amountProperty.set(amountProperty.get()-1);
   }
 
   public void selectMenuItem(MenuItemDto menuItem)
   {
     this.selectedMenuItem = menuItem;
-    amount.set(0);
+    amountProperty.set(0);
   }
 
   public void addToOrder()
   {
-    if(amount.get() > 0)
+    if(amountProperty.get() > 0)
     {
       try
       {
         errorProperty.set("");
-        model.addToOrder(selectedMenuItem, amount.get());
+        model.addToOrder(selectedMenuItem, amountProperty.get());
       }
       catch (IllegalStateException e)
       {

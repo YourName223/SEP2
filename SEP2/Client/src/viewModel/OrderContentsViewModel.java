@@ -25,7 +25,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
   private final StringProperty successProperty = new SimpleStringProperty();
   private final StringProperty errorProperty = new SimpleStringProperty();
-  private final IntegerProperty amount = new SimpleIntegerProperty();
+  private final IntegerProperty amountProperty = new SimpleIntegerProperty();
 
   public OrderContentsViewModel(Model model)
   {
@@ -44,7 +44,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
   {
     successProperty.set("");
     errorProperty.set("");
-    amount.set(0);
+    amountProperty.set(0);
 
     reloadOrderTable();
   }
@@ -92,9 +92,9 @@ public class OrderContentsViewModel implements PropertyChangeListener
     return errorProperty;
   }
 
-  public IntegerProperty getAmount()
+  public IntegerProperty getAmountProperty()
   {
-    return amount;
+    return amountProperty;
   }
 
   @Override
@@ -114,32 +114,32 @@ public class OrderContentsViewModel implements PropertyChangeListener
     this.selectedOrderItem = orderItem;
     if (orderItem != null)
     {
-      amount.set(orderItem.getQuantity());
+      amountProperty.set(orderItem.getQuantity());
     }
   }
 
   public void increase()
   {
-    amount.set(amount.get() + 1);
+    amountProperty.set(amountProperty.get() + 1);
   }
 
   public void decrease()
   {
-    if (amount.get() > 0)
-      amount.set(amount.get() - 1);
+    if (amountProperty.get() > 0)
+      amountProperty.set(amountProperty.get() - 1);
   }
 
   public void updateQuantity()
   {
     if (selectedOrderItem == null) return;
 
-    if (amount.get() == 0)
+    if (amountProperty.get() == 0)
     {
       model.removeFromOrder(selectedOrderItem.getMenuItem());
     }
     else
     {
-      model.updateOrderItem(selectedOrderItem.getMenuItem(), amount.get());
+      model.updateOrderItem(selectedOrderItem.getMenuItem(), amountProperty.get());
     }
 
     reloadOrderTable();
