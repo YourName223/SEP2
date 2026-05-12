@@ -1,9 +1,13 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.MenuItem;
 import model.Model;
 import model.Order;
+import model.Recipe;
 import view.ViewHandler;
 import viewModel.ViewModelFactory;
+
+import java.util.ArrayList;
 
 public class MyApplication extends Application
 {
@@ -22,7 +26,16 @@ public class MyApplication extends Application
       {
         order.addMenuItem(model.getMenuItems().get(0));
       }*/
-      order.addMenuItem(model.getMenuItems().get(1));
+
+      ArrayList<Recipe> recipes = new ArrayList<>();
+
+      recipes.add(new Recipe("2","Sodavand"));
+
+      for (int i = 0; i<11; i++)
+      {
+        order.addMenuItem(new MenuItem(",",",",2,recipes));
+      }
+
 
       model.receiveTableOrder(order,"23");
     }
