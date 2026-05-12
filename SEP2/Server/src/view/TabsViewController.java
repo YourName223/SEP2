@@ -20,19 +20,21 @@ public class TabsViewController implements ViewController<ViewModelFactory>
   {
     this.vmf = vmf;
 
-    liveOrdersTab.setContent(loadView(
-        "LiveOrdersView.fxml",
-        vmf.getLiveOrdersViewModel()
-    ));
+    liveOrdersTab.setContent(
+        loadView("LiveOrdersView.fxml", vmf.getLiveOrdersViewModel())
+    );
 
     showTablesView();
   }
 
   public void showTablesView()
   {
-    tablesContainer.getChildren().setAll(
-        loadView("TablesView.fxml", vmf.getTablesViewModel())
-    );
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("TablesView.fxml"));
+    Parent root = loadView("TablesView.fxml", vmf.getTablesViewModel());
+
+    TablesViewController controller = loader.getController();
+    controller.setTabsController(this);
+    tablesContainer.getChildren().setAll(root);
   }
 
   public void showTableOrdersView(String tableNr)
@@ -54,9 +56,9 @@ public class TabsViewController implements ViewController<ViewModelFactory>
 
       Object controller = loader.getController();
 
-
       if (controller instanceof ViewController<?> vc)
       {
+        @SuppressWarnings("unchecked")
         ViewController<T> specificViewController = (ViewController<T>) vc;
         specificViewController.init(viewModel);
       }
