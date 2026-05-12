@@ -54,23 +54,34 @@ public class TabsViewController implements ViewController<ViewModelFactory>
       Parent root = loader.load();
       Object controller = loader.getController();
 
+      // Inject ViewModel
       if (controller instanceof ViewController<?> vc)
       {
         @SuppressWarnings("unchecked")
-        ViewController<T> specificViewController = (ViewController<T>) vc;
-        specificViewController.init(viewModel);
+        ViewController<T> typed =
+            (ViewController<T>) vc;
+
+        typed.init(viewModel);
       }
 
+      // Inject TabsController into children that need navigation
       if (controller instanceof TablesViewController tvc)
       {
         tvc.setTabsController(this);
+      }
+
+      if (controller instanceof TableOrdersViewController toc)
+      {
+        toc.setTabsController(this);
       }
 
       return root;
     }
     catch (Exception e)
     {
-      throw new RuntimeException("Failed to load " + fxml, e);
+      throw new RuntimeException(
+          "Failed to load " + fxml, e
+      );
     }
   }
 }

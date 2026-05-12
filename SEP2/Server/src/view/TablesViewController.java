@@ -18,6 +18,8 @@ public class TablesViewController
   private TablesViewModel viewModel;
   private TabsViewController tabsViewController;
 
+  private TableRow selectedTable;
+
   @Override
   public void init(TablesViewModel viewModel)
   {
@@ -36,7 +38,6 @@ public class TablesViewController
     );
 
     tablesTable.setItems(viewModel.getTables());
-
     viewModel.loadFromModel();
   }
 
@@ -48,31 +49,32 @@ public class TablesViewController
   @FXML
   private void onTableSelected()
   {
-    setSelectedTable();
+    selectedTable = tablesTable.getSelectionModel().getSelectedItem();
+    System.out.println("Selected table = " + selectedTable);
   }
 
   @FXML
   private void showOrdersButton()
   {
-    TableRow selected = tablesTable.getSelectionModel().getSelectedItem();
-
-    if (selected != null)
+    if (selectedTable == null)
     {
-      viewModel.openTable(selected.getTableNumber());
+      selectedTable = tablesTable.getSelectionModel().getSelectedItem();
     }
-    System.out.println("Tabs controller = " + tabsViewController);
-  }
 
-  private void setSelectedTable()
-  {
-    TableRow selected =
-        tablesTable.getSelectionModel().getSelectedItem();
-
-    if (selected != null && tabsViewController != null)
+    if (selectedTable == null)
     {
-      tabsViewController.showTableOrdersView(selected.getTableNumber());
+      return;
     }
-    System.out.println("Table selected " + selected);
+
+    if (tabsViewController == null)
+    {
+      System.out.println("TabsViewController is null");
+      return;
+    }
+
+    tabsViewController.showTableOrdersView(
+        selectedTable.getTableNumber()
+    );
   }
 
   public void reset()

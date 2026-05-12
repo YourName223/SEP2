@@ -21,6 +21,7 @@ public class TableOrdersViewController
   @FXML private Label errorLabel;
 
   private TableOrdersViewModel viewModel;
+  private TabsViewController tabsViewController;
 
   @Override
   public void init(TableOrdersViewModel viewModel)
@@ -40,6 +41,11 @@ public class TableOrdersViewController
 
     viewModel.loadFromModel();
     renderRows();
+  }
+
+  public void setTabsController(TabsViewController tabsViewController)
+  {
+    this.tabsViewController = tabsViewController;
   }
 
   public void reset()
@@ -76,5 +82,14 @@ public class TableOrdersViewController
   private void resetOrdersButton()
   {
     viewModel.resetOrders();
+  }
+
+  @FXML
+  private void backToTablesButton()
+  {
+    if (tabsViewController != null)
+    {
+      tabsViewController.showTablesView();
+    }
   }
 }
