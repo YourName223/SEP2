@@ -18,6 +18,7 @@ public class MenuViewController
   @FXML private TableColumn<MenuViewModel, Double> priceColumn;
   @FXML private Label qtyLabel;
   @FXML private Label totalLabel;
+  @FXML private Label errorLabel;
 
   private ViewHandler viewHandler;
   private MenuListViewModel viewModel;
@@ -40,6 +41,8 @@ public class MenuViewController
     menuTable.setItems(viewModel.getMenuItems());
 
     qtyLabel.textProperty().bind(viewModel.getAmount().asString());
+
+    errorLabel.textProperty().bind(viewModel.getErrorProperty());
   }
 
   public void reset()

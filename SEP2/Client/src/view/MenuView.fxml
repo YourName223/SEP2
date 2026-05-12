@@ -6,10 +6,11 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuViewController">
+<VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuViewController">
    <children>
       <TableView fx:id="menuTable" onMouseClicked="#onMenuItemSelected" prefHeight="321.0" prefWidth="560.0">
         <columns>
@@ -25,7 +26,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="350.0" spacing="10.0">
                <children>
-                  <Button fx:id="decreaseButton" onAction="#decreaseButton" mnemonicParsing="false" text="-">
+                  <Button fx:id="decreaseButton" mnemonicParsing="false" onAction="#decreaseButton" text="-">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -35,12 +36,12 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="increaseButton" onAction="#increaseButton" mnemonicParsing="false" text="+">
+                  <Button fx:id="increaseButton" mnemonicParsing="false" onAction="#increaseButton" text="+">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addToOrderButton" onAction="#addToOrderButton" mnemonicParsing="false" text="Add to Order">
+                  <Button fx:id="addToOrderButton" mnemonicParsing="false" onAction="#addToOrderButton" text="Add to Order">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -64,11 +65,20 @@
             </Label>
          </children>
       </HBox>
-      <Button fx:id="viewOrderButton" onAction="#viewOrderButton" alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" text="View Order">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="errorLabel" text="Label" textFill="#fc0000">
+               <HBox.margin>
+                  <Insets top="7.0" />
+               </HBox.margin></Label>
+             <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="viewOrderButton" alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" onAction="#viewOrderButton" text="View Order">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
    </children>
    <opaqueInsets>
       <Insets />

@@ -2,6 +2,8 @@ package viewModel;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
@@ -14,12 +16,14 @@ public class MenuListViewModel implements PropertyChangeListener
   private MenuItemDto selectedMenuItem;
   private final ObservableList<MenuViewModel> menuItems = FXCollections.observableArrayList();
   private IntegerProperty amount;
+  private StringProperty errorProperty;
 
   public MenuListViewModel(Model model)
   {
     this.model = model;
     selectedMenuItem = null;
     amount = new SimpleIntegerProperty();
+    this.errorProperty = new SimpleStringProperty();
 
     loadFromModel();
   }
@@ -50,7 +54,15 @@ public class MenuListViewModel implements PropertyChangeListener
   {
     if(amount.get() > 0)
     {
-      model.addToOrder(selectedMenuItem,amount.get());
+      try
+      {
+        errorProperty.set("");
+        model.addToOrder(selectedMenuItem, amount.get());
+      }
+      catch (IllegalStateException e)
+      {
+        errorProperty.set(e.getMessage());
+      }
     }
   }
 
@@ -72,5 +84,10 @@ public class MenuListViewModel implements PropertyChangeListener
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
     loadFromModel();
+  }
+
+  public StringProperty getErrorProperty()
+  {
+    return errorProperty;
   }
 }

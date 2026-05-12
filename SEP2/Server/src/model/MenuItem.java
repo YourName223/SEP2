@@ -64,4 +64,22 @@ public class MenuItem
 
     return string.toString();
   }
+  public int getStock()
+  {
+    int minStock = Integer.MAX_VALUE;
+
+    for (Recipe recipe : recipes)
+    {
+      for (Ingredient ingredient : recipe.getIngredients())
+      {
+        if (ingredient.getAmount() > 0)
+        {
+          int possible = (int) (ingredient.getStock() / ingredient.getAmount());
+          minStock = Math.min(minStock, possible);
+        }
+      }
+    }
+
+    return minStock == Integer.MAX_VALUE ? 0 : minStock;
+  }
 }

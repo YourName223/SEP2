@@ -59,7 +59,7 @@ public class MenuManager
 
       try
       {
-        menuItemsDto.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),recipeId));
+        menuItemsDto.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),recipeId,menuItem.getStock()));
       }
       catch (Exception e)
       {

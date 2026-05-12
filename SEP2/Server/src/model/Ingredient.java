@@ -5,12 +5,14 @@ public class Ingredient
   private String id;
   private String name;
   private double amount;
+  private double stock;
 
-  public Ingredient(String id, String name, double amount)
+  public Ingredient(String id, String name, double amount, int stock)
   {
     this.id = id;
     this.name = name;
     this.amount = amount;
+    this.stock = stock;
   }
 
   public String getId()
@@ -32,4 +34,8 @@ public class Ingredient
   {
     this.amount = amount;
   }
+
+  public double getStock() { return stock; }
+
+  public void setStock(double stock) { this.stock = stock; }
 }

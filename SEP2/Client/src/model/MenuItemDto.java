@@ -8,13 +8,15 @@ public class MenuItemDto
   private String allergies;
   private double price;
   private ArrayList<String> recipeIds;
+  private int stock;
 
-  public MenuItemDto(String name, String allergies, double price, ArrayList<String> recipeIds)
+  public MenuItemDto(String name, String allergies, double price, ArrayList<String> recipeIds, int stock)
   {
     this.name = name;
     this.allergies = allergies;
     this.price = price;
     this.recipeIds = recipeIds;
+    this.stock = stock;
   }
 
   public String getName()
@@ -35,5 +37,10 @@ public class MenuItemDto
   public ArrayList<String> getRecipeIds()
   {
     return recipeIds;
+  }
+
+  public int getStock()
+  {
+    return stock;
   }
 }

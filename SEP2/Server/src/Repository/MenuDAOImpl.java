@@ -119,7 +119,7 @@
         {
           String id = resultSet.getString("id");
           String name = resultSet.getString("name");
-          Ingredient ingredient = new Ingredient(id,name,100);
+          Ingredient ingredient = new Ingredient(id,name,100, 0);
           ingredients.add(ingredient);
         }
       }
@@ -251,7 +251,7 @@
         if (recipe != null)
         {
           PreparedStatement ingStatement = connection.prepareStatement(
-              "SELECT i.id, i.name, ri.amount FROM ingredient i " +
+              "SELECT i.id, i.name, ri.amount, i.stock FROM ingredient i " +
                   "JOIN recipe_ingredient ri ON i.id = ri.ingredient_id " +
                   "WHERE ri.recipe_id = ?");
           ingStatement.setInt(1, Integer.parseInt(recipeId));
@@ -261,8 +261,9 @@
           {
             String id = ingRs.getString("id");
             String name = ingRs.getString("name");
-            Double amount = ingRs.getDouble("amount");
-            Ingredient ingredient = new Ingredient(id,name,amount);
+            double amount = ingRs.getDouble("amount");
+            double stock = ingRs.getDouble("stock");
+            Ingredient ingredient = new Ingredient(id, name, amount, (int) stock);
             recipe.addIngredient(ingredient, amount);
           }
         }
@@ -361,7 +362,7 @@
         if (rs.next())
         {
           String id = rs.getString("id");
-          return new Ingredient(id,name,100);
+          return new Ingredient(id,name,100, 0);
         }
       }
 
@@ -448,7 +449,7 @@
           String name = resultSet.getString("name");
           double stock = resultSet.getInt("stock");
 
-          ingredients.add(new Ingredient(id, name, stock));
+          ingredients.add(new Ingredient(id, name, (double) 0, (int) stock));
         }
       }
       catch (SQLException e)

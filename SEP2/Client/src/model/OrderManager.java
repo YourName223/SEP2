@@ -20,6 +20,11 @@ public class OrderManager
 
   public void addToOrder(MenuItemDto menuItem, int amount)
   {
+    if (menuItem.getStock() < amount)
+    {
+      throw new IllegalStateException(
+          "Ikke nok ingredienser på lager for: " + menuItem.getName());
+    }
     order.addMenuItem(menuItem,amount);
   }
 
