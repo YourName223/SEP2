@@ -93,7 +93,7 @@ public class OrderOverviewViewController
     OrderItemRowViewModel selected = orderTable.getSelectionModel().getSelectedItem();
     if (selected != null)
     {
-      viewModel.setSelectedOrderItem(selected.getOrderItem());
+      viewModel.setSelectedOrderItem(selected.getOrderItem().getOrderItem());
     }
   }
 
