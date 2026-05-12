@@ -22,18 +22,9 @@ public class MyApplication extends Application
       view.start(primaryStage);
 
       Order order = new Order();
-      /*for (int i = 0; i<1;i++)
+      for (int i = 0; i<1;i++)
       {
         order.addMenuItem(model.getMenuItems().get(0));
-      }*/
-
-      ArrayList<Recipe> recipes = new ArrayList<>();
-
-      recipes.add(new Recipe("2","Sodavand"));
-
-      for (int i = 0; i<11; i++)
-      {
-        order.addMenuItem(new MenuItem(",",",",2,recipes));
       }
 
 

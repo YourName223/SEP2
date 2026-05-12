@@ -20,4 +20,14 @@ public class RecipeIngredient
   {
     return amount;
   }
+
+  public void setAmount(double amount)
+  {
+    this.amount = amount;
+  }
+
+  public void addAmount(double amount)
+  {
+    this.amount += amount;
+  }
 }

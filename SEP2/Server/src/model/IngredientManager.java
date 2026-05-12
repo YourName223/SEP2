@@ -22,18 +22,15 @@ public class IngredientManager
     stock = menuDAO.getStock();
   }
 
-  public boolean hasStockForIngredients(ArrayList<Ingredient> ingredients)
+  public boolean hasStockForRecipeIngredients(ArrayList<RecipeIngredient> recipeIngredients)
   {
-    for(Ingredient ingredientOrder : ingredients)
+    for(RecipeIngredient ingredientOrder : recipeIngredients)
     {
-      System.out.println(ingredientOrder.getName());
       boolean found = false;
 
       for(Ingredient ingredientStock : stock)
       {
-        System.out.println(ingredientStock.getName());
-        System.out.println(ingredientStock.getStock() + "," + ingredientOrder.getAmount());
-        if (ingredientStock.getId().equals(ingredientOrder.getId()) && ingredientStock.getStock() >= ingredientOrder.getAmount())
+        if (ingredientStock.getId().equals(ingredientOrder.getIngredient().getId()) && ingredientStock.getStock() >= ingredientOrder.getAmount())
         {
           System.out.println("Found it");
           found = true;
@@ -49,11 +46,26 @@ public class IngredientManager
     return true;
   }
 
-  public ArrayList<Ingredient> getIngredientsInOrder(ArrayList<OrderItem> orderItems)
+  public boolean hasStockForOrder(Order order)
   {
-    ArrayList<Ingredient> ingredientsInOrder = new ArrayList<>();
+    return hasStockForRecipeIngredients(getRecipeIngredientsInOrder(order));
+  }
 
-    for (OrderItem orderItem : orderItems)
+  public void removeRecipeIngredientsFromOrder(Order order)
+  {
+    removeRecipeIngredients(getRecipeIngredientsInOrder(order));
+  }
+
+  public void addRecipeIngredientsFromOrder(Order order)
+  {
+    addRecipeIngredients(getRecipeIngredientsInOrder(order));
+  }
+
+  public ArrayList<RecipeIngredient> getRecipeIngredientsInOrder(Order order)
+  {
+    ArrayList<RecipeIngredient> ingredientsInOrder = new ArrayList<>();
+
+    for (OrderItem orderItem : order.getOrderItems())
     {
       int amount = orderItem.getQuantity();
 
@@ -61,7 +73,7 @@ public class IngredientManager
       {
         for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients())
         {
-          addIngredientToList(ingredientsInOrder,recipeIngredient,amount);
+          addRecipeIngredientToList(ingredientsInOrder,recipeIngredient,amount);
         }
       }
     }
@@ -69,29 +81,41 @@ public class IngredientManager
     return ingredientsInOrder;
   }
 
-  public ArrayList<Ingredient> getIngredientsInMenuItem(MenuItem menuItem)
+  public ArrayList<RecipeIngredient> getRecipeIngredientsInMenuItem(MenuItem menuItem)
   {
-    ArrayList<Ingredient> ingredientsInOrder = new ArrayList<>();
+    ArrayList<RecipeIngredient> ingredientsInOrder = new ArrayList<>();
 
     for (Recipe recipe : menuItem.getRecipes())
     {
       for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients())
       {
-        addIngredientToList(ingredientsInOrder,recipeIngredient,1);
+        addRecipeIngredientToList(ingredientsInOrder,recipeIngredient,1);
       }
     }
     return ingredientsInOrder;
   }
 
-  public int amountOfStockForIngredients(ArrayList<Ingredient> ingredients)
+  public double getStockForIngredient(Ingredient ingredient)
+  {
+    for (Ingredient ingredientStock : stock)
+    {
+      if (ingredientStock.getId().equals(ingredient.getId()))
+      {
+        return ingredientStock.getStock();
+      }
+    }
+    return 0;
+  }
+
+  public int amountOfStockForMenuItem(MenuItem menuItem)
   {
     int minStock = Integer.MAX_VALUE;
 
-    for (Ingredient ingredient : ingredients)
+    for (RecipeIngredient recipeIngredient : getRecipeIngredientsInMenuItem(menuItem))
     {
-      if (ingredient.getAmount() > 0)
+      if (recipeIngredient.getAmount() > 0)
       {
-        int possible = (int) (ingredient.getStock() / ingredient.getAmount());
+        int possible = (int) (getStockForIngredient(recipeIngredient.getIngredient()) / recipeIngredient.getAmount());
         minStock = Math.min(minStock, possible);
       }
     }
@@ -99,49 +123,46 @@ public class IngredientManager
     return minStock == Integer.MAX_VALUE ? 0 : minStock;
   }
 
-  private void addIngredientToList(ArrayList<Ingredient> ingredientList, RecipeIngredient recipeIngredient, int amount)
+  private void addRecipeIngredientToList(ArrayList<RecipeIngredient> ingredientList, RecipeIngredient recipeIngredient, int amount)
   {
-    Ingredient addedIngredient = recipeIngredient.getIngredient();
-    for (Ingredient ingredient1 : ingredientList)
+    RecipeIngredient addedIngredient = recipeIngredient;
+    for (RecipeIngredient ingredientListElement : ingredientList)
     {
-      if (ingredient1.getId().equals(addedIngredient.getId()))
+      if (ingredientListElement.getIngredient().getId().equals(addedIngredient.getIngredient().getId()))
       {
-        double amount1 = ingredient1.getAmount() + addedIngredient.getAmount()*amount;
-        System.out.println(amount1);
-        ingredient1.setAmount(ingredient1.getAmount() + addedIngredient.getAmount()*amount);
+        ingredientListElement.addAmount(recipeIngredient.getAmount()*amount);
         return;
       }
     }
-    Ingredient ingredient = new Ingredient(addedIngredient.getId(),addedIngredient.getName(),addedIngredient.getAmount()*amount,addedIngredient.getStock());
-    ingredientList.add(ingredient);
+    ingredientList.add(recipeIngredient);
   }
 
-  public void removeIngredients(ArrayList<Ingredient> ingredientsInOrder)
+  public void removeRecipeIngredients(ArrayList<RecipeIngredient> recipeIngredientsInOrder)
   {
     for (Ingredient ingredient : stock)
     {
-      for (Ingredient ingredientInOrder : ingredientsInOrder)
+      for (RecipeIngredient recipeIngredientInOrder : recipeIngredientsInOrder)
       {
-        if (ingredient.getId().equals(ingredientInOrder.getId()))
+        if (ingredient.getId().equals(recipeIngredientInOrder.getIngredient().getId()))
         {
-          double amount = ingredient.getStock()-ingredientInOrder.getAmount();
-          menuDAO.setAmountOnIngredient(ingredient.getId(),ingredientInOrder.getAmount());
+          double amount = ingredient.getStock()-recipeIngredientInOrder.getAmount();
+          menuDAO.setAmountOnIngredient(ingredient.getId(),recipeIngredientInOrder.getAmount());
           ingredient.setStock(amount);
         }
       }
     }
   }
 
-  public void addIngredients(ArrayList<Ingredient> ingredientsInOrder)
+  public void addRecipeIngredients(ArrayList<RecipeIngredient> ingredientsInOrder)
   {
     for (Ingredient ingredient : stock)
     {
-      for (Ingredient ingredientInOrder : ingredientsInOrder)
+      for (RecipeIngredient recipeIngredientInOrder : ingredientsInOrder)
       {
-        if (ingredient.getId().equals(ingredientInOrder.getId()))
+        if (ingredient.getId().equals(recipeIngredientInOrder.getIngredient().getId()))
         {
-          double amount = ingredient.getStock()+ingredientInOrder.getAmount();
-          menuDAO.setAmountOnIngredient(ingredient.getId(),-ingredientInOrder.getAmount());
+          double amount = ingredient.getStock()+recipeIngredientInOrder.getAmount();
+          menuDAO.setAmountOnIngredient(ingredient.getId(),-recipeIngredientInOrder.getAmount());
           ingredient.setStock(amount);
         }
       }

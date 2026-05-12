@@ -108,7 +108,7 @@
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
         PreparedStatement statement = connection.prepareStatement(
-            "SELECT i.id, i.name FROM ingredient i " +
+            "SELECT i.id, i.name, i.stock FROM ingredient i " +
                 "JOIN recipe_ingredient ri ON i.id = ri.ingredient_id " +
                 "JOIN recipe r ON r.id = ri.recipe_id " +
                 "WHERE r.name = ?");
@@ -119,7 +119,8 @@
         {
           String id = resultSet.getString("id");
           String name = resultSet.getString("name");
-          Ingredient ingredient = new Ingredient(id,name,100, 0);
+          double stock = resultSet.getDouble("stock");
+          Ingredient ingredient = new Ingredient(id,name,stock);
           ingredients.add(ingredient);
         }
       }
@@ -263,7 +264,7 @@
             String name = ingRs.getString("name");
             double amount = ingRs.getDouble("amount");
             double stock = ingRs.getDouble("stock");
-            Ingredient ingredient = new Ingredient(id, name, amount, (int) stock);
+            Ingredient ingredient = new Ingredient(id, name, stock);
             recipe.addIngredient(ingredient, amount);
           }
         }
@@ -350,7 +351,7 @@
       }
     }*/
 
-    public Ingredient createIngredient(String name) throws SQLException
+    public Ingredient createIngredient(String name, double stock) throws SQLException
     {
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
@@ -362,7 +363,7 @@
         if (rs.next())
         {
           String id = rs.getString("id");
-          return new Ingredient(id,name,100, 0);
+          return new Ingredient(id,name,stock);
         }
       }
 
@@ -449,7 +450,7 @@
           String name = resultSet.getString("name");
           double stock = resultSet.getInt("stock");
 
-          ingredients.add(new Ingredient(id, name, (double) 0, (int) stock));
+          ingredients.add(new Ingredient(id, name, stock));
         }
       }
       catch (SQLException e)

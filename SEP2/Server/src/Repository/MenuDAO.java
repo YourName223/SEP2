@@ -16,7 +16,7 @@ public interface MenuDAO
   ArrayList<String> getRecipeNamesFromMenuItem(String menuName);
   Recipe getRecipeWithIngredients(String recipeId);
   ArrayList<String> getRecipeIdsFromMenuItemName(String name);
-  Ingredient createIngredient(String name) throws SQLException;
+  Ingredient createIngredient(String name, double stock) throws SQLException;
   Recipe createRecipe(String name, ArrayList<Ingredient> ingredients) throws SQLException;
   MenuItem createMenu(String name, String allergies, double price, ArrayList<Recipe> recipes) throws SQLException;
   List<Ingredient> getStock();

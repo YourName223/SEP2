@@ -19,6 +19,16 @@ public class RecipeManager
     catch (Exception e){}
   }
 
+  public ArrayList<String> getRecipeIdFromMenuItem(MenuItem menuItem)
+  {
+    ArrayList<String> recipeIds = new ArrayList<>();
+    for (Recipe recipe : menuItem.getRecipes())
+    {
+      recipeIds.add(recipe.getId());
+    }
+    return recipeIds;
+  }
+
   public ArrayList<String> getIngredientNamesFromRecipeId(String recipeId)
   {
     ArrayList<String> ingredientNames = new ArrayList<>();

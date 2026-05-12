@@ -66,6 +66,7 @@ public class ClientHandler implements Runnable
             {
               OrderPackage sendPackage = new OrderPackage("Order",null,"Order accepted");
               out.println(parser.toJson(sendPackage));
+              model.broadCast(parser.toJson(new MenuPackage("Menu",model.getMenuItemsDto())));
             }
             else
             {

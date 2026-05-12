@@ -35,18 +35,15 @@ public class ModelManager implements Model
     ArrayList<MenuItemDto> menuItemDtos = new ArrayList<>();
     for (MenuItem menuItem : menuManager.getMenuItems())
     {
-      ArrayList<String> recipeIds = new ArrayList<>();
-
-      for (Recipe recipe : menuItem.getRecipes())
-      {
-        recipeIds.add(recipe.getId());
-      }
-
-      int amount = ingredientManager.amountOfStockForIngredients(ingredientManager.getIngredientsInMenuItem(menuItem));
-
-      menuItemDtos.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),recipeIds,amount));
+      menuItemDtos.add(
+          new MenuItemDto(
+              menuItem.getName(),
+              menuItem.getAllergies(),
+              menuItem.getPrice(),
+              recipeManager.getRecipeIdFromMenuItem(menuItem),
+              ingredientManager.amountOfStockForMenuItem(menuItem)));
     }
-    return menuManager.getMenuItemsDto();
+    return menuItemDtos;
   }
 
   @Override public void clickOnOrder(OrderCurrent order)
@@ -59,8 +56,8 @@ public class ModelManager implements Model
   {
     orderManager.removeOrder(order);
     tableManager.removeOrder(order.getOrder());
-    ArrayList<Ingredient> ingredientsInOrder = ingredientManager.getIngredientsInOrder(order.getOrder().getOrderItems());
-    ingredientManager.addIngredients(ingredientsInOrder);
+
+    ingredientManager.addRecipeIngredientsFromOrder(order.getOrder());
 
     property.firePropertyChange("Update",null,null);
 
@@ -72,14 +69,13 @@ public class ModelManager implements Model
 
   @Override public boolean receiveTableOrder(Order order, String tableNr)
   {
-    ArrayList<Ingredient> ingredientsInOrder = ingredientManager.getIngredientsInOrder(order.getOrderItems());
-    if(ingredientManager.hasStockForIngredients(ingredientsInOrder))
+    if(ingredientManager.hasStockForOrder(order))
     {
       TableOrder tableOrder = orderManager.createTableOrder(order, tableNr);
       orderManager.addOrder(tableOrder);
       orderDispatcher.dispatch(tableOrder);
       property.firePropertyChange("Update", null, null);
-      ingredientManager.removeIngredients(ingredientsInOrder);
+      ingredientManager.removeRecipeIngredientsFromOrder(order);
       return true;
     }
     return false;
@@ -114,6 +110,11 @@ public class ModelManager implements Model
   @Override public double getPriceFromTable(String tableNr)
   {
     return tableManager.getPriceFromTable(tableNr);
+  }
+
+  @Override public void broadCast(String message)
+  {
+    property.firePropertyChange("Broadcast",null,message);
   }
 
   @Override public void addListener(String propertyName, PropertyChangeListener listener)

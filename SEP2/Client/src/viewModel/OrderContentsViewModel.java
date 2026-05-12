@@ -120,7 +120,10 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
   public void increase()
   {
-    amountProperty.set(amountProperty.get() + 1);
+    if(selectedOrderItem.getMenuItem().getStock()< amountProperty.get()+selectedOrderItem.getMenuItem().getStock())
+    {
+      amountProperty.set(amountProperty.get() + 1);
+    }
   }
 
   public void decrease()
