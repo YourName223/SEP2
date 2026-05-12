@@ -94,6 +94,7 @@ public class ModelManager implements Model
 
   @Override public void removeAllOrdersFromTable(String tableNr)
   {
+    property.firePropertyChange("RemoveAllOrders",null,(tableNr));
     tableManager.removeAllOrdersFromTable(tableNr);
   }
 
