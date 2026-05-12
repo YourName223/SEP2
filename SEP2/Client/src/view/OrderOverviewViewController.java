@@ -90,7 +90,7 @@ public class OrderOverviewViewController
 
   @FXML private void onOrderItemSelected()
   {
-    OrderItemViewModel selected = orderTable.getSelectionModel().getSelectedItem();
+    OrderItemRowViewModel selected = orderTable.getSelectionModel().getSelectedItem();
     if (selected != null)
     {
       viewModel.setSelectedOrderItem(selected.getOrderItem());

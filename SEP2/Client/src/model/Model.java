@@ -17,4 +17,5 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void getMenuFromDataBase();
   public ArrayList<MenuItemDto> getMenu();
   public Order getOrder();
+  ArrayList<Order> getOldOrders();
 }

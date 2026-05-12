@@ -103,4 +103,10 @@ public class ModelManager implements Model
   {
     return orderManager.getOrder();
   }
+
+  @Override
+  public ArrayList<Order> getOldOrders()
+  {
+    return orderManager.getOldOrders();
+  }
 }

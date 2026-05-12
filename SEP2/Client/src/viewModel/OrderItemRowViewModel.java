@@ -10,7 +10,8 @@ public class OrderItemRowViewModel
     this.selectable = selectable;
   }
 
-  public OrderItemViewModel getItem() {
+  public OrderItemViewModel getOrderItem()
+  {
     return item;
   }
 
