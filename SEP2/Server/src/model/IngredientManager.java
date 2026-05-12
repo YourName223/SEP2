@@ -49,11 +49,11 @@ public class IngredientManager
     return true;
   }
 
-  public ArrayList<Ingredient> getIngredientsInOrder(Order order)
+  public ArrayList<Ingredient> getIngredientsInOrder(ArrayList<OrderItem> orderItems)
   {
     ArrayList<Ingredient> ingredientsInOrder = new ArrayList<>();
 
-    for (OrderItem orderItem : order.getOrderItems())
+    for (OrderItem orderItem : orderItems)
     {
       int amount = orderItem.getQuantity();
 
@@ -67,6 +67,36 @@ public class IngredientManager
     }
 
     return ingredientsInOrder;
+  }
+
+  public ArrayList<Ingredient> getIngredientsInMenuItem(MenuItem menuItem)
+  {
+    ArrayList<Ingredient> ingredientsInOrder = new ArrayList<>();
+
+    for (Recipe recipe : menuItem.getRecipes())
+    {
+      for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients())
+      {
+        addIngredientToList(ingredientsInOrder,recipeIngredient,1);
+      }
+    }
+    return ingredientsInOrder;
+  }
+
+  public int amountOfStockForIngredients(ArrayList<Ingredient> ingredients)
+  {
+    int minStock = Integer.MAX_VALUE;
+
+    for (Ingredient ingredient : ingredients)
+    {
+      if (ingredient.getAmount() > 0)
+      {
+        int possible = (int) (ingredient.getStock() / ingredient.getAmount());
+        minStock = Math.min(minStock, possible);
+      }
+    }
+
+    return minStock == Integer.MAX_VALUE ? 0 : minStock;
   }
 
   private void addIngredientToList(ArrayList<Ingredient> ingredientList, RecipeIngredient recipeIngredient, int amount)

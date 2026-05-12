@@ -32,6 +32,20 @@ public class ModelManager implements Model
 
   @Override public ArrayList<MenuItemDto> getMenuItemsDto()
   {
+    ArrayList<MenuItemDto> menuItemDtos = new ArrayList<>();
+    for (MenuItem menuItem : menuManager.getMenuItems())
+    {
+      ArrayList<String> recipeIds = new ArrayList<>();
+
+      for (Recipe recipe : menuItem.getRecipes())
+      {
+        recipeIds.add(recipe.getId());
+      }
+
+      int amount = ingredientManager.amountOfStockForIngredients(ingredientManager.getIngredientsInMenuItem(menuItem));
+
+      menuItemDtos.add(new MenuItemDto(menuItem.getName(),menuItem.getAllergies(),menuItem.getPrice(),recipeIds,amount));
+    }
     return menuManager.getMenuItemsDto();
   }
 
@@ -45,7 +59,7 @@ public class ModelManager implements Model
   {
     orderManager.removeOrder(order);
     tableManager.removeOrder(order.getOrder());
-    ArrayList<Ingredient> ingredientsInOrder = ingredientManager.getIngredientsInOrder(order.getOrder());
+    ArrayList<Ingredient> ingredientsInOrder = ingredientManager.getIngredientsInOrder(order.getOrder().getOrderItems());
     ingredientManager.addIngredients(ingredientsInOrder);
 
     property.firePropertyChange("Update",null,null);
@@ -58,7 +72,7 @@ public class ModelManager implements Model
 
   @Override public boolean receiveTableOrder(Order order, String tableNr)
   {
-    ArrayList<Ingredient> ingredientsInOrder = ingredientManager.getIngredientsInOrder(order);
+    ArrayList<Ingredient> ingredientsInOrder = ingredientManager.getIngredientsInOrder(order.getOrderItems());
     if(ingredientManager.hasStockForIngredients(ingredientsInOrder))
     {
       TableOrder tableOrder = orderManager.createTableOrder(order, tableNr);
