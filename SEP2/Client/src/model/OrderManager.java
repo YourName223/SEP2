@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class OrderManager
 {
-  private final ArrayList<Order> orders = new ArrayList<>();
+  private ArrayList<Order> orders = new ArrayList<>();
   private Order order = new Order();
 
   public Order createOrder()
   {
+    orders = new ArrayList<>();
     order = new Order();
     return order;
   }
@@ -50,6 +51,12 @@ public class OrderManager
   public void removeFromOrder(MenuItemDto menuItem)
   {
     order.removeItem(menuItem);
+  }
+
+  public void removeAllOrders()
+  {
+    orders.clear();
+    order = new Order();
   }
 
   public ArrayList<OrderItemDto> getOrderItemDto()
