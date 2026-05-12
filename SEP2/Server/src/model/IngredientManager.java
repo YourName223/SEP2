@@ -51,11 +51,13 @@ public class IngredientManager
 
     for (OrderItem orderItem : order.getOrderItems())
     {
+      int amount = orderItem.getQuantity();
+
       for (Recipe recipe : orderItem.getItem().getRecipes())
       {
         for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients())
         {
-          addIngredientToList(ingredientsInOrder,recipeIngredient);
+          addIngredientToList(ingredientsInOrder,recipeIngredient,amount);
         }
       }
     }
@@ -63,17 +65,21 @@ public class IngredientManager
     return ingredientsInOrder;
   }
 
-  private void addIngredientToList(ArrayList<Ingredient> ingredientList, RecipeIngredient recipeIngredient)
+  private void addIngredientToList(ArrayList<Ingredient> ingredientList, RecipeIngredient recipeIngredient, int amount)
   {
+    Ingredient addedIngredient = recipeIngredient.getIngredient();
     for (Ingredient ingredient1 : ingredientList)
     {
-      if (ingredient1.getId().equals(recipeIngredient.getIngredient().getId()))
+      if (ingredient1.getId().equals(addedIngredient.getId()))
       {
-        ingredient1.setAmount(ingredient1.getAmount() + recipeIngredient.getAmount());
+        double amount1 = ingredient1.getAmount() + addedIngredient.getAmount()*amount;
+        System.out.println(amount1);
+        ingredient1.setAmount(ingredient1.getAmount() + addedIngredient.getAmount()*amount);
         return;
       }
     }
-    ingredientList.add(recipeIngredient.getIngredient());
+    Ingredient ingredient = new Ingredient(addedIngredient.getId(),addedIngredient.getName(),addedIngredient.getAmount()*amount,addedIngredient.getStock());
+    ingredientList.add(ingredient);
   }
 
   public void removeIngredients(ArrayList<Ingredient> ingredientsInOrder)

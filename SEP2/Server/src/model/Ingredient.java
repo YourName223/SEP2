@@ -7,7 +7,7 @@ public class Ingredient
   private double amount;
   private double stock;
 
-  public Ingredient(String id, String name, double amount, int stock)
+  public Ingredient(String id, String name, double amount, double stock)
   {
     this.id = id;
     this.name = name;

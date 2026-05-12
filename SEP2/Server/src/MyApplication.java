@@ -21,7 +21,6 @@ public class MyApplication extends Application
       order.addMenuItem(model.getMenuItems().get(0));
 
       model.receiveTableOrder(order,"23");
-      System.out.println(model.getPriceFromTable("23"));
     }
     catch (Exception e)
     {

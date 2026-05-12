@@ -13,10 +13,8 @@ public class TableManager
 
   public void secureTable(String tableNr)
   {
-    System.out.println("Trying to secure table");
     if(!tableList.hasTable(tableNr))
     {
-      System.out.println("Created table");
       tableList.addTable(tableNr);
     }
   }
