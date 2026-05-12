@@ -10,7 +10,7 @@ public class TablesViewModel
 {
   private final Model model;
 
-  private final ObservableList<TableRow> tables =
+  private final ObservableList<TableRowViewModel> tables =
       FXCollections.observableArrayList();
 
   public TablesViewModel(Model model)
@@ -31,14 +31,14 @@ public class TablesViewModel
 
     for (String tableNr : model.getAllTableNr())
     {
-      tables.add(new TableRow(
+      tables.add(new TableRowViewModel(
           tableNr,
           model.getPriceFromTable(tableNr)
       ));
     }
   }
 
-  public ObservableList<TableRow> getTables()
+  public ObservableList<TableRowViewModel> getTables()
   {
     return tables;
   }

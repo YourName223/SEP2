@@ -5,29 +5,29 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import viewModel.TableRow;
+import viewModel.TableRowViewModel;
 import viewModel.TablesViewModel;
 
 public class TablesViewController
     implements ViewController<TablesViewModel>
 {
-  @FXML private TableView<TableRow> tablesTable;
-  @FXML private TableColumn<TableRow, String> tableNumberColumn;
-  @FXML private TableColumn<TableRow, Double> totalColumn;
+  @FXML private TableView<TableRowViewModel> tablesTable;
+  @FXML private TableColumn<TableRowViewModel, String> tableNrColumn;
+  @FXML private TableColumn<TableRowViewModel, Double> totalColumn;
 
   private TablesViewModel viewModel;
   private TabsViewController tabsViewController;
 
-  private TableRow selectedTable;
+  private TableRowViewModel selectedTable;
 
   @Override
   public void init(TablesViewModel viewModel)
   {
     this.viewModel = viewModel;
 
-    tableNumberColumn.setCellValueFactory(
+    tableNrColumn.setCellValueFactory(
         cell -> new SimpleStringProperty(
-            cell.getValue().getTableNumber()
+            cell.getValue().getTableNr()
         )
     );
 
@@ -50,7 +50,6 @@ public class TablesViewController
   private void onTableSelected()
   {
     selectedTable = tablesTable.getSelectionModel().getSelectedItem();
-    System.out.println("Selected table = " + selectedTable);
   }
 
   @FXML
@@ -68,12 +67,11 @@ public class TablesViewController
 
     if (tabsViewController == null)
     {
-      System.out.println("TabsViewController is null");
       return;
     }
 
     tabsViewController.showTableOrdersView(
-        selectedTable.getTableNumber()
+        selectedTable.getTableNr()
     );
   }
 

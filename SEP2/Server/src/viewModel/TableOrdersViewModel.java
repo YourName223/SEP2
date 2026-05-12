@@ -11,12 +11,12 @@ public class TableOrdersViewModel
 
   private final StringProperty successProperty = new SimpleStringProperty();
   private final StringProperty errorProperty = new SimpleStringProperty();
-  private final DoubleProperty total = new SimpleDoubleProperty();
-  private final StringProperty tableNumber = new SimpleStringProperty();
+  private final DoubleProperty totalProperty = new SimpleDoubleProperty();
+  private final StringProperty tableNrProperty = new SimpleStringProperty();
 
   private String selectedTableNr;
 
-  private final ObservableList<OrderItemRow> rows =
+  private final ObservableList<OrderItemRowStatusViewModel> rows =
       FXCollections.observableArrayList();
 
   public TableOrdersViewModel(Model model)
@@ -42,15 +42,15 @@ public class TableOrdersViewModel
 
     rows.clear();
 
-    tableNumber.set(selectedTableNr);
+    tableNrProperty.set(selectedTableNr);
 
-    total.set(model.getPriceFromTable(selectedTableNr));
+    totalProperty.set(model.getPriceFromTable(selectedTableNr));
 
     for (Order order : model.getOrdersFromTable(selectedTableNr))
     {
       for (OrderItem item : order.getOrderItems())
       {
-        rows.add(new OrderItemRow(
+        rows.add(new OrderItemRowStatusViewModel(
             item.getQuantity(),
             item.getItem().getName(),
             item.getItem().getPrice()
@@ -59,15 +59,15 @@ public class TableOrdersViewModel
     }
   }
 
-  public ObservableList<OrderItemRow> getRows()
+  public ObservableList<OrderItemRowStatusViewModel> getRows()
   {
     return rows;
   }
 
   public StringProperty getSuccessProperty() { return successProperty; }
   public StringProperty getErrorProperty() { return errorProperty; }
-  public DoubleProperty getTotal() { return total; }
-  public StringProperty getTableNumber() { return tableNumber; }
+  public DoubleProperty getTotalProperty() { return totalProperty; }
+  public StringProperty getTableNrProperty() { return tableNrProperty; }
 
   public void resetOrders()
   {

@@ -8,14 +8,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import viewModel.OrderItemRow;
+import viewModel.OrderItemRowStatusViewModel;
 import viewModel.TableOrdersViewModel;
 
 public class TableOrdersViewController
     implements ViewController<TableOrdersViewModel>
 {
   @FXML private VBox ordersBox;
-  @FXML private Label tableNumberLabel;
+  @FXML private Label tableNrLabel;
   @FXML private Label totalLabel;
   @FXML private Label successLabel;
   @FXML private Label errorLabel;
@@ -31,10 +31,10 @@ public class TableOrdersViewController
     errorLabel.textProperty().bind(viewModel.getErrorProperty());
     successLabel.textProperty().bind(viewModel.getSuccessProperty());
 
-    tableNumberLabel.textProperty().bind(viewModel.getTableNumber());
+    tableNrLabel.textProperty().bind(viewModel.getTableNrProperty());
 
     totalLabel.textProperty().bind(
-        Bindings.format("%.2f", viewModel.getTotal())
+        Bindings.format("%.2f", viewModel.getTotalProperty())
     );
 
     viewModel.getRows().addListener((Observable obs) -> renderRows());
@@ -57,18 +57,18 @@ public class TableOrdersViewController
   {
     ordersBox.getChildren().clear();
 
-    for (OrderItemRow rowModel : viewModel.getRows())
+    for (OrderItemRowStatusViewModel rowModel : viewModel.getRows())
     {
       HBox row = new HBox(10);
 
       Label qty = new Label();
-      qty.textProperty().bind(rowModel.quantityProperty());
+      qty.textProperty().bind(rowModel.getQuantityProperty());
 
       Label name = new Label();
-      name.textProperty().bind(rowModel.nameProperty());
+      name.textProperty().bind(rowModel.getNameProperty());
 
       Label price = new Label();
-      price.textProperty().bind(rowModel.priceProperty());
+      price.textProperty().bind(rowModel.getPriceProperty());
 
       Region space = new Region();
       HBox.setHgrow(space, Priority.ALWAYS);

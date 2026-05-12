@@ -19,7 +19,7 @@
       <Separator prefWidth="200.0" />
       <TableView fx:id="tablesTable" onMouseClicked="#onTableSelected"  prefHeight="380.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="tableNumberColumn" minWidth="-Infinity" prefWidth="660.0" text="Table" />
+          <TableColumn fx:id="tableNrColumn" minWidth="-Infinity" prefWidth="660.0" text="Table" />
           <TableColumn fx:id="totalColumn" maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" text="total" />
         </columns>
       </TableView>

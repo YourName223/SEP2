@@ -54,7 +54,6 @@ public class TabsViewController implements ViewController<ViewModelFactory>
       Parent root = loader.load();
       Object controller = loader.getController();
 
-      // Inject ViewModel
       if (controller instanceof ViewController<?> vc)
       {
         @SuppressWarnings("unchecked")
@@ -64,7 +63,6 @@ public class TabsViewController implements ViewController<ViewModelFactory>
         typed.init(viewModel);
       }
 
-      // Inject TabsController into children that need navigation
       if (controller instanceof TablesViewController tvc)
       {
         tvc.setTabsController(this);
