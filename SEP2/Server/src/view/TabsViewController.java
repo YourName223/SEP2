@@ -57,9 +57,8 @@ public class TabsViewController implements ViewController<ViewModelFactory>
 
       if (controller instanceof ViewController<?> vc)
       {
-        @SuppressWarnings("unchecked")
-        ViewController<T> typed = (ViewController<T>) vc;
-        typed.init(viewModel);
+        ViewController<T> specificViewController = (ViewController<T>) vc;
+        specificViewController.init(viewModel);
       }
 
       return root;
