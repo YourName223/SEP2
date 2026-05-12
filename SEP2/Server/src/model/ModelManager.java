@@ -59,7 +59,6 @@ public class ModelManager implements Model
   @Override public boolean receiveTableOrder(Order order, String tableNr)
   {
     ArrayList<Ingredient> ingredientsInOrder = ingredientManager.getIngredientsInOrder(order);
-    System.out.println("Trying to recive tableORder" + "Has stock :" + ingredientManager.hasStockForIngredients(ingredientsInOrder));
     if(ingredientManager.hasStockForIngredients(ingredientsInOrder))
     {
       TableOrder tableOrder = orderManager.createTableOrder(order, tableNr);
