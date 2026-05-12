@@ -8,28 +8,30 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Model;
+import model.Order;
 import model.OrderItem;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class OrderContentsViewModel implements PropertyChangeListener
 {
-  private Model model;
-  private OrderItem orderItem;
-  private final ObservableList<OrderItemViewModel> orderItems = FXCollections.observableArrayList();
-  private StringProperty successProperty;
-  private StringProperty errorProperty;
-  private IntegerProperty amount;
+  private final Model model;
+
+  private OrderItem selectedOrderItem;
+
+  private final ObservableList<OrderItemRowViewModel> orderItems =
+      FXCollections.observableArrayList();
+
+  private final StringProperty successProperty = new SimpleStringProperty();
+  private final StringProperty errorProperty = new SimpleStringProperty();
+  private final IntegerProperty amount = new SimpleIntegerProperty();
 
   public OrderContentsViewModel(Model model)
   {
-    amount = new SimpleIntegerProperty();
     this.model = model;
-    orderItem = null;
-    this.successProperty = new SimpleStringProperty();
-    this.errorProperty = new SimpleStringProperty();
 
-    model.addListener("Update",this);
+    model.addListener("Update", this);
     loadFromModel();
   }
 
@@ -50,10 +52,34 @@ public class OrderContentsViewModel implements PropertyChangeListener
   private void reloadOrderTable()
   {
     orderItems.clear();
-    for(OrderItem item : model.getOrder().getItems())
+
+    for (OrderItem item : model.getOrder().getItems())
     {
-      orderItems.add(new OrderItemViewModel(item));
+      orderItems.add(
+          new OrderItemRowViewModel(
+              new OrderItemViewModel(item),
+              true
+          )
+      );
     }
+
+    for (Order oldOrder : model.getOldOrders())
+    {
+      for (OrderItem item : oldOrder.getItems())
+      {
+        orderItems.add(
+            new OrderItemRowViewModel(
+                new OrderItemViewModel(item),
+                false
+            )
+        );
+      }
+    }
+  }
+
+  public ObservableList<OrderItemRowViewModel> getOrderItems()
+  {
+    return orderItems;
   }
 
   public StringProperty getSuccessProperty()
@@ -66,78 +92,69 @@ public class OrderContentsViewModel implements PropertyChangeListener
     return errorProperty;
   }
 
-  @Override public void propertyChange(PropertyChangeEvent evt)
-  {
-    if(evt.getPropertyName().equals("Update"))
-    {
-      Platform.runLater( () ->
-      {
-        successProperty.set(evt.getNewValue().toString());
-        reloadOrderTable();
-      });
-    }
-  }
-
-  public ObservableList<OrderItemViewModel> getOrderItems()
-  {
-    return orderItems;
-  }
-
-  public void placeOrder()
-  {
-    model.placeOrder();
-  }
-
-  public void increase()
-  {
-    amount.set(amount.get()+1);
-  }
-
-  public void decrease()
-  {
-    if(amount.get() > 0)
-      amount.set(amount.get()-1);
-  }
-
   public IntegerProperty getAmount()
   {
     return amount;
   }
 
-  public void updateQuantity()
+  @Override
+  public void propertyChange(PropertyChangeEvent evt)
   {
-    for(OrderItemViewModel vm : orderItems)
+    if ("Update".equals(evt.getPropertyName()))
     {
-      if (vm.getOrderItem().equals(orderItem))
-      {
-        if(amount.get()==0)
-          model.removeFromOrder(vm.getOrderItem().getMenuItem());
-        else
-        {
-          model.updateOrderItem(vm.getOrderItem().getMenuItem(),amount.get());
-          reloadOrderTable();
-          break;
-        }
-      }
-    }
-  }
-
-  public void deleteMenuItem()
-  {
-    for(OrderItemViewModel vm : orderItems)
-    {
-      if (vm.getOrderItem().equals(orderItem))
-      {
-        model.removeFromOrder(vm.getOrderItem().getMenuItem());
+      Platform.runLater(() -> {
+        successProperty.set(String.valueOf(evt.getNewValue()));
         reloadOrderTable();
-        break;
-      }
+      });
     }
   }
 
   public void setSelectedOrderItem(OrderItem orderItem)
   {
-    this.orderItem = orderItem;
-    amount.set(orderItem.getQuantity());
+    this.selectedOrderItem = orderItem;
+    if (orderItem != null)
+    {
+      amount.set(orderItem.getQuantity());
+    }
+  }
+
+  public void increase()
+  {
+    amount.set(amount.get() + 1);
+  }
+
+  public void decrease()
+  {
+    if (amount.get() > 0)
+      amount.set(amount.get() - 1);
+  }
+
+  public void updateQuantity()
+  {
+    if (selectedOrderItem == null) return;
+
+    if (amount.get() == 0)
+    {
+      model.removeFromOrder(selectedOrderItem.getMenuItem());
+    }
+    else
+    {
+      model.updateOrderItem(selectedOrderItem.getMenuItem(), amount.get());
+    }
+
+    reloadOrderTable();
+  }
+
+  public void deleteMenuItem()
+  {
+    if (selectedOrderItem == null) return;
+
+    model.removeFromOrder(selectedOrderItem.getMenuItem());
+    reloadOrderTable();
+  }
+
+  public void placeOrder()
+  {
+    model.placeOrder();
   }
 }

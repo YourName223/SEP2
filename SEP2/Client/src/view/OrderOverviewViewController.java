@@ -4,17 +4,19 @@ import javafx.beans.property.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import viewModel.OrderContentsViewModel;
+import viewModel.OrderItemRowViewModel;
 import viewModel.OrderItemViewModel;
 
 public class OrderOverviewViewController
 {
-  @FXML private TableView<OrderItemViewModel> orderTable;
-  @FXML private TableColumn<OrderItemViewModel, String> nameColumn;
-  @FXML private TableColumn<OrderItemViewModel, Double> priceColumn;
-  @FXML private TableColumn<OrderItemViewModel, Integer> qtyColumn;
+  @FXML private TableView<OrderItemRowViewModel> orderTable;
+  @FXML private TableColumn<OrderItemRowViewModel, String> nameColumn;
+  @FXML private TableColumn<OrderItemRowViewModel, Double> priceColumn;
+  @FXML private TableColumn<OrderItemRowViewModel, Integer> qtyColumn;
   @FXML private Label qtyLabel;
   @FXML private Label totalLabel;
   @FXML private Label successLabel;
@@ -30,12 +32,17 @@ public class OrderOverviewViewController
     this.viewModel = viewModel;
     this.root = root;
 
-    nameColumn.setCellValueFactory(
-        cell -> new SimpleStringProperty(cell.getValue().getName()));
-    priceColumn.setCellValueFactory(
-        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPrice()));
-    qtyColumn.setCellValueFactory(
-        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
+    nameColumn.setCellValueFactory(cell ->
+        new SimpleStringProperty(cell.getValue().getName())
+    );
+
+    priceColumn.setCellValueFactory(cell ->
+        new ReadOnlyObjectWrapper<>(cell.getValue().getPrice())
+    );
+
+    qtyColumn.setCellValueFactory(cell ->
+        new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity())
+    );
 
     errorLabel.textProperty().bind(viewModel.getErrorProperty());
     successLabel.textProperty().bind(viewModel.getSuccessProperty());
@@ -44,6 +51,31 @@ public class OrderOverviewViewController
     orderTable.setItems(viewModel.getOrderItems());
 
     viewModel.loadFromModel();
+
+    orderTable.setRowFactory(tv -> new TableRow<OrderItemRowViewModel>()
+    {
+      @Override
+      protected void updateItem(OrderItemRowViewModel item, boolean empty) {
+        super.updateItem(item, empty);
+
+        if (item == null || empty) {
+          setStyle("");
+          return;
+        }
+
+        if (!item.isSelectable()) {
+          setStyle("-fx-text-fill: gray;");
+        } else {
+          setStyle("");
+        }
+      }
+    });
+
+    orderTable.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+      if (newVal != null && !newVal.isSelectable()) {
+        orderTable.getSelectionModel().clearSelection();
+      }
+    });
   }
 
   public void reset()

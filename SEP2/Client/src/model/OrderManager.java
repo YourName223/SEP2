@@ -4,13 +4,8 @@ import java.util.ArrayList;
 
 public class OrderManager
 {
-  private ArrayList<Order> orders;
-  private Order order;
-
-  public OrderManager()
-  {
-    order = new Order();
-  }
+  private final ArrayList<Order> orders = new ArrayList<>();
+  private Order order = new Order();
 
   public Order createOrder()
   {
@@ -18,24 +13,14 @@ public class OrderManager
     return order;
   }
 
-  public void addToOrder(MenuItemDto menuItem, int amount)
+  public Order getOrder()
   {
-    if (menuItem.getStock() < amount)
-    {
-      throw new IllegalStateException(
-          "Ikke nok ingredienser på lager for: " + menuItem.getName());
-    }
-    order.addMenuItem(menuItem,amount);
+    return order;
   }
 
-  public void updateOrderItem(MenuItemDto menuItem, int amount)
+  public ArrayList<Order> getOldOrders()
   {
-    order.setItem(menuItem,amount);
-  }
-
-  public void removeFromOrder(MenuItemDto menuItem)
-  {
-    order.removeItem(menuItem);
+    return orders;
   }
 
   public void acceptOrder()
@@ -44,30 +29,41 @@ public class OrderManager
     order = new Order();
   }
 
-  public ArrayList<Order> getOldOrders()
-  {
-    return orders;
-  }
-
   public void removeOrder()
   {
     order = new Order();
+  }
+
+  public void addToOrder(MenuItemDto menuItem, int amount)
+  {
+    if (menuItem.getStock() < amount)
+      throw new IllegalStateException("Not enough stock for: " + menuItem.getName());
+
+    order.addMenuItem(menuItem, amount);
+  }
+
+  public void updateOrderItem(MenuItemDto menuItem, int amount)
+  {
+    order.setItem(menuItem, amount);
+  }
+
+  public void removeFromOrder(MenuItemDto menuItem)
+  {
+    order.removeItem(menuItem);
   }
 
   public ArrayList<OrderItemDto> getOrderItemDto()
   {
     ArrayList<OrderItemDto> items = new ArrayList<>();
 
-    for(OrderItem orderItem : order.getItems())
+    for (OrderItem orderItem : order.getItems())
     {
-      items.add(new OrderItemDto(orderItem.getMenuItem().getName(),orderItem.getQuantity()));
+      items.add(new OrderItemDto(
+          orderItem.getMenuItem().getName(),
+          orderItem.getQuantity()
+      ));
     }
 
     return items;
-  }
-
-  public Order getOrder()
-  {
-    return order;
   }
 }
