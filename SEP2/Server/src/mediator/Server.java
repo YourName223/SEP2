@@ -25,6 +25,7 @@ public class Server implements Runnable, PropertyChangeListener
     parser = new Gson();
 
     model.addListener("RemoveOrder",this);
+    model.addListener("RemoveAllOrders",this);
   }
 
   public void close()
@@ -109,6 +110,13 @@ public class Server implements Runnable, PropertyChangeListener
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
     switch (evt.getPropertyName())
-    removeOrderFromClient(evt.getNewValue().toString());
+    {
+      case "RemoveOrder":
+        removeOrderFromClient(evt.getNewValue().toString());
+        break;
+      case "RemoveAllOrders":
+        removeAllOrdersFromClient(evt.getNewValue().toString());
+        break;
+    }
   }
 }
