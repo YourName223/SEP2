@@ -26,12 +26,16 @@ public class IngredientManager
   {
     for(Ingredient ingredientOrder : ingredients)
     {
+      System.out.println(ingredientOrder.getName());
       boolean found = false;
 
       for(Ingredient ingredientStock : stock)
       {
+        System.out.println(ingredientStock.getName());
+        System.out.println(ingredientStock.getStock() + "," + ingredientOrder.getAmount());
         if (ingredientStock.getId().equals(ingredientOrder.getId()) && ingredientStock.getStock() >= ingredientOrder.getAmount())
         {
+          System.out.println("Found it");
           found = true;
           break;
         }
@@ -90,9 +94,9 @@ public class IngredientManager
       {
         if (ingredient.getId().equals(ingredientInOrder.getId()))
         {
-          double amount = ingredient.getAmount()-ingredientInOrder.getAmount();
+          double amount = ingredient.getStock()-ingredientInOrder.getAmount();
           menuDAO.setAmountOnIngredient(ingredient.getId(),ingredientInOrder.getAmount());
-          ingredient.setAmount(amount);
+          ingredient.setStock(amount);
         }
       }
     }
@@ -106,9 +110,9 @@ public class IngredientManager
       {
         if (ingredient.getId().equals(ingredientInOrder.getId()))
         {
-          double amount = ingredient.getAmount()+ingredientInOrder.getAmount();
+          double amount = ingredient.getStock()+ingredientInOrder.getAmount();
           menuDAO.setAmountOnIngredient(ingredient.getId(),-ingredientInOrder.getAmount());
-          ingredient.setAmount(amount);
+          ingredient.setStock(amount);
         }
       }
     }
