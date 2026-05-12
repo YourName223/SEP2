@@ -19,6 +19,7 @@ public class MyApplication extends Application
 
       Order order = new Order();
       order.addMenuItem(model.getMenuItems().get(0));
+      order.addMenuItem(model.getMenuItems().get(1));
 
       model.receiveTableOrder(order,"23");
     }

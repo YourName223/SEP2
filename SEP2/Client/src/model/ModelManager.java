@@ -47,6 +47,11 @@ public class ModelManager implements Model
     orderManager.removeOrder();
   }
 
+  @Override public void removeAllOrders()
+  {
+    orderManager.removeAllOrders();
+  }
+
   @Override public void placeOrder()
   {
     if(orderManager.getOrder().getItems().isEmpty())

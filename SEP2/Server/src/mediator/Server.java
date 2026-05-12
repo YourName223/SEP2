@@ -93,8 +93,22 @@ public class Server implements Runnable, PropertyChangeListener
     }
   }
 
+  public void removeAllOrdersFromClient(String ip)
+  {
+    for(ClientHandler client : clients)
+    {
+      if(client.getIp().equals(ip))
+      {
+        OrderPackage sentPackage = new OrderPackage("Order",null,"RemoveAll");
+        client.sendMessage(parser.toJson(sentPackage));
+        break;
+      }
+    }
+  }
+
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
+    switch (evt.getPropertyName())
     removeOrderFromClient(evt.getNewValue().toString());
   }
 }

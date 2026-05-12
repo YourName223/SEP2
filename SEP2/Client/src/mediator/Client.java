@@ -62,13 +62,17 @@ public class Client
     {
       case "Order":
         orderPackage = parser.fromJson(line, OrderPackage.class);
-        if(orderPackage.getMessage().equals("Remove"))
+        switch (orderPackage.getMessage())
         {
-          model.removeOrder();
-        }
-        else
-        {
-          model.orderFeedback(orderPackage.getMessage());
+          case "Remove":
+            model.removeOrder();
+            break;
+          case "RemoveAll":
+            model.removeAllOrders();
+            break;
+          default:
+            model.orderFeedback(orderPackage.getMessage());
+            break;
         }
         break;
       case "Menu":
