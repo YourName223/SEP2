@@ -11,7 +11,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void removeFromOrder(MenuItemDto menuItem);
   public void removeOrder();
   public void placeOrder();
-  public void fireProperty(String propertyName, String line);
+  public void orderFeedback(String message);
   public void changeMenu(ArrayList<MenuItemDto> menu);
   public void getMenuFromDataBase();
   public ArrayList<MenuItemDto> getMenu();

@@ -68,7 +68,7 @@ public class Client
         }
         else
         {
-          model.fireProperty("Update",orderPackage.getMessage());
+          model.orderFeedback(orderPackage.getMessage());
         }
         break;
       case "Menu":

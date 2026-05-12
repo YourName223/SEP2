@@ -59,6 +59,15 @@ public class ModelManager implements Model
     }
   }
 
+  @Override public void orderFeedback(String message)
+  {
+    if(message.equals("Order accepted"))
+    {
+      orderManager.acceptOrder();
+    }
+    property.firePropertyChange("Update",null,message);
+  }
+
   @Override public void fireProperty(String propertyName, String line)
   {
     property.firePropertyChange(propertyName,null,line);

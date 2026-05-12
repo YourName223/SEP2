@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class OrderManager
 {
+  private ArrayList<Order> orders;
   private Order order;
 
   public OrderManager()
@@ -30,6 +31,17 @@ public class OrderManager
   public void removeFromOrder(MenuItemDto menuItem)
   {
     order.removeItem(menuItem);
+  }
+
+  public void acceptOrder()
+  {
+    orders.add(order);
+    order = new Order();
+  }
+
+  public ArrayList<Order> getOldOrders()
+  {
+    return orders;
   }
 
   public void removeOrder()

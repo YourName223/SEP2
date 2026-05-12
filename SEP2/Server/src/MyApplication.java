@@ -13,13 +13,9 @@ public class MyApplication extends Application
 
     try
     {
-      System.out.println("test1");
       ViewModelFactory viewModelFactory = new ViewModelFactory(model);
-      System.out.println("test2");
       ViewHandler view = new ViewHandler(viewModelFactory);
-      System.out.println("test3");
       view.start(primaryStage);
-      System.out.println("test4");
 
       Order order = new Order();
       order.addMenuItem(model.getMenuItems().get(0));
