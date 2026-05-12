@@ -9,7 +9,8 @@ public class MenuItemDto
   private double price;
   private ArrayList<String> recipeIds;
 
-  public MenuItemDto(String name, String allergies, double price, ArrayList<String> recipeIds)
+  public MenuItemDto(String name, String allergies, double price, ArrayList<String> recipeIds,
+      int stock)
   {
     this.name = name;
     this.allergies = allergies;
