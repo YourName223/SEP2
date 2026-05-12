@@ -30,7 +30,7 @@ public class IngredientManager
 
       for(Ingredient ingredientStock : stock)
       {
-        if (ingredientStock.getId().equals(ingredientOrder.getId()) && ingredientStock.getAmount() >= ingredientOrder.getAmount())
+        if (ingredientStock.getId().equals(ingredientOrder.getId()) && ingredientStock.getStock() >= ingredientOrder.getAmount())
         {
           found = true;
           break;
