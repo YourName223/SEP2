@@ -38,6 +38,18 @@ public class TableList
     return null;
   }
 
+  public boolean hasTable(String tableNr)
+  {
+    for (Table table : tables)
+    {
+      if (table.getTableNr().equals(tableNr))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public void removeAllOrdersFromTable(String tableNr)
   {
     getTable(tableNr).removeAllOrders();
