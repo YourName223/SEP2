@@ -63,7 +63,7 @@ public class OrderOverviewViewController
         }
 
         if (!item.isSelectable()) {
-          setStyle("-fx-text-fill: gray;");
+          setStyle("-fx-text-fill: blue;");
         } else {
           setStyle("");
         }
@@ -89,10 +89,12 @@ public class OrderOverviewViewController
 
   @FXML private void onOrderItemSelected()
   {
-    OrderItemRowViewModel selected = orderTable.getSelectionModel().getSelectedItem();
-    if (selected != null)
+    OrderItemRowViewModel selected =
+        orderTable.getSelectionModel().getSelectedItem();
+
+    if (selected != null && selected.isSelectable())
     {
-      viewModel.setSelectedOrderItem(selected.getOrderItem().getOrderItem());
+      viewModel.setSelectedOrderItem(selected.getOrderItem());
     }
   }
 

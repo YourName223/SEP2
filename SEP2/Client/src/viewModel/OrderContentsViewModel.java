@@ -53,16 +53,6 @@ public class OrderContentsViewModel implements PropertyChangeListener
   {
     orderItems.clear();
 
-    for (OrderItem item : model.getOrder().getItems())
-    {
-      orderItems.add(
-          new OrderItemRowViewModel(
-              new OrderItemViewModel(item),
-              true
-          )
-      );
-    }
-
     for (Order oldOrder : model.getOldOrders())
     {
       for (OrderItem item : oldOrder.getItems())
@@ -74,6 +64,16 @@ public class OrderContentsViewModel implements PropertyChangeListener
             )
         );
       }
+    }
+
+    for (OrderItem item : model.getOrder().getItems())
+    {
+      orderItems.add(
+          new OrderItemRowViewModel(
+              new OrderItemViewModel(item),
+              true
+          )
+      );
     }
   }
 

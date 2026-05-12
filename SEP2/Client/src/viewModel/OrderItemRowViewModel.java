@@ -1,25 +1,40 @@
 package viewModel;
 
+import model.OrderItem;
+
 public class OrderItemRowViewModel
 {
-  private final OrderItemViewModel item;
+  private final OrderItemViewModel itemVM;
   private final boolean selectable;
 
-  public OrderItemRowViewModel(OrderItemViewModel item, boolean selectable) {
-    this.item = item;
+  public OrderItemRowViewModel(OrderItemViewModel itemVM, boolean selectable)
+  {
+    this.itemVM = itemVM;
     this.selectable = selectable;
   }
 
-  public OrderItemViewModel getOrderItem()
+  public boolean isSelectable()
   {
-    return item;
-  }
-
-  public boolean isSelectable() {
     return selectable;
   }
 
-  public String getName() { return item.getName(); }
-  public double getPrice() { return item.getPrice(); }
-  public int getQuantity() { return item.getQuantity(); }
+  public String getName()
+  {
+    return itemVM.getName();
+  }
+
+  public double getPrice()
+  {
+    return itemVM.getPrice();
+  }
+
+  public int getQuantity()
+  {
+    return itemVM.getQuantity();
+  }
+
+  public OrderItem getOrderItem()
+  {
+    return itemVM.getOrderItem();
+  }
 }
