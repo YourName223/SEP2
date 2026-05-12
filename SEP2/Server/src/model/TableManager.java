@@ -13,7 +13,7 @@ public class TableManager
 
   public void secureTable(String tableNr)
   {
-    if(tableList.getTable(tableNr) == null)
+    if(!tableList.hasTable(tableNr))
     {
       tableList.addTable(tableNr);
     }

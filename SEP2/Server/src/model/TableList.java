@@ -26,13 +26,13 @@ public class TableList
     getTable(tableNr).removeOrder(order);
   }
 
-  public Table getTable(String tableNr)
+  private Table getTable(String tableNr)
   {
     for (Table table : tables)
     {
       if (table.getTableNr().equals(tableNr))
       {
-        return table.copy();
+        return table;
       }
     }
     return null;
