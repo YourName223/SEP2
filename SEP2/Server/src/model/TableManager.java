@@ -11,13 +11,17 @@ public class TableManager
     this.tableList = new TableList();
   }
 
-  public Table secureTable(String tableNr)
+  public void secureTable(String tableNr)
   {
     if(tableList.getTable(tableNr) == null)
     {
       tableList.addTable(tableNr);
     }
-    return tableList.getTable(tableNr);
+  }
+
+  public void assignOrderOnTable(Order order, String tableNr)
+  {
+    tableList.addOrder(tableNr, order);
   }
 
   public void removeOrder(Order order)

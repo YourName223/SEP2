@@ -50,6 +50,7 @@ public class TableList
 
   public double getPriceFromTable(String tableNr)
   {
+    System.out.println(getTable(tableNr).getTotalPrice());
     return getTable(tableNr).getTotalPrice();
   }
 
