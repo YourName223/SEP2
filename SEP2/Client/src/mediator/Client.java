@@ -15,7 +15,6 @@ public class Client
   private Gson parser;
   private boolean waiting;
   private Model model;
-  private OrderPackage orderPackage;
   private ClientReader clientReader;
 
   public Client(Model model, String host, int port)
@@ -61,7 +60,7 @@ public class Client
     switch(parser.fromJson(line, OrderPackage.class).getType())
     {
       case "Order":
-        orderPackage = parser.fromJson(line, OrderPackage.class);
+        OrderPackage orderPackage = parser.fromJson(line, OrderPackage.class);
         switch (orderPackage.getMessage())
         {
           case "Remove":

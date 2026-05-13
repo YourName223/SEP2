@@ -1,7 +1,6 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import model.*;
 import viewModel.LiveOrdersViewModel;
@@ -15,8 +14,6 @@ public class LiveOrdersViewController implements ViewController<LiveOrdersViewMo
   private IncomingOrderRenderer incomingRenderer;
   private CurrentOrderRenderer currentRenderer;
   private FinishedOrderRenderer finishedRenderer;
-
-
   private LiveOrdersViewModel viewModel;
 
   @Override
@@ -103,20 +100,5 @@ public class LiveOrdersViewController implements ViewController<LiveOrdersViewMo
   {
     viewModel.removeOrder(order);
     refresh();
-  }
-
-  public VBox getIncomingOrderBox()
-  {
-    return incomingOrderBox;
-  }
-
-  public VBox getCurrentOrderBox()
-  {
-    return currentOrderBox;
-  }
-
-  public VBox getFinishedOrderBox()
-  {
-    return finishedOrderBox;
   }
 }

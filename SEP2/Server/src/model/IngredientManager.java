@@ -1,7 +1,6 @@
 package model;
 
 import Repository.MenuDAOImpl;
-
 import java.util.ArrayList;
 
 public class IngredientManager
@@ -122,10 +121,10 @@ public class IngredientManager
     return minStock == Integer.MAX_VALUE ? 0 : minStock;
   }
 
-  private void addRecipeIngredientToList(ArrayList<RecipeIngredient> ingredientList, RecipeIngredient recipeIngredient, int amount)
+  private void addRecipeIngredientToList(ArrayList<RecipeIngredient> recipeIngredientList, RecipeIngredient recipeIngredient, int amount)
   {
     RecipeIngredient addedIngredient = recipeIngredient;
-    for (RecipeIngredient ingredientListElement : ingredientList)
+    for (RecipeIngredient ingredientListElement : recipeIngredientList)
     {
       if (ingredientListElement.getIngredient().getId().equals(addedIngredient.getIngredient().getId()))
       {
@@ -133,7 +132,7 @@ public class IngredientManager
         return;
       }
     }
-    ingredientList.add(new RecipeIngredient(recipeIngredient.getIngredient(),recipeIngredient.getAmount()*amount));
+    recipeIngredientList.add(new RecipeIngredient(recipeIngredient.getIngredient(),recipeIngredient.getAmount()*amount));
   }
 
   public void removeRecipeIngredients(ArrayList<RecipeIngredient> recipeIngredientsInOrder)
@@ -152,11 +151,11 @@ public class IngredientManager
     }
   }
 
-  public void addRecipeIngredients(ArrayList<RecipeIngredient> ingredientsInOrder)
+  public void addRecipeIngredients(ArrayList<RecipeIngredient> recipeIngredientsInOrder)
   {
     for (Ingredient ingredient : stock)
     {
-      for (RecipeIngredient recipeIngredientInOrder : ingredientsInOrder)
+      for (RecipeIngredient recipeIngredientInOrder : recipeIngredientsInOrder)
       {
         if (ingredient.getId().equals(recipeIngredientInOrder.getIngredient().getId()))
         {
