@@ -32,7 +32,6 @@ public class IngredientManager
       {
         if (ingredientStock.getId().equals(ingredientOrder.getIngredient().getId()) && ingredientStock.getStock() >= ingredientOrder.getAmount())
         {
-          System.out.println("Found it");
           found = true;
           break;
         }
@@ -65,7 +64,7 @@ public class IngredientManager
   {
     ArrayList<RecipeIngredient> ingredientsInOrder = new ArrayList<>();
 
-      for (OrderItem orderItem : order.getOrderItems())
+    for (OrderItem orderItem : order.getOrderItems())
     {
       System.out.println(orderItem.getQuantity());
       int amount = orderItem.getQuantity();
@@ -120,8 +119,6 @@ public class IngredientManager
         minStock = Math.min(minStock, possible);
       }
     }
-
-    System.out.println("StockForMenuItem:" + menuItem.getName() + (minStock == Integer.MAX_VALUE ? 0 : minStock));
     return minStock == Integer.MAX_VALUE ? 0 : minStock;
   }
 
@@ -133,11 +130,10 @@ public class IngredientManager
       if (ingredientListElement.getIngredient().getId().equals(addedIngredient.getIngredient().getId()))
       {
         ingredientListElement.addAmount(recipeIngredient.getAmount()*amount);
-        System.out.println(recipeIngredient.getAmount()*amount);
         return;
       }
     }
-    ingredientList.add(recipeIngredient);
+    ingredientList.add(new RecipeIngredient(recipeIngredient.getIngredient(),recipeIngredient.getAmount()*amount));
   }
 
   public void removeRecipeIngredients(ArrayList<RecipeIngredient> recipeIngredientsInOrder)
