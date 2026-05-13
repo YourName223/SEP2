@@ -76,6 +76,7 @@ public class Client
         }
         break;
       case "Menu":
+        System.out.println("Got menu");
         MenuPackage menuPackage = parser.fromJson(line, MenuPackage.class);
         model.changeMenu(menuPackage.getMenuItems());
         break;

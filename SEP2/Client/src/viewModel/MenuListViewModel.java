@@ -35,7 +35,18 @@ public class MenuListViewModel implements PropertyChangeListener
 
   public void increase()
   {
-    amountProperty.set(amountProperty.get()+1);
+    int quantity = 0;
+    for (OrderItem orderItem : model.getOrder().getItems())
+    {
+      if (orderItem.getMenuItem().getName().equals(selectedMenuItem.getName()))
+      {
+        quantity = orderItem.getQuantity();
+      }
+    }
+    if(selectedMenuItem.getStock()>amountProperty.get()+quantity)
+    {
+      amountProperty.set(amountProperty.get() + 1);
+    }
   }
 
   public void decrease()
