@@ -1,16 +1,33 @@
 package viewModel;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class TableRowViewModel
 {
-  private final String tableNr;
-  private final double total;
+  private final StringProperty tableNr = new SimpleStringProperty();
+  private final DoubleProperty total = new SimpleDoubleProperty();
 
   public TableRowViewModel(String tableNr, double total)
   {
-    this.tableNr = tableNr;
-    this.total = total;
+    this.tableNr.set(tableNr);
+    this.total.set(total);
   }
 
-  public String getTableNr() { return tableNr; }
-  public double getTotal() { return total; }
+  public String getTableNr()
+  {
+    return tableNr.get();
+  }
+
+  public StringProperty getTableNrProperty()
+  {
+    return tableNr;
+  }
+
+  public DoubleProperty getTotalProperty()
+  {
+    return total;
+  }
 }

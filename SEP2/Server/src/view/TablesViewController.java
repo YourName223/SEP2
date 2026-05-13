@@ -8,8 +8,7 @@ import javafx.scene.control.TableView;
 import viewModel.TableRowViewModel;
 import viewModel.TablesViewModel;
 
-public class TablesViewController
-    implements ViewController<TablesViewModel>
+public class TablesViewController implements ViewController<TablesViewModel>
 {
   @FXML private TableView<TableRowViewModel> tablesTable;
   @FXML private TableColumn<TableRowViewModel, String> tableNrColumn;
@@ -20,22 +19,15 @@ public class TablesViewController
 
   private TableRowViewModel selectedTable;
 
-  @Override
-  public void init(TablesViewModel viewModel)
+  @Override public void init(TablesViewModel viewModel)
   {
     this.viewModel = viewModel;
 
     tableNrColumn.setCellValueFactory(
-        cell -> new SimpleStringProperty(
-            cell.getValue().getTableNr()
-        )
-    );
+        cell -> cell.getValue().getTableNrProperty());
 
     totalColumn.setCellValueFactory(
-        cell -> new ReadOnlyObjectWrapper<>(
-            cell.getValue().getTotal()
-        )
-    );
+        cell -> cell.getValue().getTotalProperty().asObject());
 
     tablesTable.setItems(viewModel.getTables());
     viewModel.loadFromModel();
@@ -46,14 +38,12 @@ public class TablesViewController
     this.tabsViewController = tabsViewController;
   }
 
-  @FXML
-  private void onTableSelected()
+  @FXML private void onTableSelected()
   {
     selectedTable = tablesTable.getSelectionModel().getSelectedItem();
   }
 
-  @FXML
-  private void showOrdersButton()
+  @FXML private void showOrdersButton()
   {
     if (selectedTable == null)
     {
@@ -70,9 +60,7 @@ public class TablesViewController
       return;
     }
 
-    tabsViewController.showTableOrdersView(
-        selectedTable.getTableNr()
-    );
+    tabsViewController.showTableOrdersView(selectedTable.getTableNr());
   }
 
   public void reset()
