@@ -22,7 +22,7 @@ public class MyApplication extends Application
       view.start(primaryStage);
 
       Order order = new Order();
-      for (int i = 0; i<1;i++)
+      for (int i = 0; i<2;i++)
       {
         order.addMenuItem(model.getMenuItems().get(1));
       }

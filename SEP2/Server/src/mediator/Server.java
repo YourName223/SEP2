@@ -24,6 +24,7 @@ public class Server implements Runnable, PropertyChangeListener
     this.clients = new ArrayList<>();
     parser = new Gson();
 
+    model.addListener("Broadcast",this);
     model.addListener("RemoveOrder",this);
     model.addListener("RemoveAllOrders",this);
   }
@@ -116,6 +117,9 @@ public class Server implements Runnable, PropertyChangeListener
         break;
       case "RemoveAllOrders":
         removeAllOrdersFromClient(evt.getNewValue().toString());
+        break;
+      case "Broadcast":
+        broadcast(evt.getNewValue().toString());
         break;
     }
   }
