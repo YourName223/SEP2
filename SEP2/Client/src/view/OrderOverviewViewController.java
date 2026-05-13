@@ -25,23 +25,21 @@ public class OrderOverviewViewController
   private OrderContentsViewModel viewModel;
   private Region root;
 
-  public void init(ViewHandler viewHandler, OrderContentsViewModel viewModel, Region root)
+  public void init(ViewHandler viewHandler, OrderContentsViewModel viewModel,
+      Region root)
   {
     this.viewHandler = viewHandler;
     this.viewModel = viewModel;
     this.root = root;
 
-    nameColumn.setCellValueFactory(cell ->
-        new SimpleStringProperty(cell.getValue().getName())
-    );
+    nameColumn.setCellValueFactory(
+        cell -> new SimpleStringProperty(cell.getValue().getName()));
 
-    priceColumn.setCellValueFactory(cell ->
-        new ReadOnlyObjectWrapper<>(cell.getValue().getPrice())
-    );
+    priceColumn.setCellValueFactory(
+        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPrice()));
 
-    qtyColumn.setCellValueFactory(cell ->
-        new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity())
-    );
+    qtyColumn.setCellValueFactory(
+        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
 
     errorLabel.textProperty().bind(viewModel.getErrorProperty());
     successLabel.textProperty().bind(viewModel.getSuccessProperty());
@@ -53,28 +51,36 @@ public class OrderOverviewViewController
 
     orderTable.setRowFactory(tv -> new TableRow<OrderItemRowStatusViewModel>()
     {
-      @Override
-      protected void updateItem(OrderItemRowStatusViewModel item, boolean empty) {
+      @Override protected void updateItem(OrderItemRowStatusViewModel item,
+          boolean empty)
+      {
         super.updateItem(item, empty);
 
-        if (item == null || empty) {
+        if (item == null || empty)
+        {
           setStyle("");
           return;
         }
 
-        if (!item.isSelectable()) {
+        if (!item.isSelectable())
+        {
           setStyle("-fx-text-fill: blue;");
-        } else {
+        }
+        else
+        {
           setStyle("");
         }
       }
     });
 
-    orderTable.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-      if (newVal != null && !newVal.isSelectable()) {
-        orderTable.getSelectionModel().clearSelection();
-      }
-    });
+    orderTable.getSelectionModel().selectedItemProperty()
+        .addListener((obs, oldVal, newVal) -> {
+
+          if (newVal != null && !newVal.isSelectable())
+          {
+            orderTable.getSelectionModel().clearSelection();
+          }
+        });
   }
 
   public void reset()
@@ -89,8 +95,8 @@ public class OrderOverviewViewController
 
   @FXML private void onOrderItemSelected()
   {
-    OrderItemRowStatusViewModel selected =
-        orderTable.getSelectionModel().getSelectedItem();
+    OrderItemRowStatusViewModel selected = orderTable.getSelectionModel()
+        .getSelectedItem();
 
     if (selected != null && selected.isSelectable())
     {
