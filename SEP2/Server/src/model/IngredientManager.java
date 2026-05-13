@@ -67,6 +67,7 @@ public class IngredientManager
 
     for (OrderItem orderItem : order.getOrderItems())
     {
+      System.out.println(orderItem.getQuantity());
       int amount = orderItem.getQuantity();
 
       for (Recipe recipe : orderItem.getItem().getRecipes())
@@ -120,6 +121,7 @@ public class IngredientManager
       }
     }
 
+    System.out.println(minStock == Integer.MAX_VALUE ? 0 : minStock);
     return minStock == Integer.MAX_VALUE ? 0 : minStock;
   }
 

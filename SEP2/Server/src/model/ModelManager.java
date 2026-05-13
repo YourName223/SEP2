@@ -42,7 +42,7 @@ public class ModelManager implements Model
               menuItem.getPrice(),
               recipeManager.getRecipeIdFromMenuItem(menuItem),
               ingredientManager.amountOfStockForMenuItem(menuItem)));
-      System.out.println(ingredientManager.amountOfStockForMenuItem(menuItemT));
+      System.out.println(ingredientManager.amountOfStockForMenuItem(menuItem));
     }
     return menuItemDtos;
   }
@@ -76,7 +76,7 @@ public class ModelManager implements Model
       orderManager.addOrder(tableOrder);
       orderDispatcher.dispatch(tableOrder);
       property.firePropertyChange("Update", null, null);
-      ingredientManager.removeRecipeIngredientsFromOrder(order);
+      ingredientManager.removeRecipeIngredientsFromOrder(ordeTryir);
       return true;
     }
     return false;
