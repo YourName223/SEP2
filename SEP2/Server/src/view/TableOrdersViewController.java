@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import viewModel.OrderItemRowStatusViewModel;
+import viewModel.OrderItemRowViewModel;
 import viewModel.TableOrdersViewModel;
 
 public class TableOrdersViewController
@@ -57,7 +57,7 @@ public class TableOrdersViewController
   {
     ordersBox.getChildren().clear();
 
-    for (OrderItemRowStatusViewModel rowModel : viewModel.getRows())
+    for (OrderItemRowViewModel rowModel : viewModel.getRows())
     {
       HBox row = new HBox(10);
 

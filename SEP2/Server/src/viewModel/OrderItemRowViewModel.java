@@ -2,13 +2,13 @@ package viewModel;
 
 import javafx.beans.property.*;
 
-public class OrderItemRowStatusViewModel
+public class OrderItemRowViewModel
 {
   private final IntegerProperty quantityProperty = new SimpleIntegerProperty();
   private final StringProperty nameProperty = new SimpleStringProperty();
   private final DoubleProperty priceProperty = new SimpleDoubleProperty();
 
-  public OrderItemRowStatusViewModel(int quantityProperty, String nameProperty, double priceProperty)
+  public OrderItemRowViewModel(int quantityProperty, String nameProperty, double priceProperty)
   {
     this.quantityProperty.set(quantityProperty);
     this.nameProperty.set(nameProperty);

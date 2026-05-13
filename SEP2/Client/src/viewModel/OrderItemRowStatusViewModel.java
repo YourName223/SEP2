@@ -2,12 +2,12 @@ package viewModel;
 
 import model.OrderItem;
 
-public class OrderItemRowViewModel
+public class OrderItemRowStatusViewModel
 {
   private final OrderItemViewModel itemVM;
   private final boolean selectable;
 
-  public OrderItemRowViewModel(OrderItemViewModel itemVM, boolean selectable)
+  public OrderItemRowStatusViewModel(OrderItemViewModel itemVM, boolean selectable)
   {
     this.itemVM = itemVM;
     this.selectable = selectable;

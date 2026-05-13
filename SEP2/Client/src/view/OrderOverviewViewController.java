@@ -8,14 +8,14 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import viewModel.OrderContentsViewModel;
-import viewModel.OrderItemRowViewModel;
+import viewModel.OrderItemRowStatusViewModel;
 
 public class OrderOverviewViewController
 {
-  @FXML private TableView<OrderItemRowViewModel> orderTable;
-  @FXML private TableColumn<OrderItemRowViewModel, String> nameColumn;
-  @FXML private TableColumn<OrderItemRowViewModel, Double> priceColumn;
-  @FXML private TableColumn<OrderItemRowViewModel, Integer> qtyColumn;
+  @FXML private TableView<OrderItemRowStatusViewModel> orderTable;
+  @FXML private TableColumn<OrderItemRowStatusViewModel, String> nameColumn;
+  @FXML private TableColumn<OrderItemRowStatusViewModel, Double> priceColumn;
+  @FXML private TableColumn<OrderItemRowStatusViewModel, Integer> qtyColumn;
   @FXML private Label qtyLabel;
   @FXML private Label totalLabel;
   @FXML private Label successLabel;
@@ -51,10 +51,10 @@ public class OrderOverviewViewController
 
     viewModel.loadFromModel();
 
-    orderTable.setRowFactory(tv -> new TableRow<OrderItemRowViewModel>()
+    orderTable.setRowFactory(tv -> new TableRow<OrderItemRowStatusViewModel>()
     {
       @Override
-      protected void updateItem(OrderItemRowViewModel item, boolean empty) {
+      protected void updateItem(OrderItemRowStatusViewModel item, boolean empty) {
         super.updateItem(item, empty);
 
         if (item == null || empty) {
@@ -89,7 +89,7 @@ public class OrderOverviewViewController
 
   @FXML private void onOrderItemSelected()
   {
-    OrderItemRowViewModel selected =
+    OrderItemRowStatusViewModel selected =
         orderTable.getSelectionModel().getSelectedItem();
 
     if (selected != null && selected.isSelectable())

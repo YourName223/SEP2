@@ -18,7 +18,7 @@ public class TableOrdersViewModel implements PropertyChangeListener
 
   private String selectedTableNr;
 
-  private final ObservableList<OrderItemRowStatusViewModel> rows =
+  private final ObservableList<OrderItemRowViewModel> rows =
       FXCollections.observableArrayList();
 
   public TableOrdersViewModel(Model model)
@@ -54,7 +54,7 @@ public class TableOrdersViewModel implements PropertyChangeListener
     {
       for (OrderItem item : order.getOrderItems())
       {
-        rows.add(new OrderItemRowStatusViewModel(
+        rows.add(new OrderItemRowViewModel(
             item.getQuantity(),
             item.getItem().getName(),
             item.getItem().getPrice()
@@ -63,7 +63,7 @@ public class TableOrdersViewModel implements PropertyChangeListener
     }
   }
 
-  public ObservableList<OrderItemRowStatusViewModel> getRows()
+  public ObservableList<OrderItemRowViewModel> getRows()
   {
     return rows;
   }
