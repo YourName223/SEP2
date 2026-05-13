@@ -62,10 +62,8 @@ public class ViewHandler
 
   public void openTabs()
   {
-    Parent root = load(
-        "TabsView.fxml",
-        viewModelFactory
-    );
+    Parent root = load("TabsView.fxml", viewModelFactory);
 
     setScene(root);
-}}
+  }
+}

@@ -5,8 +5,9 @@ import javafx.collections.ObservableList;
 import model.Model;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class TablesViewModel
+public class TablesViewModel implements PropertyChangeListener
 {
   private final Model model;
 
@@ -17,12 +18,7 @@ public class TablesViewModel
   {
     this.model = model;
 
-    model.addListener("Update", this::onModelUpdate);
-  }
-
-  private void onModelUpdate(PropertyChangeEvent evt)
-  {
-    loadFromModel();
+    model.addListener("Update",this);
   }
 
   public void loadFromModel()
@@ -43,20 +39,12 @@ public class TablesViewModel
     return tables;
   }
 
-  private Runnable openTableCallback;
-
-  public void setOpenTableCallback(Runnable r)
-  {
-    this.openTableCallback = r;
-  }
-
-  public void openTable(String tableNr)
-  {
-    if (openTableCallback != null)
-      openTableCallback.run();
-  }
-
   public void clear()
+  {
+    loadFromModel();
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt)
   {
     loadFromModel();
   }

@@ -4,8 +4,10 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class TableOrdersViewModel
+public class TableOrdersViewModel implements PropertyChangeListener
 {
   private final Model model;
 
@@ -22,6 +24,8 @@ public class TableOrdersViewModel
   public TableOrdersViewModel(Model model)
   {
     this.model = model;
+
+    model.addListener("Update",this);
   }
 
   public void setSelectedTableNr(String tableNr)
@@ -77,11 +81,13 @@ public class TableOrdersViewModel
     loadFromModel();
   }
 
-  public void backToTables()
-  {
-  }
-
   public void clear()
   {
+    loadFromModel();
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt)
+  {
+    loadFromModel();
   }
 }
