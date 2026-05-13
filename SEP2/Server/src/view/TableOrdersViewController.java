@@ -62,13 +62,13 @@ public class TableOrdersViewController
       HBox row = new HBox(10);
 
       Label qty = new Label();
-      qty.textProperty().bind(rowModel.getQuantityProperty());
+      qty.textProperty().bind(rowModel.getQuantityProperty().asString("%dx"));
 
       Label name = new Label();
       name.textProperty().bind(rowModel.getNameProperty());
 
       Label price = new Label();
-      price.textProperty().bind(rowModel.getPriceProperty());
+      price.textProperty().bind(rowModel.getPriceProperty().asString("%.2f"));
 
       Region space = new Region();
       HBox.setHgrow(space, Priority.ALWAYS);
