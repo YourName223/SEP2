@@ -76,7 +76,6 @@ public class ModelManager implements Model
   @Override public void changeMenu(ArrayList<MenuItemDto> menu)
   {
     this.menu = menu;
-    property.firePropertyChange("Update",null,null);
     property.firePropertyChange("Menu",null,menu);
   }
 

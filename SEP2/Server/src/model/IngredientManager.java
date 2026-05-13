@@ -65,7 +65,7 @@ public class IngredientManager
   {
     ArrayList<RecipeIngredient> ingredientsInOrder = new ArrayList<>();
 
-    for (OrderItem orderItem : order.getOrderItems())
+      for (OrderItem orderItem : order.getOrderItems())
     {
       System.out.println(orderItem.getQuantity());
       int amount = orderItem.getQuantity();
@@ -121,7 +121,7 @@ public class IngredientManager
       }
     }
 
-    System.out.println(minStock == Integer.MAX_VALUE ? 0 : minStock);
+    System.out.println("StockForMenuItem:" + menuItem.getName() + (minStock == Integer.MAX_VALUE ? 0 : minStock));
     return minStock == Integer.MAX_VALUE ? 0 : minStock;
   }
 
@@ -133,6 +133,7 @@ public class IngredientManager
       if (ingredientListElement.getIngredient().getId().equals(addedIngredient.getIngredient().getId()))
       {
         ingredientListElement.addAmount(recipeIngredient.getAmount()*amount);
+        System.out.println(recipeIngredient.getAmount()*amount);
         return;
       }
     }

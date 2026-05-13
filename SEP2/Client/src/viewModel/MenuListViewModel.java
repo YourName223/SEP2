@@ -25,7 +25,7 @@ public class MenuListViewModel implements PropertyChangeListener
     amountProperty = new SimpleIntegerProperty();
     this.errorProperty = new SimpleStringProperty();
 
-    model.addListener("Update", this);
+    model.addListener("Menu", this);
     loadFromModel();
   }
 
