@@ -42,7 +42,7 @@ public class ModelManager implements Model
               menuItem.getPrice(),
               recipeManager.getRecipeIdFromMenuItem(menuItem),
               ingredientManager.amountOfStockForMenuItem(menuItem)));
-      System.out.println(ingredientManager.amountOfStockForMenuItem(menuItem));
+      System.out.println("Other system for stock says : " + menuItem.getName() + ingredientManager.amountOfStockForMenuItem(menuItem));
     }
     return menuItemDtos;
   }
