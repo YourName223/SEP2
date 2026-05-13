@@ -76,7 +76,7 @@ public class ModelManager implements Model
       orderManager.addOrder(tableOrder);
       orderDispatcher.dispatch(tableOrder);
       property.firePropertyChange("Update", null, null);
-      ingredientManager.removeRecipeIngredientsFromOrder(ordeTryir);
+      ingredientManager.removeRecipeIngredientsFromOrder(order);
       return true;
     }
     return false;
