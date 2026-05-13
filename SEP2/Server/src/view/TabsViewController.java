@@ -10,7 +10,6 @@ import viewModel.ViewModelFactory;
 public class TabsViewController implements ViewController<ViewModelFactory>
 {
   @FXML private Tab liveOrdersTab;
-  @FXML private Tab tablesTab;
   @FXML private StackPane tablesContainer;
 
   private ViewModelFactory vmf;
@@ -56,21 +55,19 @@ public class TabsViewController implements ViewController<ViewModelFactory>
 
       if (controller instanceof ViewController<?> vc)
       {
-        @SuppressWarnings("unchecked")
         ViewController<T> typed =
             (ViewController<T>) vc;
 
         typed.init(viewModel);
       }
 
-      if (controller instanceof TablesViewController tvc)
+      switch (controller)
       {
-        tvc.setTabsController(this);
-      }
+        case TablesViewController tvc -> tvc.setTabsController(this);
 
-      if (controller instanceof TableOrdersViewController toc)
-      {
-        toc.setTabsController(this);
+        case TableOrdersViewController toc -> toc.setTabsController(this);
+
+        default -> {}
       }
 
       return root;

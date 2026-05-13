@@ -116,6 +116,10 @@ public class OrderContentsViewModel implements PropertyChangeListener
     {
       amountProperty.set(orderItem.getQuantity());
     }
+    if (orderItem == null)
+    {
+      amountProperty.set(0);
+    }
   }
 
   public void increase()
