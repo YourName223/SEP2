@@ -11,9 +11,9 @@ public class MenuItem
   private String allergies;
   private double price;
   private ArrayList<Recipe> recipes;
-  private Duration prepTime;
+  private int prepTime;
 
-  public MenuItem(String name, String allergies, double price, ArrayList<Recipe> recipes, Duration prepTime)
+  public MenuItem(String name, String allergies, double price, ArrayList<Recipe> recipes, int prepTime)
   {
     this.name = name;
     this.allergies = allergies;
@@ -70,7 +70,7 @@ public class MenuItem
     return string.toString();
   }
 
-  public Duration getPrepTime()
+  public int getPrepTime()
   {
     return prepTime;
   }
