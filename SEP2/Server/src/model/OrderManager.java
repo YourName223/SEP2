@@ -124,4 +124,9 @@ public class OrderManager
 
     return items;
   }
+
+  public void removeOrderItem(Order order, OrderItem orderItem)
+  {
+    orderList.removeOrderItem(order, orderItem);
+  }
 }

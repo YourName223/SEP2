@@ -54,4 +54,9 @@ public class TableManager
   {
     return tableList.getAllTableNr();
   }
+
+  public void removeOrderItem(Order order, OrderItem orderItem)
+  {
+    tableList.removeOrderItem(((TableOrder)order).getTableNr() , order, orderItem);
+  }
 }
