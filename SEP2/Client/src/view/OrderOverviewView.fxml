@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrderOverviewViewController">
+<VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrderOverviewViewController">
    <children>
       <TableView fx:id="orderTable" onMouseClicked="#onOrderItemSelected" prefHeight="235.0" prefWidth="560.0">
         <columns>
@@ -26,14 +26,14 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="350.0" spacing="10.0">
                <children>
-                  <Button fx:id="removeButton" onAction="#removeButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="34.0" text="🗑">
+                  <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButton" prefHeight="30.0" prefWidth="34.0" text="🗑">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
                   <HBox alignment="CENTER" prefHeight="30.0" prefWidth="103.0" spacing="5.0">
                      <children>
-                        <Button fx:id="decreaseButton" onAction="#decreaseButton" mnemonicParsing="false" text="-">
+                        <Button fx:id="decreaseButton" mnemonicParsing="false" onAction="#decreaseButton" text="-">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -43,14 +43,22 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="increaseButton" onAction="#increaseButton" mnemonicParsing="false" text="+">
+                        <Button fx:id="increaseButton" mnemonicParsing="false" onAction="#increaseButton" text="+">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="updateButton" onAction="#updateButton" mnemonicParsing="false" text="Save">
+                  <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButton" text="Save">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="removeOrderButton" mnemonicParsing="false" onAction="#removeOrderButton" text="Remove">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -82,7 +90,7 @@
                   <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="451.0" text="Error Label" textFill="#df2626" />
                </children>
             </VBox>
-            <Button fx:id="placeOrderButton" onAction="#placeOrderButton" mnemonicParsing="false" text="Place Order">
+            <Button fx:id="placeOrderButton" mnemonicParsing="false" onAction="#placeOrderButton" text="Place Order">
                <font>
                   <Font size="14.0" />
                </font>

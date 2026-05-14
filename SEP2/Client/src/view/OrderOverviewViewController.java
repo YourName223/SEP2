@@ -1,6 +1,7 @@
 package view;
 
 import javafx.beans.property.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -130,5 +131,10 @@ public class OrderOverviewViewController
   @FXML private void placeOrderButton()
   {
     viewModel.placeOrder();
+  }
+
+  public void removeOrderButton(ActionEvent actionEvent)
+  {
+    viewModel.removeOrder();
   }
 }
