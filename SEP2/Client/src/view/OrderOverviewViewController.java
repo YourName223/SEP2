@@ -49,7 +49,7 @@ public class OrderOverviewViewController
         cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
 
     timeColumn.setCellValueFactory(
-        cell -> cell.getValue().getWaitingTimeProperty());
+ cell -> cell.getValue().getWaitingTimeProperty());
 
     nameColumn1.setCellValueFactory(
         cell -> new SimpleStringProperty(cell.getValue().getName()));
