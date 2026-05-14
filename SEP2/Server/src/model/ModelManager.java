@@ -141,7 +141,7 @@ public class ModelManager implements Model
       {
         if (orderItem1.equals(orderItem))
         {
-          if(order1.getState().equals(new OrderStateIncoming()))
+          if(order1.getState() instanceof OrderStateIncoming)
           {
             orderManager.removeOrderItem(order1.getOrder(),orderItem);
             tableManager.removeOrderItem(order1.getOrder(),orderItem);
