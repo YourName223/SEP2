@@ -448,7 +448,7 @@
         {
           String id = resultSet.getString("id");
           String name = resultSet.getString("name");
-          double stock = resultSet.getInt("stock");
+          double stock = resultSet.getDouble("stock");
 
           ingredients.add(new Ingredient(id, name, stock));
         }

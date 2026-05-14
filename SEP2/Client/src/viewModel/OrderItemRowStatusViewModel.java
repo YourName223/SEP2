@@ -17,7 +17,7 @@ public class OrderItemRowStatusViewModel
   {
     this.itemVM = itemVM;
     this.selectable = selectable;
-    timer = new SimpleStringProperty(getOrderItem().getMenuItem().getTime());
+    //timer = new SimpleStringProperty(getOrderItem().getMenuItem().getTime());
   }
 
   public boolean isSelectable()
