@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class IngredientManager
 {
-  MenuDAOImpl menuDAO;
-  ArrayList<Ingredient> stock;
+  private MenuDAOImpl menuDAO;
+  private ArrayList<Ingredient> stock;
 
   IngredientManager()
   {
@@ -144,7 +144,7 @@ public class IngredientManager
         if (ingredient.getId().equals(recipeIngredientInOrder.getIngredient().getId()))
         {
           double amount = ingredient.getStock()-recipeIngredientInOrder.getAmount();
-          menuDAO.setAmountOnIngredient(ingredient.getId(),recipeIngredientInOrder.getAmount());
+          menuDAO.setAmountOnIngredient(ingredient.getId(),amount);
           ingredient.setStock(amount);
         }
       }
@@ -160,10 +160,33 @@ public class IngredientManager
         if (ingredient.getId().equals(recipeIngredientInOrder.getIngredient().getId()))
         {
           double amount = ingredient.getStock()+recipeIngredientInOrder.getAmount();
-          menuDAO.setAmountOnIngredient(ingredient.getId(),-recipeIngredientInOrder.getAmount());
+          menuDAO.setAmountOnIngredient(ingredient.getId(),amount);
           ingredient.setStock(amount);
         }
       }
     }
+  }
+
+  public ArrayList<Ingredient> getStock()
+  {
+    return stock;
+  }
+
+  public void setStock(String id, double amount)
+  {
+    menuDAO.setAmountOnIngredient(id,amount);
+    getIngredient(id).setStock(amount);
+  }
+
+  public Ingredient getIngredient(String id)
+  {
+    for (Ingredient ingredient : stock)
+    {
+      if (ingredient.getId().equals(id))
+      {
+        return ingredient;
+      }
+    }
+    return null;
   }
 }

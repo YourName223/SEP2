@@ -42,7 +42,6 @@ public class ModelManager implements Model
               menuItem.getPrice(),
               recipeManager.getRecipeIdFromMenuItem(menuItem),
               ingredientManager.amountOfStockForMenuItem(menuItem)));
-      System.out.println("Other system for stock says : " + menuItem.getName() + ingredientManager.amountOfStockForMenuItem(menuItem));
     }
     return menuItemDtos;
   }
@@ -116,6 +115,33 @@ public class ModelManager implements Model
   @Override public void broadCast(String message)
   {
     property.firePropertyChange("Broadcast",null,message);
+  }
+
+  @Override public ArrayList<Ingredient> getIngredients()
+  {
+    return ingredientManager.getStock();
+  }
+
+  @Override public void setStockOnIngredient(String id,
+      double stock)
+  {
+    ingredientManager.setStock(id, stock);
+  }
+
+  @Override public boolean cancelOrder(Order order)
+  {
+    for (OrderCurrent order1 : orderManager.getOrderList().getOrders())
+    {
+      if (order1.getOrder().equals(order))
+      {
+        if(order1.getState().equals("OrderStateIncoming"))
+        {
+          return true;
+        }
+        return false;
+      }
+    }
+    return false;
   }
 
   @Override public void addListener(String propertyName, PropertyChangeListener listener)

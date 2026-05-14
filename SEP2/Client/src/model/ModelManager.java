@@ -60,7 +60,7 @@ public class ModelManager implements Model
     }
     else
     {
-      client.sendOrder(new OrderPackage("Order",orderManager.getOrderItemDto(),"Get"));
+      client.sendOrder(orderManager.getOrderItemDto());
     }
   }
 
@@ -113,5 +113,12 @@ public class ModelManager implements Model
   public ArrayList<Order> getOldOrders()
   {
     return orderManager.getOldOrders();
+  }
+
+  @Override public void cancelOrder(ArrayList<OrderItemDto> orderItemDto)
+  {
+    for (Order order : orderManager.getOldOrders())
+
+    orderManager.cancelOrder(order);
   }
 }

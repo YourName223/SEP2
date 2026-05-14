@@ -18,5 +18,6 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void updateTime(ArrayList<OrderItem> orderItems, ArrayList<String> time);
   public ArrayList<MenuItemDto> getMenu();
   public Order getOrder();
-  ArrayList<Order> getOldOrders();
+  public ArrayList<Order> getOldOrders();
+  public void cancelOrder(ArrayList<OrderItemDto> orderItemDto);
 }

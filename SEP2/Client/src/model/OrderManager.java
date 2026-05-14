@@ -35,6 +35,11 @@ public class OrderManager
     order = new Order();
   }
 
+  public void cancelOrder(Order order)
+  {
+
+  }
+
   public void addToOrder(MenuItemDto menuItem, int amount)
   {
     if (menuItem.getStock() < amount)
@@ -60,6 +65,11 @@ public class OrderManager
   }
 
   public ArrayList<OrderItemDto> getOrderItemDto()
+  {
+    return convertOrderToOrderItemDto(order);
+  }
+
+  public ArrayList<OrderItemDto> convertOrderToOrderItemDto(Order order)
   {
     ArrayList<OrderItemDto> items = new ArrayList<>();
 

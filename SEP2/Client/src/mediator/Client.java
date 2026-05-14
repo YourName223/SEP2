@@ -2,10 +2,14 @@ package mediator;
 
 import com.google.gson.Gson;
 import model.Model;
+import model.Order;
+import model.OrderItemDto;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Client
 {
@@ -69,6 +73,9 @@ public class Client
           case "RemoveAll":
             model.removeAllOrders();
             break;
+          case "Cancel":
+            model.cancelOrder(orderPackage.getItems());
+            break;
           default:
             model.orderFeedback(orderPackage.getMessage());
             break;
@@ -82,9 +89,9 @@ public class Client
     }
   }
 
-  public void sendOrder(OrderPackage orderPackage)
+  public void sendOrder(ArrayList<OrderItemDto> orderItemDto)
   {
-    String message = parser.toJson(orderPackage);
+    String message = parser.toJson(new OrderPackage("Order",orderItemDto,"Send"));
     out.println(message);
   }
 
@@ -92,6 +99,13 @@ public class Client
   {
     MenuPackage menuPackage = new MenuPackage("Menu",null);
     String message = parser.toJson(menuPackage);
+    out.println(message);
+  }
+
+  public void cancelOrder(ArrayList<OrderItemDto> orderItemDto)
+  {
+    OrderPackage orderPackage = new OrderPackage("Order",orderItemDto,"Cancel");
+    String message = parser.toJson(orderPackage);
     out.println(message);
   }
 

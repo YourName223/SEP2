@@ -462,12 +462,12 @@
     }
 
     @Override
-    public void setAmountOnIngredient(String id, double amountToRemove)
+    public void setAmountOnIngredient(String id, double amount)
     {
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
-        PreparedStatement statement = connection.prepareStatement("UPDATE ingredient SET stock = stock - ? WHERE id = ?");
-        statement.setDouble(1, amountToRemove);
+        PreparedStatement statement = connection.prepareStatement("UPDATE ingredient SET stock = ? WHERE id = ?");
+        statement.setDouble(1, amount);
         statement.setInt(2, Integer.parseInt(id));
         statement.executeUpdate();
       }

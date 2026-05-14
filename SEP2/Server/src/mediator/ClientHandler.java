@@ -55,29 +55,16 @@ public class ClientHandler implements Runnable
         throw new RuntimeException(e);
       }
 
-      OrderPackage orderPackage;
       try
       {
         switch(parser.fromJson(clientText, OrderPackage.class).getType())
         {
           case "Order":
-            orderPackage = parser.fromJson(clientText, OrderPackage.class);
-            if(handlePackage(orderPackage))
-            {
-              OrderPackage sendPackage = new OrderPackage("Order",null,"Order accepted");
-              out.println(parser.toJson(sendPackage));
-              model.broadCast(parser.toJson(new MenuPackage("Menu",model.getMenuItemsDto())));
-            }
-            else
-            {
-              OrderPackage sendPackage = new OrderPackage("Order",null,"Order was not accepted");
-              out.println(parser.toJson(sendPackage));
-            }
+            OrderPackage orderPackage = parser.fromJson(clientText, OrderPackage.class);
+            handleOrderPackage(orderPackage);
             break;
           case "Menu":
-            model.getMenuItems();
-            MenuPackage sendPackage = new MenuPackage("Menu",model.getMenuItemsDto());
-            out.println(parser.toJson(sendPackage));
+            handleMenuPackage();
             break;
         }
       }
@@ -118,11 +105,51 @@ public class ClientHandler implements Runnable
     out.println(message);
   }
 
-  public boolean handlePackage(OrderPackage orderPackage)
+  public Order convertOrderPackageToOrder(OrderPackage orderPackage)
   {
     OrderDto orderDto = new OrderDto(orderPackage.getItems());
-    Order order = model.convertOrderDtoToOrder(orderDto);
+    return model.convertOrderDtoToOrder(orderDto);
+  }
 
-    return model.receiveTableOrder(order,socket.getInetAddress().getHostAddress());
+  public void handleMenuPackage()
+  {
+    model.getMenuItems();
+    MenuPackage sendPackage = new MenuPackage("Menu",model.getMenuItemsDto());
+    out.println(parser.toJson(sendPackage));
+  }
+
+  public void handleOrderPackage(OrderPackage orderPackage)
+  {
+    Order order = convertOrderPackageToOrder(orderPackage);
+    OrderPackage sendPackage;
+    switch (orderPackage.getMessage())
+    {
+      case "Send":
+        if(model.receiveTableOrder(order,socket.getInetAddress().getHostAddress()))
+        {
+          sendPackage = new OrderPackage("Order",null,"Order accepted");
+          model.broadCast(parser.toJson(new MenuPackage("Menu",model.getMenuItemsDto())));
+        }
+        else
+        {
+          sendPackage = new OrderPackage("Order",null,"Order was not accepted");
+        }
+        break;
+      case "Cancel":
+        if(model.cancelOrder(order))
+        {
+          sendPackage = new OrderPackage("Order",orderPackage.getItems(),"Order Canceled");
+          model.broadCast(parser.toJson(new MenuPackage("Menu",model.getMenuItemsDto())));
+        }
+        else
+        {
+          sendPackage = new OrderPackage("Order",orderPackage.getItems(),"Order was not Canceled");
+        }
+        break;
+      default:
+        sendPackage = new OrderPackage("Order",null,null);
+        break;
+    }
+    out.println(parser.toJson(sendPackage));
   }
 }

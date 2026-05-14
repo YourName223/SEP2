@@ -17,6 +17,9 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void removeAllOrdersFromTable(String tableNr);
   public double getPriceFromTable(String tableNr);
   public void broadCast(String message);
+  public ArrayList<Ingredient> getIngredients();
+  public void setStockOnIngredient(String id, double stock);
+  public boolean cancelOrder(Order order);
 /*
   public Component createComponent(String name);
 
