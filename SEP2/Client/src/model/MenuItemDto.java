@@ -1,5 +1,6 @@
 package model;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class MenuItemDto
@@ -9,14 +10,16 @@ public class MenuItemDto
   private double price;
   private ArrayList<String> recipeIds;
   private int stock;
+  private Duration prepTime;
 
-  public MenuItemDto(String name, String allergies, double price, ArrayList<String> recipeIds, int stock)
+  public MenuItemDto(String name, String allergies, double price, ArrayList<String> recipeIds, int stock, Duration prepTime)
   {
     this.name = name;
     this.allergies = allergies;
     this.price = price;
     this.recipeIds = recipeIds;
     this.stock = stock;
+    this.prepTime = prepTime;
   }
 
   public String getName()
@@ -42,5 +45,10 @@ public class MenuItemDto
   public int getStock()
   {
     return stock;
+  }
+
+  public Duration getPrepTime()
+  {
+    return prepTime;
   }
 }
