@@ -133,12 +133,14 @@ public class ModelManager implements Model
     ingredientManager.setStock(id, stock);
   }
 
-  @Override public boolean cancelOrder(OrderItem orderItem)
+  @Override public boolean cancelOrder(OrderItemDto orderItemDto)
   {
     for (OrderCurrent order1 : orderManager.getOrderList().getOrders())
     {
       for (OrderItem orderItem1 : order1.getOrder().getOrderItems())
       {
+        OrderItem orderItem = new OrderItem(menuManager.getMenuItemById(orderItemDto.getMenuItemId()));
+        orderItem.setQuantity(orderItemDto.getQuantity());
         if (orderItem1.equals(orderItem))
         {
           System.out.println("Its the right orderitem");

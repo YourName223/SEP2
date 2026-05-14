@@ -19,7 +19,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void broadCast(String message);
   public ArrayList<Ingredient> getIngredients();
   public void setStockOnIngredient(String id, double stock);
-  public boolean cancelOrder(OrderItem orderItem);
+  public boolean cancelOrder(OrderItemDto orderItemDto);
 /*
   public Component createComponent(String name);
 
