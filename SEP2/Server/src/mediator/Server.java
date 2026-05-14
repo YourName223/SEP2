@@ -2,6 +2,8 @@ package mediator;
 
 import com.google.gson.Gson;
 import model.Model;
+import model.OrderItemDto;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -82,13 +84,13 @@ public class Server implements Runnable, PropertyChangeListener
     }
   }
 
-  public void removeOrderFromClient(String ip)
+  public void removeOrderFromClient(String ip, ArrayList<OrderItemDto> orderItemDtos)
   {
     for(ClientHandler client : clients)
     {
       if(client.getIp().equals(ip))
       {
-        OrderPackage sentPackage = new OrderPackage("Order",null,"Remove");
+        OrderPackage sentPackage = new OrderPackage("Order",orderItemDtos,"Remove");
         client.sendMessage(parser.toJson(sentPackage));
         break;
       }
@@ -113,7 +115,7 @@ public class Server implements Runnable, PropertyChangeListener
     switch (evt.getPropertyName())
     {
       case "RemoveOrder":
-        removeOrderFromClient(evt.getNewValue().toString());
+        removeOrderFromClient(evt.getNewValue().toString(),(ArrayList<OrderItemDto>)evt.getOldValue());
         break;
       case "RemoveAllOrders":
         removeAllOrdersFromClient(evt.getNewValue().toString());

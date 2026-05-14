@@ -67,14 +67,11 @@ public class Client
         OrderPackage orderPackage = parser.fromJson(line, OrderPackage.class);
         switch (orderPackage.getMessage())
         {
-          case "Remove":
-            model.removeOrder();
+          case "Remove", "Cancel":
+            model.removeOrder(orderPackage.getItems());
             break;
           case "RemoveAll":
             model.removeAllOrders();
-            break;
-          case "Cancel":
-            model.removeOrder(orderPackage.getItems());
             break;
           case "Order accepted":
             model.acceptOrder();
