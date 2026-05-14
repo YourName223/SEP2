@@ -115,7 +115,7 @@ public class ModelManager implements Model
     return orderManager.getOldOrders();
   }
 
-  @Override public void cancelOrder(ArrayList<OrderItemDto> orderItemDto)
+  @Override public void removeOrder(ArrayList<OrderItemDto> orderItemDto)
   {
     for (Order order : orderManager.getOldOrders())
     {
@@ -125,5 +125,10 @@ public class ModelManager implements Model
         break;
       }
     }
+  }
+
+  @Override public void cancelOrder(Order order)
+  {
+    client.cancelOrder(orderManager.convertOrderToOrderItemDto(order));
   }
 }

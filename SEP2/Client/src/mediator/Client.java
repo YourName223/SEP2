@@ -74,7 +74,7 @@ public class Client
             model.removeAllOrders();
             break;
           case "Cancel":
-            model.cancelOrder(orderPackage.getItems());
+            model.removeOrder(orderPackage.getItems());
             break;
           default:
             model.orderFeedback(orderPackage.getMessage());

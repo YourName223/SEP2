@@ -136,6 +136,7 @@ public class ModelManager implements Model
       {
         if(order1.getState().equals("OrderStateIncoming"))
         {
+          orderManager.removeOrder(order1);
           return true;
         }
         return false;
