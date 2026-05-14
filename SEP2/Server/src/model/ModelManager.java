@@ -141,16 +141,23 @@ public class ModelManager implements Model
       {
         if (orderItem1.equals(orderItem))
         {
+          System.out.println("Its the right orderitem");
           if(order1.getState() instanceof OrderStateIncoming)
           {
+            System.out.println("Its the right state");
             orderManager.removeOrderItem(order1.getOrder(),orderItem);
             tableManager.removeOrderItem(order1.getOrder(),orderItem);
             return true;
           }
           return false;
         }
+        else
+        {
+          System.out.println("Its not the right orderItem");
+        }
       }
     }
+    System.out.println("What the hell?!");
     return false;
   }
 
