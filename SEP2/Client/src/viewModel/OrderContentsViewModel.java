@@ -25,6 +25,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
   private final StringProperty successProperty = new SimpleStringProperty();
   private final StringProperty errorProperty = new SimpleStringProperty();
   private final IntegerProperty amountProperty = new SimpleIntegerProperty();
+  private final ObservableList<OrderItemViewModel> oldOrderItems = FXCollections.observableArrayList();
 
   public OrderContentsViewModel(Model model)
   {
@@ -52,20 +53,19 @@ public class OrderContentsViewModel implements PropertyChangeListener
   private void reloadOrderTable()
   {
     orderItems.clear();
+    oldOrderItems.clear();
 
     for (Order oldOrder : model.getOldOrders())
     {
       for (OrderItem item : oldOrder.getItems())
       {
-        orderItems.add(new OrderItemViewModel(item) );
+        oldOrderItems.add(new OrderItemViewModel(item));
       }
     }
 
     for (OrderItem item : model.getOrder().getItems())
     {
-      orderItems.add(
-          new OrderItemViewModel(item )
-      );
+      orderItems.add(new OrderItemViewModel(item));
     }
   }
 
@@ -87,6 +87,11 @@ public class OrderContentsViewModel implements PropertyChangeListener
   public IntegerProperty getAmountProperty()
   {
     return amountProperty;
+  }
+
+  public ObservableList<OrderItemViewModel> getOldOrderItems()
+  {
+    return oldOrderItems;
   }
 
   @Override

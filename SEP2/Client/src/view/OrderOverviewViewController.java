@@ -19,6 +19,11 @@ public class OrderOverviewViewController
   @FXML private TableColumn<OrderItemViewModel, Double> priceColumn;
   @FXML private TableColumn<OrderItemViewModel, Integer> qtyColumn;
   @FXML private TableColumn<OrderItemViewModel, String> timeColumn;
+  @FXML private TableView<OrderItemViewModel> orderTable1;
+  @FXML private TableColumn<OrderItemViewModel, String> nameColumn1;
+  @FXML private TableColumn<OrderItemViewModel, Double> priceColumn1;
+  @FXML private TableColumn<OrderItemViewModel, Integer> qtyColumn1;
+  @FXML private TableColumn<OrderItemViewModel, String> timeColumn1;
   @FXML private Label qtyLabel;
   @FXML private Label totalLabel;
   @FXML private Label successLabel;
@@ -46,6 +51,26 @@ public class OrderOverviewViewController
 
     timeColumn.setCellValueFactory(
         cell -> cell.getValue().timeProperty());
+
+    nameColumn1.setCellValueFactory(
+        cell -> new SimpleStringProperty(cell.getValue().getName()));
+
+    priceColumn1.setCellValueFactory(
+        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getPrice()));
+
+    qtyColumn1.setCellValueFactory(
+        cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
+
+    timeColumn1.setCellValueFactory(
+        cell -> cell.getValue().timeProperty());
+
+    orderTable1.setItems(viewModel.getOldOrderItems());
+    orderTable1.getSelectionModel().selectedItemProperty()
+        .addListener((obs, oldVal, newVal) ->
+        {
+          if (newVal != null)
+            viewModel.setSelectedOrderItem(newVal.getOrderItem());
+        });
 
     errorLabel.textProperty().bind(viewModel.getErrorProperty());
     successLabel.textProperty().bind(viewModel.getSuccessProperty());
@@ -101,10 +126,18 @@ public class OrderOverviewViewController
   @FXML private void onOrderItemSelected()
   {
     OrderItemViewModel selected = orderTable.getSelectionModel().getSelectedItem();
-
     if (selected != null)
     {
+      orderTable1.getSelectionModel().clearSelection();
       viewModel.setSelectedOrderItem(selected.getOrderItem());
+      return;
+    }
+
+    OrderItemViewModel selected1 = orderTable1.getSelectionModel().getSelectedItem();
+    if (selected1 != null)
+    {
+      orderTable.getSelectionModel().clearSelection();
+      viewModel.setSelectedOrderItem(selected1.getOrderItem());
     }
   }
 
