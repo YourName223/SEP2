@@ -11,6 +11,7 @@ public class TabsViewController implements ViewController<ViewModelFactory>
 {
   @FXML private Tab liveOrdersTab;
   @FXML private StackPane tablesContainer;
+  @FXML private Tab inventoryTab;
 
   private ViewModelFactory vmf;
 
@@ -21,6 +22,10 @@ public class TabsViewController implements ViewController<ViewModelFactory>
 
     liveOrdersTab.setContent(
         loadView("LiveOrdersView.fxml", vmf.getLiveOrdersViewModel())
+    );
+
+    inventoryTab.setContent(
+        loadView("InventoryView.fxml", vmf.getInventoryViewModel())
     );
 
     showTablesView();
