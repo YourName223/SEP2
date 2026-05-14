@@ -76,10 +76,13 @@ public class Client
           case "Cancel":
             model.removeOrder(orderPackage.getItems());
             break;
+          case "Order accepted":
+            model.acceptOrder();
           default:
             model.orderFeedback(orderPackage.getMessage());
             break;
         }
+        model.orderFeedback(orderPackage.getMessage());
         break;
       case "Menu":
         System.out.println("Got menu");

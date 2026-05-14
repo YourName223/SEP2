@@ -66,10 +66,6 @@ public class ModelManager implements Model
 
   @Override public void orderFeedback(String message)
   {
-    if(message.equals("Order accepted"))
-    {
-      orderManager.acceptOrder();
-    }
     property.firePropertyChange("Update",null,message);
   }
 
@@ -130,5 +126,10 @@ public class ModelManager implements Model
   @Override public void cancelOrder(Order order)
   {
     client.cancelOrder(orderManager.convertOrderToOrderItemDto(order));
+  }
+
+  @Override public void acceptOrder()
+  {
+    orderManager.acceptOrder();
   }
 }
