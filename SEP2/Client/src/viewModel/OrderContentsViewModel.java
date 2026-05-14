@@ -19,7 +19,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
   private OrderItem selectedOrderItem;
 
-  private final ObservableList<OrderItemRowStatusViewModel> orderItems =
+  private final ObservableList<OrderItemViewModel> orderItems =
       FXCollections.observableArrayList();
 
   private final StringProperty successProperty = new SimpleStringProperty();
@@ -57,27 +57,19 @@ public class OrderContentsViewModel implements PropertyChangeListener
     {
       for (OrderItem item : oldOrder.getItems())
       {
-        orderItems.add(
-            new OrderItemRowStatusViewModel(
-                new OrderItemViewModel(item),
-                false
-            )
-        );
+        orderItems.add(new OrderItemViewModel(item) );
       }
     }
 
     for (OrderItem item : model.getOrder().getItems())
     {
       orderItems.add(
-          new OrderItemRowStatusViewModel(
-              new OrderItemViewModel(item),
-              true
-          )
+          new OrderItemViewModel(item )
       );
     }
   }
 
-  public ObservableList<OrderItemRowStatusViewModel> getOrderItems()
+  public ObservableList<OrderItemViewModel> getOrderItems()
   {
     return orderItems;
   }
@@ -116,13 +108,13 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
         ArrayList<String> time = (ArrayList<String>) evt.getNewValue();
 
-        for (OrderItemRowStatusViewModel row : orderItems)
+        for (OrderItemViewModel row : orderItems)
         {
           for (int i = 0; i<orderItemList.size();i++)
           {
             if (row.getOrderItem().getMenuItem().getName().equals((orderItemList.get(i).getMenuItem().getName())));
             {
-              row.setTime(time.get(i));
+              //row.setTime(time.get(i));
             }
           }
         }
