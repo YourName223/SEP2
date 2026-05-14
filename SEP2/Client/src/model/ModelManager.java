@@ -118,7 +118,12 @@ public class ModelManager implements Model
   @Override public void cancelOrder(ArrayList<OrderItemDto> orderItemDto)
   {
     for (Order order : orderManager.getOldOrders())
-
-    orderManager.cancelOrder(order);
+    {
+      if(orderManager.convertOrderToOrderItemDto(order).equals(orderItemDto))
+      {
+        orderManager.cancelOrder(order);
+        break;
+      }
+    }
   }
 }
