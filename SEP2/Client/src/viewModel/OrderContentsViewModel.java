@@ -187,7 +187,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
   {
     if (selectedOrderItem == null) return;
 
-    //model.cancelOrder();
+    model.cancelOrder(selectedOrderItem);
     reloadOrderTable();
   }
 }

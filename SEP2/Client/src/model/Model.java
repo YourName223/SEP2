@@ -20,7 +20,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   public Order getOrder();
   public ArrayList<Order> getOldOrders();
   public void removeOrder(ArrayList<OrderItemDto> orderItemDto);
-  public void cancelOrder(Order order);
+  public void cancelOrder(OrderItem OrderItem);
   public void acceptOrder();
   public void removeOrderItem(OrderItemDto orderItemDto);
 }

@@ -102,9 +102,11 @@ public class Client
     out.println(message);
   }
 
-  public void cancelOrder(ArrayList<OrderItemDto> orderItemDto)
+  public void cancelOrder(OrderItemDto orderItemDto)
   {
-    OrderPackage orderPackage = new OrderPackage("Order",orderItemDto,"Cancel");
+    ArrayList<OrderItemDto> orderItemDtos = new ArrayList<>();
+    orderItemDtos.add(orderItemDto);
+    OrderPackage orderPackage = new OrderPackage("Order",orderItemDtos,"Cancel");
     String message = parser.toJson(orderPackage);
     out.println(message);
   }

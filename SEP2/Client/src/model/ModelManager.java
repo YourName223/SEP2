@@ -122,9 +122,9 @@ public class ModelManager implements Model
       }
     }
 
-  @Override public void cancelOrder(Order order)
+  @Override public void cancelOrder(OrderItem orderItem)
   {
-    client.cancelOrder(orderManager.convertOrderToOrderItemDto(order));
+    client.cancelOrder(orderManager.convertOrderItemToOrderItemDto(orderItem));
   }
 
   @Override public void acceptOrder()
