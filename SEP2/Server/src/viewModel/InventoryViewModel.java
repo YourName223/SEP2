@@ -7,25 +7,25 @@ import javafx.collections.ObservableList;
 import model.Ingredient;
 import model.Model;
 
-import java.beans.PropertyChangeEvent;
-
 public class InventoryViewModel
 {
   private final Model model;
 
-  private final ObservableList<IngredientViewModel> ingredients =
-      FXCollections.observableArrayList();
+  private final ObservableList<IngredientViewModel> ingredients = FXCollections.observableArrayList();
 
   private final StringProperty errorProperty = new SimpleStringProperty("");
   private final StringProperty successProperty = new SimpleStringProperty("");
 
-  private final StringProperty selectedNameProperty = new SimpleStringProperty("");
-  private final StringProperty selectedUnitProperty = new SimpleStringProperty("");
+  private final StringProperty selectedNameProperty = new SimpleStringProperty(
+      "");
+  private final StringProperty selectedUnitProperty = new SimpleStringProperty(
+      "");
 
-  private final StringProperty updatedStockProperty = new SimpleStringProperty("");
+  private final StringProperty updatedStockProperty = new SimpleStringProperty(
+      "");
 
-  private final BooleanProperty hasSelectionProperty =
-      new SimpleBooleanProperty(false);
+  private final BooleanProperty hasSelectionProperty = new SimpleBooleanProperty(
+      false);
 
   private IngredientViewModel selectedIngredient;
 
@@ -44,12 +44,11 @@ public class InventoryViewModel
   {
     ingredients.clear();
 
-  //  for (Ingredient ingredient : model.getIngredients())
+    for (Ingredient ingredient : model.getIngredients())
     {
-      //ingredients.add(new IngredientViewModel(ingredient));
+      ingredients.add(new IngredientViewModel(ingredient));
     }
   }
-
 
   public void setSelectedIngredient(IngredientViewModel selected)
   {
@@ -61,14 +60,15 @@ public class InventoryViewModel
       selectedNameProperty.set("");
       selectedUnitProperty.set("");
       updatedStockProperty.set("");
-      return;
+      successProperty.set("");
     }
-
-    hasSelectionProperty.set(true);
-    selectedNameProperty.set(selected.getNameProperty().get());
-    selectedUnitProperty.set(selected.getUnitProperty().get());
+    else
+    {
+      hasSelectionProperty.set(true);
+      selectedNameProperty.set(selected.getNameProperty().get());
+      selectedUnitProperty.set(selected.getUnitProperty().get());
+    }
   }
-
 
   public void updateStock()
   {
@@ -82,10 +82,7 @@ public class InventoryViewModel
     {
       double newStock = Double.parseDouble(updatedStockProperty.get());
 
-      //model.updateStock(
-          //selectedIngredient.getId(),
-          //newStock
-      //);
+      model.setStockOnIngredient(selectedIngredient.getId(), newStock);
 
       successProperty.set("Stock updated");
       errorProperty.set("");
@@ -133,11 +130,5 @@ public class InventoryViewModel
   public BooleanProperty hasSelectionProperty()
   {
     return hasSelectionProperty;
-  }
-
-  @Override
-  public void propertyChange(PropertyChangeEvent evt)
-  {
-    Platform.runLater(this::loadFromModel);
   }
 }
