@@ -1,6 +1,5 @@
 package model;
 
-import mediator.OrderPackage;
 import mediator.Client;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -111,17 +110,17 @@ public class ModelManager implements Model
     return orderManager.getOldOrders();
   }
 
-  @Override public void removeOrder(ArrayList<OrderItemDto> orderItemDto)
-  {
-    for (Order order : orderManager.getOldOrders())
+    @Override public void removeOrder(ArrayList<OrderItemDto> orderItemDto)
     {
-      if(orderManager.convertOrderToOrderItemDto(order).equals(orderItemDto))
+      for (Order order : orderManager.getOldOrders())
       {
-        orderManager.cancelOrder(order);
-        break;
+        if(orderManager.convertOrderToOrderItemDto(order).equals(orderItemDto))
+        {
+          orderManager.removeOrder(order);
+          break;
+        }
       }
     }
-  }
 
   @Override public void cancelOrder(Order order)
   {
@@ -131,5 +130,22 @@ public class ModelManager implements Model
   @Override public void acceptOrder()
   {
     orderManager.acceptOrder();
+  }
+
+  @Override public void removeOrderItem(OrderItemDto orderItemDto)
+  {
+    for (Order order : orderManager.getOldOrders())
+    {
+      ArrayList<OrderItem> orderItems = order.getItems();
+
+      for (OrderItem orderItem : orderItems)
+      {
+        if (orderManager.convertOrderItemToOrderItemDto(orderItem).equals(orderItemDto))
+        {
+          order.removeOrderItem(orderItem);
+          return;
+        }
+      }
+    }
   }
 }

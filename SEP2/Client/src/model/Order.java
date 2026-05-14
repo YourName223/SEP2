@@ -44,7 +44,7 @@ public class Order
     setItem(menuItem,amount+currentAmount);
   }
 
-  public void removeItem(MenuItemDto menuItem)
+  public void removeMenuItem(MenuItemDto menuItem)
   {
     OrderItem existing = find(menuItem);
 
@@ -52,6 +52,11 @@ public class Order
     {
       items.remove(existing);
     }
+  }
+
+  public void removeOrderItem(OrderItem orderItem)
+  {
+    items.remove(orderItem);
   }
 
   public ArrayList<OrderItem> getItems()

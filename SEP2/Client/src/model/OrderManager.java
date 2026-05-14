@@ -35,9 +35,9 @@ public class OrderManager
     order = new Order();
   }
 
-  public void cancelOrder(Order order)
+  public void removeOrder(Order order)
   {
-
+    orders.remove(order);
   }
 
   public void addToOrder(MenuItemDto menuItem, int amount)
@@ -55,7 +55,7 @@ public class OrderManager
 
   public void removeFromOrder(MenuItemDto menuItem)
   {
-    order.removeItem(menuItem);
+    order.removeMenuItem(menuItem);
   }
 
   public void removeAllOrders()
@@ -82,5 +82,12 @@ public class OrderManager
     }
 
     return items;
+  }
+
+  public OrderItemDto convertOrderItemToOrderItemDto(OrderItem orderItem)
+  {
+    return new OrderItemDto(
+        orderItem.getMenuItem().getName(),
+        orderItem.getQuantity());
   }
 }

@@ -25,4 +25,17 @@ public class OrderItemDto
   {
     this.quantity = quantity;
   }
+
+  @Override public boolean equals(Object obj)
+  {
+    if(this == obj)
+      return true;
+
+    if(obj == null || getClass() != obj.getClass())
+      return false;
+
+    OrderItemDto orderItemDto = (OrderItemDto) obj;
+
+    return this.menuItemId.equals(orderItemDto.menuItemId) && this.quantity==orderItemDto.getQuantity();
+  }
 }
