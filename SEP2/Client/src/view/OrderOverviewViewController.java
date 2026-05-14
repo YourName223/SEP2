@@ -10,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import viewModel.OrderContentsViewModel;
 import viewModel.OrderItemViewModel;
-import viewModel.OrderItemViewModel;
 
 public class OrderOverviewViewController
 {
@@ -50,7 +49,7 @@ public class OrderOverviewViewController
         cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
 
     timeColumn.setCellValueFactory(
-        cell -> cell.getValue().timeProperty());
+        cell -> cell.getValue().getWaitingTimeProperty());
 
     nameColumn1.setCellValueFactory(
         cell -> new SimpleStringProperty(cell.getValue().getName()));
@@ -62,7 +61,7 @@ public class OrderOverviewViewController
         cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
 
     timeColumn1.setCellValueFactory(
-        cell -> cell.getValue().timeProperty());
+        cell -> cell.getValue().getWaitingTimeProperty());
 
     orderTable1.setItems(viewModel.getOldOrderItems());
     orderTable1.getSelectionModel().selectedItemProperty()

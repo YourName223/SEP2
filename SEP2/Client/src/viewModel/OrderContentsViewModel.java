@@ -117,7 +117,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
         {
           for (int i = 0; i<orderItemList.size();i++)
           {
-            if (row.getOrderItem().getMenuItem().getName().equals((orderItemList.get(i).getMenuItem().getName())));
+            if (row.getOrderItem().getMenuItem().getName().equals((orderItemList.get(i).getMenuItem().getName())))
             {
               //row.setTime(time.get(i));
             }

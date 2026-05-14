@@ -11,6 +11,7 @@ public class OrderItemViewModel
 {
   private OrderItem item;
   private int remainingSeconds;
+  private Timeline timeline;
 
   private final StringProperty waitingTimeProperty = new SimpleStringProperty();
 
@@ -44,14 +45,12 @@ public class OrderItemViewModel
     return item.getQuantity();
   }
 
-  public int getRemainingSeconds()
-  {
-    return remainingSeconds;
-  }
+  public StringProperty getWaitingTimeProperty()
+  {return waitingTimeProperty;}
 
   private void startCountdown()
   {
-    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> tick()));
+    timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> tick()));
 
     timeline.setCycleCount(Timeline.INDEFINITE);
     timeline.play();
@@ -62,6 +61,7 @@ public class OrderItemViewModel
     if (remainingSeconds <= 0)
     {
       waitingTimeProperty.set("0:00");
+      if (timeline != null) timeline.stop();
       return;
     }
 
@@ -75,6 +75,14 @@ public class OrderItemViewModel
     int seconds = remainingSeconds % 60;
 
     waitingTimeProperty.set(String.format("%d:%02d", minutes, seconds));
+  }
+
+  public void stop()
+  {
+    if (timeline != null)
+    {
+      timeline.stop();
+    }
   }
 
 }
