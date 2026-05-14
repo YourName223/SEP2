@@ -9,16 +9,16 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import viewModel.OrderContentsViewModel;
-import viewModel.OrderItemRowStatusViewModel;
+import viewModel.OrderItemViewModel;
 import viewModel.OrderItemViewModel;
 
 public class OrderOverviewViewController
 {
-  @FXML private TableView<OrderItemRowStatusViewModel> orderTable;
-  @FXML private TableColumn<OrderItemRowStatusViewModel, String> nameColumn;
-  @FXML private TableColumn<OrderItemRowStatusViewModel, Double> priceColumn;
-  @FXML private TableColumn<OrderItemRowStatusViewModel, Integer> qtyColumn;
-  @FXML private TableColumn<OrderItemRowStatusViewModel, String> timeColumn;
+  @FXML private TableView<OrderItemViewModel> orderTable;
+  @FXML private TableColumn<OrderItemViewModel, String> nameColumn;
+  @FXML private TableColumn<OrderItemViewModel, Double> priceColumn;
+  @FXML private TableColumn<OrderItemViewModel, Integer> qtyColumn;
+  @FXML private TableColumn<OrderItemViewModel, String> timeColumn;
   @FXML private Label qtyLabel;
   @FXML private Label totalLabel;
   @FXML private Label successLabel;
@@ -55,9 +55,9 @@ public class OrderOverviewViewController
 
     viewModel.loadFromModel();
 
-    orderTable.setRowFactory(tv -> new TableRow<OrderItemRowStatusViewModel>()
+    orderTable.setRowFactory(tv -> new TableRow<OrderItemViewModel>()
     {
-      @Override protected void updateItem(OrderItemRowStatusViewModel item, boolean empty)
+      @Override protected void updateItem(OrderItemViewModel item, boolean empty)
       {
         super.updateItem(item, empty);
 
@@ -67,10 +67,10 @@ public class OrderOverviewViewController
           return;
         }
 
-        if (!item.isSelectable())
-        {
-          setStyle("-fx-text-fill: blue;");
-        }
+        //if (!item.isSelectable())
+        //{
+        //  setStyle("-fx-text-fill: blue;");
+        //}
         else
         {
           setStyle("");
@@ -81,10 +81,10 @@ public class OrderOverviewViewController
     orderTable.getSelectionModel().selectedItemProperty()
         .addListener((obs, oldVal, newVal) ->
         {
-          if (newVal != null && !newVal.isSelectable())
-          {
-            orderTable.getSelectionModel().clearSelection();
-          }
+         // if (newVal != null && !newVal.isSelectable())
+         // {
+         //   orderTable.getSelectionModel().clearSelection();
+         // }
         });
   }
 
