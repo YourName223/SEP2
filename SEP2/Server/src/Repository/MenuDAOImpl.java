@@ -169,7 +169,7 @@
           String name = resultSet.getString("name");
           String allergies = resultSet.getString("allergies");
           double price = resultSet.getDouble("price");
-          Duration prepTime = Duration.ofSeconds(resultSet.getTime("prepTime").toLocalTime().toSecondOfDay());
+          int prepTime = resultSet.getInt("prepTime");
           ArrayList<String> recipeIds = getRecipeIdsFromMenuItemName(name);
           ArrayList<Recipe> recipeList = new ArrayList<>();
           for (String recipeId : recipeIds)
@@ -405,20 +405,21 @@
       return null;
     }
 
-    public MenuItem createMenu(String name, String allergies, double price, ArrayList<Recipe> recipes) throws SQLException
+    public MenuItem createMenu(String name, String allergies, double price, ArrayList<Recipe> recipes, int prepTime) throws SQLException
     {
       try (Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-mute-water-al8wg1w9-pooler.c-3.eu-central-1.aws.neon.tech/neondb", "neondb_owner", "npg_Jae8lwoZ5kdn"))
       {
         // Insert menu
         PreparedStatement menuStatement = connection.prepareStatement(
-            "INSERT INTO menu(name, allergies, price) VALUES (?, ?, ?)");
+            "INSERT INTO menu(name, allergies, price, preptime) VALUES (?, ?, ?, ?)");
         menuStatement.setString(1, name);
         menuStatement.setString(2, allergies);
         menuStatement.setDouble(3, price);
+        menuStatement.setInt(4, prepTime);
         menuStatement.executeUpdate();
 
         ArrayList<Recipe> recipeList = new ArrayList<>(getAllRecipesFromMenuItem(name));
-        MenuItem menuItem = new MenuItem(name, allergies, price, recipeList, null);
+        MenuItem menuItem = new MenuItem(name, allergies, price, recipeList, prepTime);
 
         // Kobl recipes til menu
         PreparedStatement mrStatement = connection.prepareStatement(
