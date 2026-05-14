@@ -1,46 +1,80 @@
 package viewModel;
 
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
+import javafx.util.Duration;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.OrderItem;
 
 public class OrderItemViewModel
 {
-  private OrderItem orderItem;
-  private StringProperty timer;
+  private OrderItem item;
+  private int remainingSeconds;
 
-  public OrderItemViewModel(OrderItem orderItem)
+  private final StringProperty waitingTime = new SimpleStringProperty();
+
+  public OrderItemViewModel(OrderItem item)
   {
-    this.orderItem = orderItem;
-    //timer = new SimpleStringProperty(getOrderItem().getMenuItem().getTime());
+    this.item = item;
+
+    this.remainingSeconds = item.getMenuItem().getPrepTimeSec();
+
+    updateText();
+    startCountdown();
   }
 
   public OrderItem getOrderItem()
   {
-    return orderItem;
+    return item;
   }
 
   public String getName()
   {
-    return orderItem.getMenuItem().getName();
+    return item.getMenuItem().getName();
   }
 
   public double getPrice()
   {
-    return orderItem.getMenuItem().getPrice();
+    return item.getMenuItem().getPrice();
   }
 
   public int getQuantity()
   {
-    return orderItem.getQuantity();
+    return item.getQuantity();
   }
 
-  public void setTimer(String timeText)
+  public int getRemainingSeconds()
   {
-    this.timer.set(timeText);
+    return remainingSeconds;
   }
 
-  public StringProperty timeProperty()
+  private void startCountdown()
   {
-    return timer;
+    Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> tick()));
+
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
   }
+
+  private void tick()
+  {
+    if (remainingSeconds <= 0)
+    {
+      waitingTime.set("0:00");
+      return;
+    }
+
+    remainingSeconds--;
+    updateText();
+  }
+
+  private void updateText()
+  {
+    int minutes = remainingSeconds / 60;
+    int seconds = remainingSeconds % 60;
+
+    waitingTime.set(String.format("%d:%02d", minutes, seconds));
+  }
+
 }

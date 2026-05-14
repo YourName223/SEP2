@@ -10,14 +10,17 @@ public class MenuItemDto
   private double price;
   private ArrayList<String> recipeIds;
   private int stock;
+  private int prepTimeSec;
 
-  public MenuItemDto(String name, String allergies, double price, ArrayList<String> recipeIds, int stock)
+  public MenuItemDto(String name, String allergies, double price,
+      ArrayList<String> recipeIds, int stock, int prepTimeSec)
   {
     this.name = name;
     this.allergies = allergies;
     this.price = price;
     this.recipeIds = recipeIds;
     this.stock = stock;
+    this.prepTimeSec = prepTimeSec;
   }
 
   public String getName()
@@ -43,5 +46,10 @@ public class MenuItemDto
   public int getStock()
   {
     return stock;
+  }
+
+  public int getPrepTimeSec()
+  {
+    return prepTimeSec;
   }
 }
