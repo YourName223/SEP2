@@ -50,6 +50,11 @@ public class ModelManager implements Model
   {
     orderManager.clickOnOrder(order);
     property.firePropertyChange("Update",null,null);
+
+    if(order.getOrder().getOrderType().equals("Table"))
+    {
+      property.firePropertyChange("Order time updated",null,(((TableOrder)order.getOrder()).getTableNr()));
+    }
   }
 
   @Override public void removeOrder(OrderCurrent order)

@@ -80,10 +80,10 @@ public class ModelManager implements Model
     client.getMenu();
   }
 
-  @Override public void updateTime(ArrayList<OrderItem> orderItems, ArrayList<String> time)
-  {
-    property.firePropertyChange("Time",orderItems,time);
-  }
+ // @Override public void updateTime(ArrayList<OrderItem> orderItems, ArrayList<String> time)
+  //{
+  //  property.firePropertyChange("Time",orderItems,time);
+  //}
 
   @Override public ArrayList<MenuItemDto> getMenu()
   {
