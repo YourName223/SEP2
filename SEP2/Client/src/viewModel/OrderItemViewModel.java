@@ -12,7 +12,7 @@ public class OrderItemViewModel
   private OrderItem item;
   private int remainingSeconds;
 
-  private final StringProperty waitingTime = new SimpleStringProperty();
+  private final StringProperty waitingTimeProperty = new SimpleStringProperty();
 
   public OrderItemViewModel(OrderItem item)
   {
@@ -61,7 +61,7 @@ public class OrderItemViewModel
   {
     if (remainingSeconds <= 0)
     {
-      waitingTime.set("0:00");
+      waitingTimeProperty.set("0:00");
       return;
     }
 
@@ -74,7 +74,7 @@ public class OrderItemViewModel
     int minutes = remainingSeconds / 60;
     int seconds = remainingSeconds % 60;
 
-    waitingTime.set(String.format("%d:%02d", minutes, seconds));
+    waitingTimeProperty.set(String.format("%d:%02d", minutes, seconds));
   }
 
 }
