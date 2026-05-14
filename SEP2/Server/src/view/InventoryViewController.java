@@ -1,47 +1,65 @@
 package view;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import viewModel.IngredientViewModel;
 import viewModel.InventoryViewModel;
-import viewModel.TableRowViewModel;
-import viewModel.TablesViewModel;
 
 public class InventoryViewController implements ViewController<InventoryViewModel>
 {
-  @FXML private TableView<TableRowViewModel> ingredientTable;
-  @FXML private TableColumn<TableRowViewModel, String> ingredientNameColumn;
-  @FXML private TableColumn<TableRowViewModel, Double> ingredientStockColumn;
-  @FXML private TableColumn<TableRowViewModel, Double> ingredientUnitColumn;
+  @FXML private TableView<IngredientViewModel> ingredientTable;
+  @FXML private TableColumn<IngredientViewModel, String> ingredientNameColumn;
+  @FXML private TableColumn<IngredientViewModel, Double> ingredientStockColumn;
+  @FXML private TableColumn<IngredientViewModel, String> ingredientUnitColumn;
+
+  @FXML private Label ingredientNameLabel;
+  @FXML private TextField updatedStockField;
+  @FXML private Label unitLabel;
+  @FXML private Label successLabel;
+  @FXML private Label errorLabel;
 
   private InventoryViewModel viewModel;
-  private TabsViewController tabsViewController;
 
-  private TableRowViewModel selectedIngredient;
 
   @Override public void init(InventoryViewModel viewModel)
   {
     this.viewModel = viewModel;
 
     ingredientNameColumn.setCellValueFactory(
-        cell -> cell.getValue().getTableNrProperty());
+        cell -> cell.getValue().getNameProperty());
 
     ingredientStockColumn.setCellValueFactory(
-        cell -> cell.getValue().getTableNrProperty());
+        cell -> cell.getValue().getStockProperty().asObject());
 
     ingredientUnitColumn.setCellValueFactory(
-        cell -> cell.getValue().getTableNrProperty());
+        cell -> cell.getValue().getUnitProperty());
 
     ingredientTable.setItems(viewModel.getIngredients());
+
+    ingredientNameLabel.textProperty().bind(viewModel.getSelectedNameProperty());
+    unitLabel.textProperty().bind(viewModel.getSelectedUnitProperty());
+
+    updatedStockField.textProperty()
+        .bindBidirectional(viewModel.getUpdatedStockProperty());
+
+    updatedStockField.visibleProperty()
+        .bind(viewModel.hasSelectionProperty());
+    updatedStockField.managedProperty()
+        .bind(viewModel.hasSelectionProperty());
+
+    errorLabel.textProperty().bind(viewModel.getErrorProperty());
+    successLabel.textProperty().bind(viewModel.getSuccessProperty());
+
     viewModel.loadFromModel();
   }
 
 
   @FXML private void onIngredientSelected()
   {
-    selectedIngredient = ingredientTable.getSelectionModel().getSelectedItem();
+      viewModel.setSelectedIngredient(ingredientTable.getSelectionModel().getSelectedItem());
   }
 
   @FXML private void updateStockButton()
