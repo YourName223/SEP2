@@ -1,6 +1,9 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MenuItem
 {
@@ -8,13 +11,15 @@ public class MenuItem
   private String allergies;
   private double price;
   private ArrayList<Recipe> recipes;
+  private Duration prepTime;
 
-  public MenuItem(String name, String allergies, double price, ArrayList<Recipe> recipes)
+  public MenuItem(String name, String allergies, double price, ArrayList<Recipe> recipes, Duration prepTime)
   {
     this.name = name;
     this.allergies = allergies;
     this.price = price;
     this.recipes = recipes;
+    this.prepTime = prepTime;
   }
 
   public String getName()
@@ -63,5 +68,10 @@ public class MenuItem
     string.append("]");
 
     return string.toString();
+  }
+
+  public Duration getPrepTime()
+  {
+    return prepTime;
   }
 }

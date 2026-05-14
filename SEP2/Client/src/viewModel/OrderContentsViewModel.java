@@ -186,11 +186,11 @@ public class OrderContentsViewModel implements PropertyChangeListener
     model.placeOrder();
   }
 
-  public void removeOrder()
+  public void cancelOrder()
   {
     if (selectedOrderItem == null) return;
 
-    model.removeOrder();
+    model.cancelOrder();
     reloadOrderTable();
   }
 }

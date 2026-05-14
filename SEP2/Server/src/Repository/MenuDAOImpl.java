@@ -2,6 +2,8 @@
 
   import model.*;
   import java.sql.*;
+  import java.time.Duration;
+  import java.time.LocalTime;
   import java.util.ArrayList;
   import java.util.List;
 
@@ -167,7 +169,7 @@
           String name = resultSet.getString("name");
           String allergies = resultSet.getString("allergies");
           double price = resultSet.getDouble("price");
-
+          Duration prepTime = Duration.ofSeconds(resultSet.getTime("prepTime").toLocalTime().toSecondOfDay());
           ArrayList<String> recipeIds = getRecipeIdsFromMenuItemName(name);
           ArrayList<Recipe> recipeList = new ArrayList<>();
           for (String recipeId : recipeIds)
@@ -175,7 +177,7 @@
             recipeList.add(getRecipeWithIngredients(recipeId));
           }
 
-          result.add(new MenuItem(name, allergies, price, recipeList));
+          result.add(new MenuItem(name, allergies, price, recipeList, prepTime));
         }
 
         return result;
@@ -416,7 +418,7 @@
         menuStatement.executeUpdate();
 
         ArrayList<Recipe> recipeList = new ArrayList<>(getAllRecipesFromMenuItem(name));
-        MenuItem menuItem = new MenuItem(name, allergies, price, recipeList);
+        MenuItem menuItem = new MenuItem(name, allergies, price, recipeList, null);
 
         // Kobl recipes til menu
         PreparedStatement mrStatement = connection.prepareStatement(

@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import viewModel.OrderContentsViewModel;
 import viewModel.OrderItemRowStatusViewModel;
+import viewModel.OrderItemViewModel;
 
 public class OrderOverviewViewController
 {
@@ -99,10 +100,9 @@ public class OrderOverviewViewController
 
   @FXML private void onOrderItemSelected()
   {
-    OrderItemRowStatusViewModel selected = orderTable.getSelectionModel()
-        .getSelectedItem();
+    OrderItemViewModel selected = orderTable.getSelectionModel().getSelectedItem();
 
-    if (selected != null && selected.isSelectable())
+    if (selected != null)
     {
       viewModel.setSelectedOrderItem(selected.getOrderItem());
     }
@@ -133,8 +133,8 @@ public class OrderOverviewViewController
     viewModel.placeOrder();
   }
 
-  public void removeOrderButton(ActionEvent actionEvent)
+  public void cancelButton(ActionEvent actionEvent)
   {
-    viewModel.removeOrder();
+    viewModel.cancelOrder();
   }
 }
