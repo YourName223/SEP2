@@ -133,18 +133,22 @@ public class ModelManager implements Model
     ingredientManager.setStock(id, stock);
   }
 
-  @Override public boolean cancelOrder(Order order)
+  @Override public boolean cancelOrder(OrderItem orderItem)
   {
     for (OrderCurrent order1 : orderManager.getOrderList().getOrders())
     {
-      if (order1.getOrder().equals(order))
+      for (OrderItem orderItem1 : order1.getOrder().getOrderItems())
       {
-        if(order1.getState().equals("OrderStateIncoming"))
+        if (orderItem1.equals(orderItem))
         {
-          orderManager.removeOrder(order1);
-          return true;
+          if(order1.getState().equals(new OrderStateIncoming()))
+          {
+            orderManager.removeOrderItem(order1.getOrder(),orderItem);
+            tableManager.removeOrderItem(order1.getOrder(),orderItem);
+            return true;
+          }
+          return false;
         }
-        return false;
       }
     }
     return false;

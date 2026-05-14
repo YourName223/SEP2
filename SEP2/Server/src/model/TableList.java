@@ -76,4 +76,15 @@ public class TableList
 
     return tableNrs;
   }
+
+  public void removeOrderItem(String tableNr, Order order, OrderItem orderItem)
+  {
+    for(Order order1 : getTable(tableNr).getOrders())
+    {
+      if (order1.equals(order))
+      {
+        order1.removeOrderItem(orderItem);
+      }
+    }
+  }
 }

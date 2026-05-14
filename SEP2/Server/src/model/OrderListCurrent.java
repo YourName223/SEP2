@@ -34,4 +34,16 @@ public class OrderListCurrent
   {
     return orders;
   }
+
+  public void removeOrderItem(Order order, OrderItem orderItem)
+  {
+    for (OrderCurrent orderCurrent : orders)
+    {
+      Order order1 = orderCurrent.getOrder();
+      if (order1.equals(order))
+      {
+        order1.removeOrderItem(orderItem);
+      }
+    }
+  }
 }

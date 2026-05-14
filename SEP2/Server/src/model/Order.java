@@ -88,4 +88,9 @@ public class Order
     }
     return price;
   }
+
+  public void removeOrderItem(OrderItem orderItem)
+  {
+    items.remove(orderItem);
+  }
 }
