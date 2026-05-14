@@ -68,7 +68,7 @@ public class ModelManager implements Model
 
     if(order.getOrder().getOrderType().equals("Table"))
     {
-      property.firePropertyChange("RemoveOrder",null,(((TableOrder)order.getOrder()).getTableNr()));
+      property.firePropertyChange("RemoveOrder",orderManager.convertOrderToOrderItemDto(order.getOrder()),(((TableOrder)order.getOrder()).getTableNr()));
     }
   }
 

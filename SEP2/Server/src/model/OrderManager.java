@@ -109,4 +109,19 @@ public class OrderManager
 
     return order;
   }
+
+  public ArrayList<OrderItemDto> convertOrderToOrderItemDto(Order order)
+  {
+    ArrayList<OrderItemDto> items = new ArrayList<>();
+
+    for (OrderItem orderItem : order.getOrderItems())
+    {
+      items.add(new OrderItemDto(
+          orderItem.getItem().getName(),
+          orderItem.getQuantity()
+      ));
+    }
+
+    return items;
+  }
 }
