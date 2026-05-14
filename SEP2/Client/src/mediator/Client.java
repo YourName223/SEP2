@@ -78,9 +78,6 @@ public class Client
             break;
           case "Order accepted":
             model.acceptOrder();
-          default:
-            model.orderFeedback(orderPackage.getMessage());
-            break;
         }
         model.orderFeedback(orderPackage.getMessage());
         break;
