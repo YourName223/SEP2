@@ -1,14 +1,17 @@
 package viewModel;
 
+import javafx.beans.property.StringProperty;
 import model.OrderItem;
 
 public class OrderItemViewModel
 {
   private OrderItem orderItem;
+  private StringProperty timer;
 
   public OrderItemViewModel(OrderItem orderItem)
   {
     this.orderItem = orderItem;
+    //timer = new SimpleStringProperty(getOrderItem().getMenuItem().getTime());
   }
 
   public OrderItem getOrderItem()
@@ -29,5 +32,15 @@ public class OrderItemViewModel
   public int getQuantity()
   {
     return orderItem.getQuantity();
+  }
+
+  public void setTimer(String timeText)
+  {
+    this.timer.set(timeText);
+  }
+
+  public StringProperty timeProperty()
+  {
+    return timer;
   }
 }

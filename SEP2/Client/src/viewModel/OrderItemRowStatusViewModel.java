@@ -11,13 +11,11 @@ public class OrderItemRowStatusViewModel
 {
   private final OrderItemViewModel itemVM;
   private final boolean selectable;
-  private StringProperty timer;
 
   public OrderItemRowStatusViewModel(OrderItemViewModel itemVM, boolean selectable)
   {
     this.itemVM = itemVM;
     this.selectable = selectable;
-    //timer = new SimpleStringProperty(getOrderItem().getMenuItem().getTime());
   }
 
   public boolean isSelectable()
@@ -45,13 +43,13 @@ public class OrderItemRowStatusViewModel
     return itemVM.getOrderItem();
   }
 
-  public void setTimer(String timeText)
+  public void setTime(String time)
   {
-    this.timer.set(timeText);
+    itemVM.setTimer(time);
   }
 
   public StringProperty timeProperty()
   {
-    return timer;
+    return itemVM.timeProperty();
   }
 }
