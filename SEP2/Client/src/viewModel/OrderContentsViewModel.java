@@ -7,12 +7,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Model;
-import model.Order;
-import model.OrderItem;
+import model.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class OrderContentsViewModel implements PropertyChangeListener
 {
@@ -32,6 +31,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
     this.model = model;
 
     model.addListener("Update", this);
+    model.addListener("Time",this);
     loadFromModel();
   }
 
@@ -100,11 +100,32 @@ public class OrderContentsViewModel implements PropertyChangeListener
   @Override
   public void propertyChange(PropertyChangeEvent evt)
   {
-    if ("Update".equals(evt.getPropertyName()))
+    if (evt.getPropertyName().equals("Update"))
     {
-      Platform.runLater(() -> {
+      Platform.runLater(() ->
+      {
         successProperty.set(String.valueOf(evt.getNewValue()));
         reloadOrderTable();
+      });
+    }
+    else if(evt.getPropertyName().equals("Time"))
+    {
+      Platform.runLater(() ->
+      {
+        ArrayList<OrderItem> orderItemList = (ArrayList<OrderItem>) evt.getOldValue();
+
+        ArrayList<String> time = (ArrayList<String>) evt.getNewValue();
+
+        for (OrderItemRowStatusViewModel row : orderItems)
+        {
+          for (int i = 0; i<orderItemList.size();i++)
+          {
+            if (row.getOrderItem().getMenuItem().getName().equals((orderItemList.get(i).getMenuItem().getName())));
+            {
+              row.setTimer(time.get(i));
+            }
+          }
+        }
       });
     }
   }

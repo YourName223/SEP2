@@ -15,6 +15,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void orderFeedback(String message);
   public void changeMenu(ArrayList<MenuItemDto> menu);
   public void getMenuFromDataBase();
+  public void updateTime(ArrayList<OrderItem> orderItems, ArrayList<String> time);
   public ArrayList<MenuItemDto> getMenu();
   public Order getOrder();
   ArrayList<Order> getOldOrders();

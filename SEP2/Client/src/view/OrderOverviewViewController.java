@@ -16,6 +16,7 @@ public class OrderOverviewViewController
   @FXML private TableColumn<OrderItemRowStatusViewModel, String> nameColumn;
   @FXML private TableColumn<OrderItemRowStatusViewModel, Double> priceColumn;
   @FXML private TableColumn<OrderItemRowStatusViewModel, Integer> qtyColumn;
+  @FXML private TableColumn<OrderItemRowStatusViewModel, String> timeColumn;
   @FXML private Label qtyLabel;
   @FXML private Label totalLabel;
   @FXML private Label successLabel;
@@ -41,6 +42,9 @@ public class OrderOverviewViewController
     qtyColumn.setCellValueFactory(
         cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
 
+    timeColumn.setCellValueFactory(
+        cell -> cell.getValue().timeProperty());
+
     errorLabel.textProperty().bind(viewModel.getErrorProperty());
     successLabel.textProperty().bind(viewModel.getSuccessProperty());
     qtyLabel.textProperty().bind(viewModel.getAmountProperty().asString());
@@ -51,8 +55,7 @@ public class OrderOverviewViewController
 
     orderTable.setRowFactory(tv -> new TableRow<OrderItemRowStatusViewModel>()
     {
-      @Override protected void updateItem(OrderItemRowStatusViewModel item,
-          boolean empty)
+      @Override protected void updateItem(OrderItemRowStatusViewModel item, boolean empty)
       {
         super.updateItem(item, empty);
 
@@ -74,8 +77,8 @@ public class OrderOverviewViewController
     });
 
     orderTable.getSelectionModel().selectedItemProperty()
-        .addListener((obs, oldVal, newVal) -> {
-
+        .addListener((obs, oldVal, newVal) ->
+        {
           if (newVal != null && !newVal.isSelectable())
           {
             orderTable.getSelectionModel().clearSelection();
