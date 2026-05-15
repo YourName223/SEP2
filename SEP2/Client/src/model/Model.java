@@ -24,4 +24,5 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void acceptOrder();
   public void removeOrderItem(OrderItemDto orderItemDto);
   public void startTimerOnOrder(ArrayList<OrderItemDto> orderItemDto);
+  public void stopTimerOnOrder(ArrayList<OrderItemDto> orderItemDto);
 }

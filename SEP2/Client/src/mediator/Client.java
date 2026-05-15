@@ -82,6 +82,9 @@ public class Client
           case "StartTimer":
             model.startTimerOnOrder(orderPackage.getItems());
             break;
+          case "StopTimer":
+            model.stopTimerOnOrder(orderPackage.getItems());
+            break;
         }
         model.orderFeedback(orderPackage.getMessage());
         break;

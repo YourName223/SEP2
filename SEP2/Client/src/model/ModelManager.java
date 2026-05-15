@@ -152,4 +152,10 @@ public class ModelManager implements Model
   {
 
   }
+
+  @Override public void stopTimerOnOrder(ArrayList<OrderItemDto> orderItemDto)
+  {
+    System.out.println("Timer should stop");
+  }
+
 }

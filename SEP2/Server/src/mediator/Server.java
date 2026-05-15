@@ -31,6 +31,7 @@ public class Server implements Runnable, PropertyChangeListener
     model.addListener("RemoveOrder",this);
     model.addListener("RemoveAllOrders",this);
     model.addListener("StartTimer",this);
+    model.addListener("StopTimer",this);
     model.getMenuItems();
     MenuPackage sendPackage = new MenuPackage("Menu",model.getMenuItemsDto());
     System.out.println(parser.toJson(sendPackage));
@@ -89,19 +90,6 @@ public class Server implements Runnable, PropertyChangeListener
     }
   }
 
-  public void removeOrderFromClient(String ip, ArrayList<OrderItemDto> orderItemDtos)
-  {
-    for(ClientHandler client : clients)
-    {
-      if(client.getIp().equals(ip))
-      {
-        OrderPackage sentPackage = new OrderPackage("Order",orderItemDtos,"Remove");
-        client.sendMessage(parser.toJson(sentPackage));
-        break;
-      }
-    }
-  }
-
   public void removeAllOrdersFromClient(String ip)
   {
     for(ClientHandler client : clients)
@@ -115,13 +103,13 @@ public class Server implements Runnable, PropertyChangeListener
     }
   }
 
-  public void startTimerOnOrderFromClient(String ip, ArrayList<OrderItemDto> orderItemDtos)
+  public void sendClientOrderMessage(String ip, ArrayList<OrderItemDto> orderItemDtos, String message)
   {
     for(ClientHandler client : clients)
     {
       if(client.getIp().equals(ip))
       {
-        OrderPackage sentPackage = new OrderPackage("Order",orderItemDtos,"StartTimer");
+        OrderPackage sentPackage = new OrderPackage("Order",orderItemDtos,message);
         client.sendMessage(parser.toJson(sentPackage));
         break;
       }
@@ -132,17 +120,14 @@ public class Server implements Runnable, PropertyChangeListener
   {
     switch (evt.getPropertyName())
     {
-      case "RemoveOrder":
-        removeOrderFromClient(evt.getNewValue().toString(),(ArrayList<OrderItemDto>)evt.getOldValue());
+      case "RemoveOrder", "StartTimer", "StopTimer":
+        sendClientOrderMessage(evt.getNewValue().toString(),(ArrayList<OrderItemDto>)evt.getOldValue(),evt.getPropertyName());
         break;
       case "RemoveAllOrders":
         removeAllOrdersFromClient(evt.getNewValue().toString());
         break;
       case "Broadcast":
         broadcast(evt.getNewValue().toString());
-        break;
-      case "StartTimer":
-        startTimerOnOrderFromClient(evt.getNewValue().toString(),(ArrayList<OrderItemDto>)evt.getOldValue());
         break;
     }
   }

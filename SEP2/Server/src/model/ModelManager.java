@@ -49,6 +49,11 @@ public class ModelManager implements Model
 
   @Override public void clickOnOrder(OrderCurrent order)
   {
+    if(order.getOrder().getOrderType().equals("Table") && order.getState() instanceof OrderStateFinished)
+    {
+      property.firePropertyChange("StopTimer",orderManager.convertOrderToOrderItemDto(order.getOrder()),(((TableOrder)order.getOrder()).getTableNr()));
+    }
+
     orderManager.clickOnOrder(order);
 
     if(order.getOrder().getOrderType().equals("Table") && order.getState() instanceof OrderStateCurrent)
