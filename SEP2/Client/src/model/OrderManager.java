@@ -24,8 +24,9 @@ public class OrderManager
     return orders;
   }
 
-  public void acceptOrder()
+  public void acceptOrder(int id)
   {
+    order.setId(id);
     orders.add(order);
     order = new Order();
   }
@@ -35,9 +36,21 @@ public class OrderManager
     order = new Order();
   }
 
-  public void removeOrder(Order order)
+  public void removeOrder(int id)
   {
-    orders.remove(order);
+    orders.remove(getOrderFromId(id));
+  }
+
+  public Order getOrderFromId(int id)
+  {
+    for (Order order : orders)
+    {
+      if (order.getId() == id)
+      {
+        return order;
+      }
+    }
+    return null;
   }
 
   public void addToOrder(MenuItemDto menuItem, int amount)

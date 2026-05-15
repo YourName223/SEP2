@@ -110,9 +110,9 @@ public class ModelManager implements Model
     return orderManager.getOldOrders();
   }
 
-  @Override public void removeOrder(ArrayList<OrderItemDto> orderItemDto)
+  @Override public void removeOrder(int orderId)
   {
-    orderManager.removeOrder(orderManager.getOrderFromOrderItemDtos(orderItemDto));
+    orderManager.removeOrder(orderId);
   }
 
   @Override public void cancelOrder(OrderItem orderItem)
@@ -120,9 +120,9 @@ public class ModelManager implements Model
     client.cancelOrder(orderManager.convertOrderItemToOrderItemDto(orderItem));
   }
 
-  @Override public void acceptOrder()
+  @Override public void acceptOrder(int id)
   {
-    orderManager.acceptOrder();
+    orderManager.acceptOrder(id);
   }
 
   @Override public void removeOrderItem(OrderItemDto orderItemDto)
@@ -130,42 +130,27 @@ public class ModelManager implements Model
     orderManager.getOrderFromOrderItemDto(orderItemDto).removeOrderItem(orderManager.getOrderItemFromOrderItemDto(orderItemDto));
   }
 
-  @Override public void startTimerOnOrder(ArrayList<OrderItemDto> orderItemDto)
+  @Override public void startTimerOnOrder(int id)
   {
     System.out.println("Should start on order item : " );
-    for (OrderItemDto dto : orderItemDto)
-    {
-      System.out.println("Should start on order item : " + dto.getMenuItemId() );
-      OrderItem item = orderManager.getOrderItemFromOrderItemDto(dto);
 
-      if (item != null)
-      {
-        property.firePropertyChange(
-            "TimeStart",
-            null,
-            item
-        );
-      }
+    for(OrderItem orderItem : orderManager.getOrderFromId(id).getItems())
+    {
+      property.firePropertyChange(
+          "TimeStart",
+          null,
+          orderItem
+      );
     }
   }
 
-  @Override public void stopTimerOnOrder(ArrayList<OrderItemDto> orderItemDto)
+  @Override public void stopTimerOnOrder(int id)
   {
     System.out.println("Timer should stop");
 
-    for (OrderItemDto dto : orderItemDto)
+    for(OrderItem orderItem : orderManager.getOrderFromId(id).getItems())
     {
-      OrderItem item = orderManager.getOrderItemFromOrderItemDto(dto);
-
-      if (item != null)
-      {
-        property.firePropertyChange(
-            "TimeStop",
-            null,
-            item
-        );
-      }
+      property.firePropertyChange("TimeStart", null, orderItem);
     }
   }
-
 }

@@ -5,10 +5,21 @@ import java.util.ArrayList;
 public class Order
 {
   private ArrayList<OrderItem> items;
+  private int id;
 
   public Order()
   {
     items = new ArrayList<>();
+  }
+
+  public void setId(int id)
+  {
+    this.id = id;
+  }
+
+  public int getId()
+  {
+    return id;
   }
 
   public void setItem(MenuItemDto menuItem, int amount)

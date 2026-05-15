@@ -19,10 +19,10 @@ public interface Model extends UnnamedPropertyChangeSubject
   public ArrayList<MenuItemDto> getMenu();
   public Order getOrder();
   public ArrayList<Order> getOldOrders();
-  public void removeOrder(ArrayList<OrderItemDto> orderItemDto);
+  public void removeOrder(int id);
   public void cancelOrder(OrderItem OrderItem);
-  public void acceptOrder();
+  public void acceptOrder(int id);
   public void removeOrderItem(OrderItemDto orderItemDto);
-  public void startTimerOnOrder(ArrayList<OrderItemDto> orderItemDto);
-  public void stopTimerOnOrder(ArrayList<OrderItemDto> orderItemDto);
+  public void startTimerOnOrder(int id);
+  public void stopTimerOnOrder(int id);
 }
