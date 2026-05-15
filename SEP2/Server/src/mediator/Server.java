@@ -134,11 +134,7 @@ public class Server implements Runnable, PropertyChangeListener
   {
     switch (evt.getPropertyName())
     {
-      case "RemoveOrder":
-        System.out.println(evt.getPropertyName().toString());
-        sendClientOrderMessage(evt.getNewValue().toString(),(ArrayList<OrderItemDto>)evt.getOldValue(),evt.getPropertyName());
-        break;
-      case "StartTimer", "StopTimer":
+      case "StartTimer", "StopTimer", "RemoveOrder":
         sendClientOrderMessage(evt.getNewValue().toString(),(int)evt.getOldValue(),evt.getPropertyName());
         break;
       case "RemoveAllOrders":
