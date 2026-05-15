@@ -102,6 +102,7 @@ public class OrderManager
       MenuItem menuItem = menuManager.getMenuItemById(orderItemDto.getMenuItemId());
       OrderItem orderItem = new OrderItem(menuItem);
       orderItem.setQuantity(orderItemDto.getQuantity());
+      orderItem.setActive(orderItemDto.isActive());
       items.add(orderItem);
     }
 
@@ -116,10 +117,11 @@ public class OrderManager
 
     for (OrderItem orderItem : order.getOrderItems())
     {
-      items.add(new OrderItemDto(
+      OrderItemDto orderItemDto = new OrderItemDto(
           orderItem.getItem().getName(),
-          orderItem.getQuantity()
-      ));
+          orderItem.getQuantity());
+      orderItemDto.setActive(orderItem.isActive());
+      items.add(orderItemDto);
     }
 
     return items;

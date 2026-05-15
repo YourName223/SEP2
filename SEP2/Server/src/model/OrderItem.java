@@ -2,8 +2,9 @@ package model;
 
 public class OrderItem
 {
-  MenuItem item;
-  int quantity;
+  private MenuItem item;
+  private boolean active;
+  private int quantity;
 
   public OrderItem(MenuItem item)
   {
@@ -40,6 +41,16 @@ public class OrderItem
     return string.toString();
   }
 
+  public boolean isActive()
+  {
+    return active;
+  }
+
+  public void setActive(boolean active)
+  {
+    this.active = active;
+  }
+
   @Override public boolean equals(Object obj)
   {
     if(this == obj)
@@ -50,6 +61,6 @@ public class OrderItem
 
     OrderItem orderItem = (OrderItem) obj;
 
-    return this.item.equals(orderItem.getItem()) && this.quantity==orderItem.getQuantity();
+    return this.item.equals(orderItem.getItem()) && this.quantity==orderItem.getQuantity() && this.isActive()==orderItem.isActive();
   }
 }

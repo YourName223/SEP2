@@ -51,6 +51,10 @@ public class ModelManager implements Model
   {
     if(order.getOrder().getOrderType().equals("Table") && order.getState() instanceof OrderStateFinished)
     {
+      for (OrderItem orderItems : order.getOrder().getOrderItems())
+      {
+        orderItems.setActive(false);
+      }
       property.firePropertyChange("StopTimer",orderManager.convertOrderToOrderItemDto(order.getOrder()),(((TableOrder)order.getOrder()).getTableNr()));
     }
 
