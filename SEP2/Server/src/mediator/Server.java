@@ -8,6 +8,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,10 @@ public class Server implements Runnable, PropertyChangeListener
     model.addListener("Broadcast",this);
     model.addListener("RemoveOrder",this);
     model.addListener("RemoveAllOrders",this);
+    model.addListener("StartTimer",this);
+    model.getMenuItems();
+    MenuPackage sendPackage = new MenuPackage("Menu",model.getMenuItemsDto());
+    System.out.println(parser.toJson(sendPackage));
   }
 
   public void close()
@@ -110,6 +115,19 @@ public class Server implements Runnable, PropertyChangeListener
     }
   }
 
+  public void startTimerOnOrderFromClient(String ip, ArrayList<OrderItemDto> orderItemDtos)
+  {
+    for(ClientHandler client : clients)
+    {
+      if(client.getIp().equals(ip))
+      {
+        OrderPackage sentPackage = new OrderPackage("Order",orderItemDtos,"StartTimer");
+        client.sendMessage(parser.toJson(sentPackage));
+        break;
+      }
+    }
+  }
+
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
     switch (evt.getPropertyName())
@@ -122,6 +140,9 @@ public class Server implements Runnable, PropertyChangeListener
         break;
       case "Broadcast":
         broadcast(evt.getNewValue().toString());
+        break;
+      case "StartTimer":
+        startTimerOnOrderFromClient(evt.getNewValue().toString(),(ArrayList<OrderItemDto>)evt.getOldValue());
         break;
     }
   }
