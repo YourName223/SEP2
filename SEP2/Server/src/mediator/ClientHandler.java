@@ -140,6 +140,7 @@ public class ClientHandler implements Runnable
         if(model.cancelOrder(orderPackage.getItems().getFirst()))
         {
           sendPackage = new OrderPackage("Order",orderPackage.getItems(),"Cancel");
+          sendPackage.setOrderId(orderPackage.getOrderId());
           model.broadCast(parser.toJson(new MenuPackage("Menu",model.getMenuItemsDto())));
         }
         else

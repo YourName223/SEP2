@@ -117,7 +117,8 @@ public class ModelManager implements Model
 
   @Override public void cancelOrder(OrderItem orderItem)
   {
-    client.cancelOrder(orderManager.convertOrderItemToOrderItemDto(orderItem));
+    OrderItemDto orderItemDto = orderManager.convertOrderItemToOrderItemDto(orderItem);
+    client.cancelOrder(orderManager.getOrderFromOrderItemDto(orderItemDto).getId(), orderItemDto);
   }
 
   @Override public void acceptOrder(int id)
@@ -125,9 +126,10 @@ public class ModelManager implements Model
     orderManager.acceptOrder(id);
   }
 
-  @Override public void removeOrderItem(OrderItemDto orderItemDto)
+  @Override public void removeOrderItem(int id, OrderItemDto orderItemDto)
   {
-    orderManager.getOrderFromOrderItemDto(orderItemDto).removeOrderItem(orderManager.getOrderItemFromOrderItemDto(orderItemDto));
+    System.out.println(orderItemDto.getMenuItemId());
+    orderManager.getOrderFromId(id).removeOrderItem(orderManager.getOrderItemFromOrderItemDto(orderItemDto));
   }
 
   @Override public void startTimerOnOrder(int id)
@@ -150,7 +152,7 @@ public class ModelManager implements Model
 
     for(OrderItem orderItem : orderManager.getOrderFromId(id).getItems())
     {
-      property.firePropertyChange("TimeStart", null, orderItem);
+      property.firePropertyChange("TimeStop", null, orderItem);
     }
   }
 }

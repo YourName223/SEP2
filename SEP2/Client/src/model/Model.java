@@ -22,7 +22,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void removeOrder(int id);
   public void cancelOrder(OrderItem OrderItem);
   public void acceptOrder(int id);
-  public void removeOrderItem(OrderItemDto orderItemDto);
+  public void removeOrderItem(int id, OrderItemDto orderItemDto);
   public void startTimerOnOrder(int id);
   public void stopTimerOnOrder(int id);
 }

@@ -65,13 +65,15 @@ public class Client
     {
       case "Order":
         OrderPackage orderPackage = parser.fromJson(line, OrderPackage.class);
+        System.out.println(orderPackage.getMessage());
+        System.out.println(orderPackage.getOrderId());
         switch (orderPackage.getMessage())
         {
           case "Remove":
             model.removeOrder(orderPackage.getOrderId());
             break;
-          case "Order Canceled":
-            model.removeOrderItem(orderPackage.getItems().getFirst());
+          case "Cancel":
+            model.removeOrderItem(orderPackage.getOrderId(),orderPackage.getItems().getFirst());
             break;
           case "RemoveAll":
             model.removeAllOrders();
@@ -108,11 +110,12 @@ public class Client
     out.println(message);
   }
 
-  public void cancelOrder(OrderItemDto orderItemDto)
+  public void cancelOrder(int id, OrderItemDto orderItemDto)
   {
     ArrayList<OrderItemDto> orderItemDtos = new ArrayList<>();
     orderItemDtos.add(orderItemDto);
     OrderPackage orderPackage = new OrderPackage("Order",orderItemDtos,"Cancel");
+    orderPackage.setOrderId(id);
     String message = parser.toJson(orderPackage);
     out.println(message);
   }
