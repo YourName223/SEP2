@@ -3,12 +3,14 @@ package model;
 public class OrderItem
 {
   private MenuItemDto menuItem;
+  private boolean active;
   private int quantity;
 
   public OrderItem(MenuItemDto menuItem,int quantity)
   {
     this.menuItem = menuItem;
     this.quantity = quantity;
+    active = false;
   }
 
   public MenuItemDto getMenuItem()
@@ -42,5 +44,15 @@ public class OrderItem
     OrderItem orderItem = (OrderItem) obj;
 
     return this.menuItem.equals(orderItem.getMenuItem()) && this.quantity==orderItem.getQuantity();
+  }
+
+  public void setActive(boolean active)
+  {
+    this.active = active;
+  }
+
+  public boolean isActive()
+  {
+    return active;
   }
 }

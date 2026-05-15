@@ -144,6 +144,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
   {
     for (OrderItemViewModel vm : oldOrderItems)
     {
+      System.out.println(vm.isActive() + "vm says");
       vm.tick();
     }
   }

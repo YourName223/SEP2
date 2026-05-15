@@ -11,7 +11,6 @@ public class OrderItemViewModel
 {
   private OrderItem item;
   private int prepTimeSec;
-  private boolean active = false;
 
   private final StringProperty waitingTimeProperty = new SimpleStringProperty();
 
@@ -51,12 +50,15 @@ public class OrderItemViewModel
 
   public void start()
   {
-    active = true;
+    System.out.println("Should start");
+    item.setActive(true);
+    System.out.println(item.isActive());
   }
 
   public void tick()
   {
-    if (!active)
+    System.out.println("Should tick" + item.isActive());
+    if (!item.isActive())
     {
       return;
     }
@@ -74,8 +76,9 @@ public class OrderItemViewModel
 
   public void forceZero()
   {
+    System.out.println("Force zero");
     prepTimeSec = 0;
-    active = false;
+    item.setActive(false);
     updateText();
   }
 
@@ -87,4 +90,8 @@ public class OrderItemViewModel
     waitingTimeProperty.set(String.format("%d:%02d", minutes, seconds));
   }
 
+  public boolean isActive()
+  {
+    return item.isActive();
+  }
 }
