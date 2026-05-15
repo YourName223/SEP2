@@ -80,9 +80,9 @@ public class OrderManager
 
   public void addOrder(Order order)
   {
+    updateFollowingOrderId();
     order.setId(followingOrderId);
     orderList.addOrder(order);
-    updateFollowingOrderId();
   }
 
   public void clickOnOrder(OrderCurrent order)
