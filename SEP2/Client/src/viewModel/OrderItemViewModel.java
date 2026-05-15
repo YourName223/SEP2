@@ -58,19 +58,18 @@ public class OrderItemViewModel
   public void tick()
   {
     System.out.println("Should tick" + item.isActive());
-    if (!item.isActive())
+    if (item.isActive())
     {
-      return;
-    }
-
-    if (prepTimeSec <= 0)
-    {
-      waitingTimeProperty.set("0:00");
-    }
-    else
-    {
-      prepTimeSec--;
-      updateText();
+      if (prepTimeSec <= 0)
+      {
+        item.setActive(false);
+        waitingTimeProperty.set("0:00");
+      }
+      else
+      {
+        prepTimeSec--;
+        updateText();
+      }
     }
   }
 
@@ -78,7 +77,6 @@ public class OrderItemViewModel
   {
     System.out.println("Force zero");
     prepTimeSec = 0;
-    item.setActive(false);
     updateText();
   }
 
