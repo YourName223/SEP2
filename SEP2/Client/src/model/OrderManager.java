@@ -90,4 +90,48 @@ public class OrderManager
         orderItem.getMenuItem().getName(),
         orderItem.getQuantity());
   }
+
+  public Order getOrderFromOrderItemDto(OrderItemDto orderItemDto)
+  {
+    for (Order order : getOldOrders())
+    {
+      ArrayList<OrderItem> orderItems = order.getItems();
+      for (OrderItem orderItem : orderItems)
+      {
+        if (convertOrderItemToOrderItemDto(orderItem).equals(orderItemDto))
+        {
+          return order;
+        }
+      }
+    }
+    return null;
+  }
+
+  public OrderItem getOrderItemFromOrderItemDto(OrderItemDto orderItemDto)
+  {
+    for (Order order : getOldOrders())
+    {
+      ArrayList<OrderItem> orderItems = order.getItems();
+      for (OrderItem orderItem : orderItems)
+      {
+        if (convertOrderItemToOrderItemDto(orderItem).equals(orderItemDto))
+        {
+          return orderItem;
+        }
+      }
+    }
+    return null;
+  }
+
+  public Order getOrderFromOrderItemDtos(ArrayList<OrderItemDto> orderItemDtos)
+  {
+    for (Order order : getOldOrders())
+    {
+      if(convertOrderToOrderItemDto(order).equals(orderItemDtos))
+      {
+        return order;
+      }
+    }
+    return null;
+  }
 }

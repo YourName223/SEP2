@@ -110,17 +110,10 @@ public class ModelManager implements Model
     return orderManager.getOldOrders();
   }
 
-    @Override public void removeOrder(ArrayList<OrderItemDto> orderItemDto)
-    {
-      for (Order order : orderManager.getOldOrders())
-      {
-        if(orderManager.convertOrderToOrderItemDto(order).equals(orderItemDto))
-        {
-          orderManager.removeOrder(order);
-          break;
-        }
-      }
-    }
+  @Override public void removeOrder(ArrayList<OrderItemDto> orderItemDto)
+  {
+    orderManager.removeOrder(orderManager.getOrderFromOrderItemDtos(orderItemDto));
+  }
 
   @Override public void cancelOrder(OrderItem orderItem)
   {
@@ -134,18 +127,7 @@ public class ModelManager implements Model
 
   @Override public void removeOrderItem(OrderItemDto orderItemDto)
   {
-    for (Order order : orderManager.getOldOrders())
-    {
-      ArrayList<OrderItem> orderItems = order.getItems();
-      for (OrderItem orderItem : orderItems)
-      {
-        if (orderManager.convertOrderItemToOrderItemDto(orderItem).equals(orderItemDto))
-        {
-          order.removeOrderItem(orderItem);
-          return;
-        }
-      }
-    }
+    orderManager.getOrderFromOrderItemDto(orderItemDto).removeOrderItem(orderManager.getOrderItemFromOrderItemDto(orderItemDto));
   }
 
   @Override public void startTimerOnOrder(ArrayList<OrderItemDto> orderItemDto)
