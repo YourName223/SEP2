@@ -55,14 +55,14 @@ public class ModelManager implements Model
       {
         orderItems.setActive(false);
       }
-      property.firePropertyChange("StopTimer",orderManager.convertOrderToOrderItemDto(order.getOrder()),(((TableOrder)order.getOrder()).getTableNr()));
+      property.firePropertyChange("StopTimer",order.getOrder().getId(),(((TableOrder)order.getOrder()).getTableNr()));
     }
 
     orderManager.clickOnOrder(order);
 
     if(order.getOrder().getOrderType().equals("Table") && order.getState() instanceof OrderStateCurrent)
     {
-      property.firePropertyChange("StartTimer",orderManager.convertOrderToOrderItemDto(order.getOrder()),(((TableOrder)order.getOrder()).getTableNr()));
+      property.firePropertyChange("StartTimer",order.getOrder().getId(),(((TableOrder)order.getOrder()).getTableNr()));
     }
 
     property.firePropertyChange("Update",null,null);

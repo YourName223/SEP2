@@ -43,14 +43,16 @@ public class OrderManager
 
   public Order getOrderFromId(int id)
   {
+    System.out.println(id);
     for (Order order : orders)
     {
+      System.out.println(order.getId());
       if (order.getId() == id)
       {
         return order;
       }
     }
-    return null;
+    throw new IllegalArgumentException("Order does not exist");
   }
 
   public void addToOrder(MenuItemDto menuItem, int amount)

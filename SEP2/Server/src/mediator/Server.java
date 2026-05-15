@@ -116,13 +116,30 @@ public class Server implements Runnable, PropertyChangeListener
     }
   }
 
+  public void sendClientOrderMessage(String ip, int id, String message)
+  {
+    for(ClientHandler client : clients)
+    {
+      if(client.getIp().equals(ip))
+      {
+        OrderPackage sentPackage = new OrderPackage("Order",null,message);
+        sentPackage.setOrderId(id);
+        client.sendMessage(parser.toJson(sentPackage));
+        break;
+      }
+    }
+  }
+
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
     switch (evt.getPropertyName())
     {
-      case "RemoveOrder", "StartTimer", "StopTimer":
+      case "RemoveOrder":
         System.out.println(evt.getPropertyName().toString());
         sendClientOrderMessage(evt.getNewValue().toString(),(ArrayList<OrderItemDto>)evt.getOldValue(),evt.getPropertyName());
+        break;
+      case "StartTimer", "StopTimer":
+        sendClientOrderMessage(evt.getNewValue().toString(),(int)evt.getOldValue(),evt.getPropertyName());
         break;
       case "RemoveAllOrders":
         removeAllOrdersFromClient(evt.getNewValue().toString());
