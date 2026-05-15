@@ -66,9 +66,10 @@ public class MenuManager
   {
     menuItems.get(index).addProduct(product);
   }
-can be useful later*/
   public String menuItemToString(int index)
   {
     return menuItems.get(index).toString();
   }
+  can be useful later*/
+
 }

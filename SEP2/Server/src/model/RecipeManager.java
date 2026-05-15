@@ -29,20 +29,6 @@ public class RecipeManager
     return recipeIds;
   }
 
-  public ArrayList<String> getIngredientNamesFromRecipeId(String recipeId)
-  {
-    ArrayList<String> ingredientNames = new ArrayList<>();
-
-    for (Recipe recipe : recipes)
-    {
-      if (recipe.getId().equals(recipeId))
-      {
-        ingredientNames.add(recipe.getName());
-      }
-    }
-    return ingredientNames;
-  }
-
   private void getRecipesFromDatabase()
   {
     for(String menuName : menuDAO.getAllMenuNames())
@@ -61,8 +47,11 @@ public class RecipeManager
     }
   }
 
+  /*
   public Recipe getRecipe(String recipeId)
   {
     return menuDAO.getRecipeWithIngredients(recipeId);
   }
+  Can be usefull later
+   */
 }

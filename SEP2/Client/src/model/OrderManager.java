@@ -138,16 +138,4 @@ public class OrderManager
     }
     return null;
   }
-
-  public Order getOrderFromOrderItemDtos(ArrayList<OrderItemDto> orderItemDtos)
-  {
-    for (Order order : getOldOrders())
-    {
-      if(convertOrderToOrderItemDto(order).equals(orderItemDtos))
-      {
-        return order;
-      }
-    }
-    return null;
-  }
 }

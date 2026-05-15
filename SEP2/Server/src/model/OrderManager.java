@@ -124,22 +124,6 @@ public class OrderManager
     return order;
   }
 
-  public ArrayList<OrderItemDto> convertOrderToOrderItemDto(Order order)
-  {
-    ArrayList<OrderItemDto> items = new ArrayList<>();
-
-    for (OrderItem orderItem : order.getOrderItems())
-    {
-      OrderItemDto orderItemDto = new OrderItemDto(
-          orderItem.getItem().getName(),
-          orderItem.getQuantity());
-      orderItemDto.setActive(orderItem.isActive());
-      items.add(orderItemDto);
-    }
-
-    return items;
-  }
-
   public void removeOrderItem(Order order, OrderItem orderItem)
   {
     orderList.removeOrderItem(order, orderItem);

@@ -69,7 +69,7 @@ public class Client
         System.out.println(orderPackage.getOrderId());
         switch (orderPackage.getMessage())
         {
-          case "Remove":
+          case "RemoveOrder":
             model.removeOrder(orderPackage.getOrderId());
             break;
           case "Cancel":

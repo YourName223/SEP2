@@ -67,16 +67,6 @@ public class Order
     return items;
   }
 
-  public ArrayList<MenuItem> getMenuItems()
-  {
-    ArrayList<MenuItem> menuItems = new ArrayList<>();
-    for (OrderItem orderItem : getOrderItems())
-    {
-      menuItems.add(orderItem.getItem());
-    }
-    return menuItems;
-  }
-
   public String toString()
   {
     StringBuilder string = new StringBuilder("[");

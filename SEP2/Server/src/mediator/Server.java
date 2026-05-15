@@ -103,19 +103,6 @@ public class Server implements Runnable, PropertyChangeListener
     }
   }
 
-  public void sendClientOrderMessage(String ip, ArrayList<OrderItemDto> orderItemDtos, String message)
-  {
-    for(ClientHandler client : clients)
-    {
-      if(client.getIp().equals(ip))
-      {
-        OrderPackage sentPackage = new OrderPackage("Order",orderItemDtos,message);
-        client.sendMessage(parser.toJson(sentPackage));
-        break;
-      }
-    }
-  }
-
   public void sendClientOrderMessage(String ip, int id, String message)
   {
     for(ClientHandler client : clients)
