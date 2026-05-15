@@ -41,11 +41,6 @@ public class ModelManager implements Model
     orderManager.removeFromOrder(menuItem);
   }
 
-  @Override public void removeOrder()
-  {
-    orderManager.removeOrder();
-  }
-
   @Override public void removeAllOrders()
   {
     orderManager.removeAllOrders();
