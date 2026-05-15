@@ -14,7 +14,6 @@ import model.*;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 public class OrderContentsViewModel implements PropertyChangeListener
 {
@@ -24,6 +23,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
   private final ObservableList<OrderItemViewModel> orderItems =
       FXCollections.observableArrayList();
+
   private final ObservableList<OrderItemViewModel> oldOrderItems =
       FXCollections.observableArrayList();
 
@@ -32,7 +32,6 @@ public class OrderContentsViewModel implements PropertyChangeListener
   private final IntegerProperty amountProperty = new SimpleIntegerProperty();
 
   private Timeline timeline;
-  private boolean timerRunning = false;
 
   public OrderContentsViewModel(Model model)
   {
@@ -42,6 +41,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
     model.addListener("TimeStart", this);
     model.addListener("TimeStop", this);
 
+    startTimer();
     loadFromModel();
   }
 
@@ -78,6 +78,74 @@ public class OrderContentsViewModel implements PropertyChangeListener
     }
   }
 
+  @Override
+  public void propertyChange(PropertyChangeEvent evt)
+  {
+    switch (evt.getPropertyName())
+    {
+      case "Update" ->
+      {
+        Platform.runLater(() ->
+        {
+          successProperty.set(String.valueOf(evt.getNewValue()));
+          reloadOrderTable();
+        });
+      }
+
+      case "TimeStart" ->
+      {
+        Platform.runLater(() ->
+        {
+          OrderItem target = (OrderItem) evt.getNewValue();
+
+          for (OrderItemViewModel vm : oldOrderItems)
+          {
+            if (vm.getOrderItem().equals(target))
+            {
+              vm.start();
+            }
+          }
+        });
+      }
+
+      case "TimeStop" ->
+      {
+        Platform.runLater(() ->
+        {
+          OrderItem target = (OrderItem) evt.getNewValue();
+
+          for (OrderItemViewModel vm : oldOrderItems)
+          {
+            if (vm.getOrderItem().equals(target))
+            {
+              vm.forceZero();
+            }
+          }
+        });
+      }
+    }
+  }
+
+  private void startTimer()
+  {
+    if (timeline != null) return;
+
+    timeline = new Timeline(
+        new KeyFrame(Duration.seconds(1), e -> tickOldOrders())
+    );
+
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
+  }
+
+  private void tickOldOrders()
+  {
+    for (OrderItemViewModel vm : oldOrderItems)
+    {
+      vm.tick();
+    }
+  }
+
   public ObservableList<OrderItemViewModel> getOrderItems()
   {
     return orderItems;
@@ -103,85 +171,15 @@ public class OrderContentsViewModel implements PropertyChangeListener
     return amountProperty;
   }
 
-  @Override
-  public void propertyChange(PropertyChangeEvent evt)
-  {
-    if (evt.getPropertyName().equals("Update"))
-    {
-      Platform.runLater(() ->
-      {
-        successProperty.set(String.valueOf(evt.getNewValue()));
-        reloadOrderTable();
-      });
-    }
-    else if (evt.getPropertyName().equals("TimeStart"))
-    {
-      Platform.runLater(() ->
-      {
-        OrderItem target = (OrderItem) evt.getNewValue();
-
-        for (OrderItemViewModel vm : oldOrderItems)
-        {
-          if (vm.getOrderItem().equals(target))
-          {
-            vm.start();
-          }
-        }
-
-        startTimer();
-      });
-    }
-
-    else if (evt.getPropertyName().equals("TimeStop"))
-    {
-      Platform.runLater(() ->
-      {
-        OrderItem target = (OrderItem) evt.getNewValue();
-
-        for (OrderItemViewModel vm : oldOrderItems)
-        {
-          if (vm.getOrderItem().equals(target))
-          {
-            vm.forceZero();
-          }
-        }
-      });
-    }
-  }
-
-  private void startTimer()
-  {
-    if (timerRunning) return;
-
-    timeline = new Timeline(
-        new KeyFrame(Duration.seconds(1), e -> tickOldOrders())
-    );
-
-    timeline.setCycleCount(Timeline.INDEFINITE);
-    timeline.play();
-
-    timerRunning = true;
-  }
-
-  private void tickOldOrders()
-  {
-    for (OrderItemViewModel row : oldOrderItems)
-    {
-      row.tick();
-    }
-  }
 
   public void setSelectedOrderItem(OrderItem orderItem)
   {
     this.selectedOrderItem = orderItem;
+
     if (orderItem != null)
-    {
       amountProperty.set(orderItem.getQuantity());
-    }
     else
-    {
       amountProperty.set(0);
-    }
   }
 
   public void increase()

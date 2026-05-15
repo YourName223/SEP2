@@ -132,12 +132,38 @@ public class ModelManager implements Model
 
   @Override public void startTimerOnOrder(ArrayList<OrderItemDto> orderItemDto)
   {
+    for (OrderItemDto dto : orderItemDto)
+    {
+      OrderItem item = orderManager.getOrderItemFromOrderItemDto(dto);
 
+      if (item != null)
+      {
+        property.firePropertyChange(
+            "TimeStart",
+            null,
+            item
+        );
+      }
+    }
   }
 
   @Override public void stopTimerOnOrder(ArrayList<OrderItemDto> orderItemDto)
   {
     System.out.println("Timer should stop");
+
+    for (OrderItemDto dto : orderItemDto)
+    {
+      OrderItem item = orderManager.getOrderItemFromOrderItemDto(dto);
+
+      if (item != null)
+      {
+        property.firePropertyChange(
+            "TimeStop",
+            null,
+            item
+        );
+      }
+    }
   }
 
 }
