@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -15,9 +14,9 @@
    <children>
       <HBox prefHeight="760.0" prefWidth="360.0" spacing="15.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
                <children>
-                   <Label text="Sent Orders">
+                   <Label prefWidth="360.0" text="Previous Orders">
                        <font>
                            <Font size="16.0" />
                        </font>
@@ -33,6 +32,14 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButton" text="🗑">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
@@ -56,7 +63,7 @@
                   </TableView>
                   <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="560.0" spacing="5.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="350.0" spacing="10.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="350.0" spacing="10.0">
                            <children>
                               <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButton" prefHeight="30.0" prefWidth="34.0" text="🗑">
                                  <font>
@@ -87,15 +94,6 @@
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Region HBox.hgrow="ALWAYS" />
-                              <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButton" text="Cancel">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
                            </children>
                         </HBox>
                      </children>
@@ -122,9 +120,9 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_CENTER" prefHeight="35.0" prefWidth="560.0">
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="35.0" prefWidth="560.0">
                      <children>
-                        <VBox prefHeight="35.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="35.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label fx:id="successLabel" text="Success Label" textFill="#27a525" />
                               <Label fx:id="errorLabel" text="Error Label" textFill="#df2626" />
