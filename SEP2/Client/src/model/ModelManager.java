@@ -132,8 +132,10 @@ public class ModelManager implements Model
 
   @Override public void startTimerOnOrder(ArrayList<OrderItemDto> orderItemDto)
   {
+    System.out.println("Should start on order item : " );
     for (OrderItemDto dto : orderItemDto)
     {
+      System.out.println("Should start on order item : " + dto.getMenuItemId() );
       OrderItem item = orderManager.getOrderItemFromOrderItemDto(dto);
 
       if (item != null)

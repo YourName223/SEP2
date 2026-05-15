@@ -94,6 +94,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
       case "TimeStart" ->
       {
+        System.out.println("Time should start in viewModel");
         Platform.runLater(() ->
         {
           OrderItem target = (OrderItem) evt.getNewValue();
@@ -102,6 +103,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
           {
             if (vm.getOrderItem().equals(target))
             {
+              System.out.println("VM should start");
               vm.start();
             }
           }

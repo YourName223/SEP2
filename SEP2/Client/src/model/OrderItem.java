@@ -30,4 +30,17 @@ public class OrderItem
   {
     return menuItem.getName() + " : " + quantity;
   }
+
+  @Override public boolean equals(Object obj)
+  {
+    if(this == obj)
+      return true;
+
+    if(obj == null || getClass() != obj.getClass())
+      return false;
+
+    OrderItem orderItem = (OrderItem) obj;
+
+    return this.menuItem.equals(orderItem.getMenuItem()) && this.quantity==orderItem.getQuantity();
+  }
 }
