@@ -65,11 +65,10 @@ public class Client
     {
       case "Order":
         OrderPackage orderPackage = parser.fromJson(line, OrderPackage.class);
-        System.out.println(orderPackage.getMessage());
         switch (orderPackage.getMessage())
         {
           case "Remove":
-            model.removeOrder(orderPackage.getItems());
+            model.removeOrder(orderPackage.getOrderId());
             break;
           case "Order Canceled":
             model.removeOrderItem(orderPackage.getItems().getFirst());
@@ -78,14 +77,13 @@ public class Client
             model.removeAllOrders();
             break;
           case "Order accepted":
-            model.acceptOrder();
+            model.acceptOrder(orderPackage.getOrderId());
             break;
           case "StartTimer":
-            System.out.println("Test for startign timer");
-            model.startTimerOnOrder(orderPackage.getItems());
+            model.startTimerOnOrder(orderPackage.getOrderId());
             break;
           case "StopTimer":
-            model.stopTimerOnOrder(orderPackage.getItems());
+            model.stopTimerOnOrder(orderPackage.getOrderId());
             break;
         }
         model.orderFeedback(orderPackage.getMessage());
