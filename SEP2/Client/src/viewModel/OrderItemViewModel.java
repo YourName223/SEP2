@@ -11,6 +11,7 @@ public class OrderItemViewModel
 {
   private OrderItem item;
   private int prepTimeSec;
+  private boolean active = false;
 
   private final StringProperty waitingTimeProperty = new SimpleStringProperty();
 
@@ -44,22 +45,37 @@ public class OrderItemViewModel
   }
 
   public StringProperty waitingTimeProperty()
-  {return waitingTimeProperty;}
+  {
+    return waitingTimeProperty;
+  }
+
+  public void start()
+  {
+    active = true;
+  }
 
   public void tick()
   {
+    if (!active)
+    {
+      return;
+    }
+
     if (prepTimeSec <= 0)
     {
       waitingTimeProperty.set("0:00");
     }
-    else{
-    prepTimeSec--;
-    updateText();}
+    else
+    {
+      prepTimeSec--;
+      updateText();
+    }
   }
 
   public void forceZero()
   {
     prepTimeSec = 0;
+    active = false;
     updateText();
   }
 
