@@ -150,6 +150,6 @@ public class ModelManager implements Model
 
   @Override public void startTimerOnOrder(ArrayList<OrderItemDto> orderItemDto)
   {
-
+    System.out.println("test");
   }
 }

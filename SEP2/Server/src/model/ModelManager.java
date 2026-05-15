@@ -51,8 +51,10 @@ public class ModelManager implements Model
   {
     orderManager.clickOnOrder(order);
 
+    System.out.println("Order was clicked on");
     if(order.getOrder().getOrderType().equals("Table") && order.getState() instanceof OrderStateCurrent)
     {
+      System.out.println("Order is of a state current and should fire proeprtyChange");
       property.firePropertyChange("StartTimer",orderManager.convertOrderToOrderItemDto(order.getOrder()),(((TableOrder)order.getOrder()).getTableNr()));
     }
 
