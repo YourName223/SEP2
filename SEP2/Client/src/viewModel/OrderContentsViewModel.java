@@ -21,27 +21,27 @@ public class OrderContentsViewModel implements PropertyChangeListener
   private final Model model;
 
   private OrderItem selectedOrderItem;
-  private Timeline timeline;
-  private boolean timerRunning = false;
 
   private final ObservableList<OrderItemViewModel> orderItems =
       FXCollections.observableArrayList();
   private final ObservableList<OrderItemViewModel> oldOrderItems =
       FXCollections.observableArrayList();
 
-
   private final StringProperty successProperty = new SimpleStringProperty();
   private final StringProperty errorProperty = new SimpleStringProperty();
   private final IntegerProperty amountProperty = new SimpleIntegerProperty();
+
+  private Timeline timeline;
+  private boolean timerRunning = false;
 
   public OrderContentsViewModel(Model model)
   {
     this.model = model;
 
     model.addListener("Update", this);
-    model.addListener("Time",this);
+    model.addListener("TimeStart", this);
+    model.addListener("TimeStop", this);
 
-    startTimer();
     loadFromModel();
   }
 
@@ -88,7 +88,6 @@ public class OrderContentsViewModel implements PropertyChangeListener
     return oldOrderItems;
   }
 
-
   public StringProperty getSuccessProperty()
   {
     return successProperty;
@@ -117,20 +116,58 @@ public class OrderContentsViewModel implements PropertyChangeListener
     }
     else if (evt.getPropertyName().equals("TimeStart"))
     {
-      Platform.runLater(this::startTimer);
+      Platform.runLater(() ->
+      {
+        OrderItem target = (OrderItem) evt.getNewValue();
+
+        for (OrderItemViewModel vm : oldOrderItems)
+        {
+          if (vm.getOrderItem().equals(target))
+          {
+            vm.start();
+          }
+        }
+
+        startTimer();
+      });
     }
 
     else if (evt.getPropertyName().equals("TimeStop"))
     {
       Platform.runLater(() ->
       {
-        stopTimer();
+        OrderItem target = (OrderItem) evt.getNewValue();
 
-        for (OrderItemViewModel row : oldOrderItems)
+        for (OrderItemViewModel vm : oldOrderItems)
         {
-          row.forceZero();
+          if (vm.getOrderItem().equals(target))
+          {
+            vm.forceZero();
+          }
         }
       });
+    }
+  }
+
+  private void startTimer()
+  {
+    if (timerRunning) return;
+
+    timeline = new Timeline(
+        new KeyFrame(Duration.seconds(1), e -> tickOldOrders())
+    );
+
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
+
+    timerRunning = true;
+  }
+
+  private void tickOldOrders()
+  {
+    for (OrderItemViewModel row : oldOrderItems)
+    {
+      row.tick();
     }
   }
 
@@ -149,7 +186,10 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
   public void increase()
   {
-    if(selectedOrderItem.getMenuItem().getStock()>amountProperty.get()+selectedOrderItem.getQuantity())
+    if (selectedOrderItem == null) return;
+
+    if (selectedOrderItem.getMenuItem().getStock() >
+        amountProperty.get() + selectedOrderItem.getQuantity())
     {
       amountProperty.set(amountProperty.get() + 1);
     }
@@ -196,38 +236,5 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
     model.cancelOrder(selectedOrderItem);
     reloadOrderTable();
-  }
-
-  private void startTimer()
-  {
-    if (timerRunning) return;
-
-    timeline = new Timeline(
-        new KeyFrame(Duration.seconds(1), e -> tickOldOrders())
-    );
-
-    timeline.setCycleCount(Timeline.INDEFINITE);
-    timeline.play();
-
-    timerRunning = true;
-  }
-
-  private void stopTimer()
-  {
-    if (timeline != null)
-    {
-      timeline.stop();
-      timeline = null;
-    }
-
-    timerRunning = false;
-  }
-
-  private void tickOldOrders()
-  {
-    for (OrderItemViewModel row : oldOrderItems)
-    {
-      row.tick();
-    }
   }
 }

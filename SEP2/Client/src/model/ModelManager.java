@@ -1,6 +1,7 @@
 package model;
 
 import mediator.Client;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class ModelManager implements Model
     orderManager = new OrderManager();
     property = new PropertyChangeSupport(this);
     orderManager.createOrder();
-    client = new Client(this,"10.154.208.26",2910);
+    client = new Client(this, "10.154.208.26", 2910);
     getMenuFromDataBase();
   }
 
@@ -33,7 +34,7 @@ public class ModelManager implements Model
 
   @Override public void updateOrderItem(MenuItemDto menuItem, int amount)
   {
-    orderManager.updateOrderItem(menuItem,amount);
+    orderManager.updateOrderItem(menuItem, amount);
   }
 
   @Override public void removeFromOrder(MenuItemDto menuItem)
@@ -53,7 +54,7 @@ public class ModelManager implements Model
 
   @Override public void placeOrder()
   {
-    if(orderManager.getOrder().getItems().isEmpty())
+    if (orderManager.getOrder().getItems().isEmpty())
     {
       throw new IllegalArgumentException("Arguments cannot be null");
     }
@@ -65,13 +66,13 @@ public class ModelManager implements Model
 
   @Override public void orderFeedback(String message)
   {
-    property.firePropertyChange("Update",null,message);
+    property.firePropertyChange("Update", null, message);
   }
 
   @Override public void changeMenu(ArrayList<MenuItemDto> menu)
   {
     this.menu = menu;
-    property.firePropertyChange("Menu",null,menu);
+    property.firePropertyChange("Menu", null, menu);
   }
 
   @Override public void getMenuFromDataBase()
@@ -79,7 +80,7 @@ public class ModelManager implements Model
     client.getMenu();
   }
 
- // @Override public void updateTime(ArrayList<OrderItem> orderItems, ArrayList<String> time)
+  // @Override public void updateTime(ArrayList<OrderItem> orderItems, ArrayList<String> time)
   //{
   //  property.firePropertyChange("Time",orderItems,time);
   //}
@@ -89,14 +90,16 @@ public class ModelManager implements Model
     return menu;
   }
 
-  @Override public void addListener(String propertyName, PropertyChangeListener listener)
+  @Override public void addListener(String propertyName,
+      PropertyChangeListener listener)
   {
-    property.addPropertyChangeListener(propertyName,listener);
+    property.addPropertyChangeListener(propertyName, listener);
   }
 
-  @Override public void removeListener(String propertyName, PropertyChangeListener listener)
+  @Override public void removeListener(String propertyName,
+      PropertyChangeListener listener)
   {
-    property.removePropertyChangeListener(propertyName,listener);
+    property.removePropertyChangeListener(propertyName, listener);
   }
 
   @Override public Order getOrder()
@@ -104,23 +107,22 @@ public class ModelManager implements Model
     return orderManager.getOrder();
   }
 
-  @Override
-  public ArrayList<Order> getOldOrders()
+  @Override public ArrayList<Order> getOldOrders()
   {
     return orderManager.getOldOrders();
   }
 
-    @Override public void removeOrder(ArrayList<OrderItemDto> orderItemDto)
+  @Override public void removeOrder(ArrayList<OrderItemDto> orderItemDto)
+  {
+    for (Order order : orderManager.getOldOrders())
     {
-      for (Order order : orderManager.getOldOrders())
+      if (orderManager.convertOrderToOrderItemDto(order).equals(orderItemDto))
       {
-        if(orderManager.convertOrderToOrderItemDto(order).equals(orderItemDto))
-        {
-          orderManager.removeOrder(order);
-          break;
-        }
+        orderManager.removeOrder(order);
+        break;
       }
     }
+  }
 
   @Override public void cancelOrder(OrderItem orderItem)
   {
@@ -139,7 +141,8 @@ public class ModelManager implements Model
       ArrayList<OrderItem> orderItems = order.getItems();
       for (OrderItem orderItem : orderItems)
       {
-        if (orderManager.convertOrderItemToOrderItemDto(orderItem).equals(orderItemDto))
+        if (orderManager.convertOrderItemToOrderItemDto(orderItem)
+            .equals(orderItemDto))
         {
           order.removeOrderItem(orderItem);
           return;
