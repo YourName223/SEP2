@@ -48,6 +48,6 @@ public class OrderItemDto
 
     OrderItemDto orderItemDto = (OrderItemDto) obj;
 
-    return (this.menuItemId.equals(orderItemDto.menuItemId) && this.quantity==orderItemDto.getQuantity() && this.active==orderItemDto.isActive());
+    return (this.menuItemId.equals(orderItemDto.menuItemId) && this.quantity==orderItemDto.getQuantity());
   }
 }

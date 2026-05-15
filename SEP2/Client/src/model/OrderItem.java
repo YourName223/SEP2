@@ -43,7 +43,7 @@ public class OrderItem
 
     OrderItem orderItem = (OrderItem) obj;
 
-    return this.menuItem.equals(orderItem.getMenuItem()) && this.quantity==orderItem.getQuantity()  &&this.isActive()== orderItem.isActive();
+    return this.menuItem.equals(orderItem.getMenuItem()) && this.quantity==orderItem.getQuantity();
   }
 
   public void setActive(boolean active)
