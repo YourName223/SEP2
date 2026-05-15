@@ -20,6 +20,7 @@ public class OrderItemViewModel
     this.item = item;
 
     this.prepTimeSec = item.getMenuItem().getPrepTimeSec();
+    System.out.println(prepTimeSec);
 
     updateText();
     startCountdown();

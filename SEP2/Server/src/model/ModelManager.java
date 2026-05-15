@@ -41,7 +41,8 @@ public class ModelManager implements Model
               menuItem.getAllergies(),
               menuItem.getPrice(),
               recipeManager.getRecipeIdFromMenuItem(menuItem),
-              ingredientManager.amountOfStockForMenuItem(menuItem)));
+              ingredientManager.amountOfStockForMenuItem(menuItem),
+              menuItem.getPrepTime()));
     }
     return menuItemDtos;
   }
