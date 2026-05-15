@@ -52,4 +52,9 @@ public class MenuItemDto
   {
     return prepTimeSec;
   }
+
+  public void setPrepTimeSec(int prepTimeSec)
+  {
+    this.prepTimeSec = prepTimeSec;
+  }
 }

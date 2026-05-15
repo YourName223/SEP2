@@ -10,16 +10,12 @@ import model.OrderItem;
 public class OrderItemViewModel
 {
   private OrderItem item;
-  private int prepTimeSec;
 
   private final StringProperty waitingTimeProperty = new SimpleStringProperty();
 
   public OrderItemViewModel(OrderItem item)
   {
     this.item = item;
-
-    this.prepTimeSec = item.getMenuItem().getPrepTimeSec();
-
     updateText();
   }
 
@@ -60,14 +56,14 @@ public class OrderItemViewModel
     System.out.println("Should tick" + item.isActive());
     if (item.isActive())
     {
-      if (prepTimeSec <= 0)
+      if (item.getMenuItem().getPrepTimeSec() <= 0)
       {
-        item.setActive(false);
         waitingTimeProperty.set("0:00");
+        item.setActive(false);
       }
       else
       {
-        prepTimeSec--;
+        item.getMenuItem().setPrepTimeSec(item.getMenuItem().getPrepTimeSec()-1);
         updateText();
       }
     }
@@ -76,14 +72,13 @@ public class OrderItemViewModel
   public void forceZero()
   {
     System.out.println("Force zero");
-    prepTimeSec = 0;
-    updateText();
+    item.getMenuItem().setPrepTimeSec(1);
   }
 
   private void updateText()
   {
-    int minutes = prepTimeSec / 60;
-    int seconds = prepTimeSec % 60;
+    int minutes = item.getMenuItem().getPrepTimeSec() / 60;
+    int seconds = item.getMenuItem().getPrepTimeSec() % 60;
 
     waitingTimeProperty.set(String.format("%d:%02d", minutes, seconds));
   }

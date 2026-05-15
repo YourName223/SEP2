@@ -3,6 +3,7 @@ package model;
 public class OrderItemDto
 {
   private String menuItemId;
+  private boolean active;
   private int quantity;
 
   public OrderItemDto(String menuItemId, int quantity)
@@ -26,6 +27,11 @@ public class OrderItemDto
     this.quantity = quantity;
   }
 
+  public boolean isActive()
+  {
+    return active;
+  }
+
   @Override public boolean equals(Object obj)
   {
     if(this == obj)
@@ -36,6 +42,6 @@ public class OrderItemDto
 
     OrderItemDto orderItemDto = (OrderItemDto) obj;
 
-    return (this.menuItemId.equals(orderItemDto.menuItemId) && this.quantity==orderItemDto.getQuantity());
+    return (this.menuItemId.equals(orderItemDto.menuItemId) && this.quantity==orderItemDto.getQuantity() && this.active==orderItemDto.isActive());
   }
 }
