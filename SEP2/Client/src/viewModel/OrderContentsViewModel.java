@@ -7,6 +7,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import model.*;
 
 import java.beans.PropertyChangeEvent;
@@ -18,14 +21,17 @@ public class OrderContentsViewModel implements PropertyChangeListener
   private final Model model;
 
   private OrderItem selectedOrderItem;
+  private Timeline timeline;
 
   private final ObservableList<OrderItemViewModel> orderItems =
       FXCollections.observableArrayList();
+  private final ObservableList<OrderItemViewModel> oldOrderItems =
+      FXCollections.observableArrayList();
+
 
   private final StringProperty successProperty = new SimpleStringProperty();
   private final StringProperty errorProperty = new SimpleStringProperty();
   private final IntegerProperty amountProperty = new SimpleIntegerProperty();
-  private final ObservableList<OrderItemViewModel> oldOrderItems = FXCollections.observableArrayList();
 
   public OrderContentsViewModel(Model model)
   {
@@ -33,6 +39,8 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
     model.addListener("Update", this);
     model.addListener("Time",this);
+
+    startTimer();
     loadFromModel();
   }
 
@@ -74,6 +82,12 @@ public class OrderContentsViewModel implements PropertyChangeListener
     return orderItems;
   }
 
+  public ObservableList<OrderItemViewModel> getOldOrderItems()
+  {
+    return oldOrderItems;
+  }
+
+
   public StringProperty getSuccessProperty()
   {
     return successProperty;
@@ -87,11 +101,6 @@ public class OrderContentsViewModel implements PropertyChangeListener
   public IntegerProperty getAmountProperty()
   {
     return amountProperty;
-  }
-
-  public ObservableList<OrderItemViewModel> getOldOrderItems()
-  {
-    return oldOrderItems;
   }
 
   @Override
@@ -134,7 +143,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
     {
       amountProperty.set(orderItem.getQuantity());
     }
-    if (orderItem == null)
+    else
     {
       amountProperty.set(0);
     }
@@ -189,5 +198,24 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
     model.cancelOrder(selectedOrderItem);
     reloadOrderTable();
+  }
+
+  private void startTimer()
+  {
+    if (timeline != null) return;
+
+    timeline = new Timeline(
+        new KeyFrame(Duration.seconds(1), e -> tickOldOrders())
+    );
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    timeline.play();
+  }
+
+  private void tickOldOrders()
+  {
+    for (OrderItemViewModel row : oldOrderItems)
+    {
+      row.tick();
+    }
   }
 }

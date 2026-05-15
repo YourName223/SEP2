@@ -11,7 +11,6 @@ public class OrderItemViewModel
 {
   private OrderItem item;
   private int prepTimeSec;
-  private Timeline timeline;
 
   private final StringProperty waitingTimeProperty = new SimpleStringProperty();
 
@@ -23,7 +22,6 @@ public class OrderItemViewModel
     System.out.println(prepTimeSec);
 
     updateText();
-    startCountdown();
   }
 
   public OrderItem getOrderItem()
@@ -49,15 +47,7 @@ public class OrderItemViewModel
   public StringProperty waitingTimeProperty()
   {return waitingTimeProperty;}
 
-  private void startCountdown()
-  {
-    timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> tick()));
-
-    timeline.setCycleCount(Timeline.INDEFINITE);
-    timeline.play();
-  }
-
-  private void tick()
+  public void tick()
   {
     if (prepTimeSec <= 0)
     {
@@ -76,14 +66,6 @@ System.out.println("ticking test");
     int seconds = prepTimeSec % 60;
 
     waitingTimeProperty.set(String.format("%d:%02d", minutes, seconds));
-  }
-
-  public void stop()
-  {
-    if (timeline != null)
-    {
-      timeline.stop();
-    }
   }
 
 }
