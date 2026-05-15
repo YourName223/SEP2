@@ -10,7 +10,7 @@ import model.OrderItem;
 public class OrderItemViewModel
 {
   private OrderItem item;
-  private int remainingSeconds;
+  private int prepTimeSec;
   private Timeline timeline;
 
   private final StringProperty waitingTimeProperty = new SimpleStringProperty();
@@ -19,7 +19,7 @@ public class OrderItemViewModel
   {
     this.item = item;
 
-    this.remainingSeconds = item.getMenuItem().getPrepTimeSec();
+    this.prepTimeSec = item.getMenuItem().getPrepTimeSec();
 
     updateText();
     startCountdown();
@@ -58,21 +58,20 @@ public class OrderItemViewModel
 
   private void tick()
   {
-    if (remainingSeconds <= 0)
+    if (prepTimeSec <= 0)
     {
       waitingTimeProperty.set("0:00");
-      if (timeline != null) timeline.stop();
       return;
     }
 
-    remainingSeconds--;
+    prepTimeSec--;
     updateText();
   }
 
   private void updateText()
   {
-    int minutes = remainingSeconds / 60;
-    int seconds = remainingSeconds % 60;
+    int minutes = prepTimeSec / 60;
+    int seconds = prepTimeSec % 60;
 
     waitingTimeProperty.set(String.format("%d:%02d", minutes, seconds));
   }

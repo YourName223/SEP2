@@ -6,13 +6,17 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuViewController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" spacing="10.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuViewController">
    <children>
-      <TableView fx:id="menuTable" onMouseClicked="#onMenuItemSelected" prefHeight="321.0" prefWidth="560.0">
+      <Label minWidth="-Infinity" prefWidth="730.0" text="MENU">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="menuTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onMenuItemSelected" prefHeight="280.0" prefWidth="730.0">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="141.99997556209564" text="Product" />
             <TableColumn fx:id="allergensColumn" minWidth="0.0" prefWidth="334.79998779296875" text="Allergens" />
@@ -22,38 +26,42 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
+      <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" prefHeight="100.0" prefWidth="730.0" spacing="5.0" VBox.vgrow="ALWAYS">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="350.0" spacing="10.0">
-               <children>
-                  <Button fx:id="decreaseButton" mnemonicParsing="false" onAction="#decreaseButton" text="-">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="qtyLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="21.0" text="0" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="increaseButton" mnemonicParsing="false" onAction="#increaseButton" text="+">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="addToOrderButton" mnemonicParsing="false" onAction="#addToOrderButton" text="Add to Order">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+            <Label fx:id="errorLabel" text="Label" textAlignment="CENTER" textFill="#fc0000">
+               <HBox.margin>
+                  <Insets top="7.0" />
+               </HBox.margin></Label>
+            <Button fx:id="decreaseButton" mnemonicParsing="false" onAction="#decreaseButton" text="-">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Label fx:id="qtyLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="21.0" text="0" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="increaseButton" mnemonicParsing="false" onAction="#increaseButton" text="+">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="addToOrderButton" mnemonicParsing="false" onAction="#addToOrderButton" text="Add to Order">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_RIGHT" maxWidth="-Infinity" prefHeight="100.0" prefWidth="820.0">
+         <children>
             <Label text="Total price:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="totalLabel" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="52.0" text="00,00" textAlignment="RIGHT">
+            <Label fx:id="totalLabel" alignment="CENTER_RIGHT" minWidth="-Infinity" prefWidth="60.0" text="00,00" textAlignment="RIGHT">
                <font>
                   <Font size="18.0" />
                </font>
@@ -65,13 +73,8 @@
             </Label>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="TOP_RIGHT" maxWidth="-Infinity" prefHeight="100.0" prefWidth="820.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label fx:id="errorLabel" text="Label" textFill="#fc0000">
-               <HBox.margin>
-                  <Insets top="7.0" />
-               </HBox.margin></Label>
-             <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="viewOrderButton" alignment="CENTER_RIGHT" contentDisplay="TOP" mnemonicParsing="false" onAction="#viewOrderButton" text="View Order">
                <font>
                   <Font size="14.0" />

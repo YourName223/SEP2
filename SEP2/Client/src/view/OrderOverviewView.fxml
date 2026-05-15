@@ -3,119 +3,142 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="708.0" spacing="20.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrderOverviewViewController">
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OrderOverviewViewController">
    <children>
-       <Label text="Orders">
-           <font>
-               <Font size="16.0" />
-           </font>
-       </Label>
-      <TableView fx:id="orderTable" onMouseClicked="#onOrderItemSelected" prefHeight="235.0" prefWidth="560.0">
-        <columns>
-            <TableColumn fx:id="nameColumn" prefWidth="454.4000610113144" text="Product" />
-            <TableColumn fx:id="priceColumn" prefWidth="142.79995727539062" text="Price" />
-            <TableColumn fx:id="qtyColumn" prefWidth="75.0" text="qty" />
-            <TableColumn fx:id="timeColumn" prefWidth="75.0" text="time" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-       <Label text="Sent Orders">
-           <font>
-               <Font size="16.0" />
-           </font>
-       </Label>
-      <TableView fx:id="orderTable1" onMouseClicked="#onOrderItemSelected" prefHeight="235.0" prefWidth="560.0">
-         <columns>
-            <TableColumn fx:id="nameColumn1" prefWidth="454.4000610113144" text="Product" />
-            <TableColumn fx:id="priceColumn1" prefWidth="142.79995727539062" text="Price" />
-            <TableColumn fx:id="qtyColumn1" prefWidth="75.0" text="qty" />
-            <TableColumn fx:id="timeColumn1" prefWidth="75.0" text="time" />
-         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="560.0" spacing="5.0">
+      <HBox prefHeight="760.0" prefWidth="360.0" spacing="15.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="350.0" spacing="10.0">
+            <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButton" prefHeight="30.0" prefWidth="34.0" text="🗑">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="103.0" spacing="5.0">
+                   <Label text="Sent Orders">
+                       <font>
+                           <Font size="16.0" />
+                       </font>
+                   </Label>
+                  <TableView fx:id="orderTable1" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#onOrderItemSelected" prefHeight="400.0" prefWidth="360.0">
+                     <columns>
+                        <TableColumn fx:id="nameColumn1" prefWidth="454.4000610113144" text="Product" />
+                        <TableColumn fx:id="priceColumn1" prefWidth="142.79995727539062" text="Price" />
+                        <TableColumn fx:id="qtyColumn1" prefWidth="75.0" text="qty" />
+                        <TableColumn fx:id="timeColumn1" prefWidth="75.0" text="time" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                   <Label text="Orders">
+                       <font>
+                           <Font size="16.0" />
+                       </font>
+                   </Label>
+                  <TableView fx:id="orderTable" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onOrderItemSelected" prefHeight="200.0" prefWidth="360.0">
+                    <columns>
+                        <TableColumn fx:id="nameColumn" prefWidth="454.4000610113144" text="Product" />
+                        <TableColumn fx:id="priceColumn" prefWidth="142.79995727539062" text="Price" />
+                        <TableColumn fx:id="qtyColumn" prefWidth="75.0" text="qty" />
+                        <TableColumn fx:id="timeColumn" prefWidth="75.0" text="time" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="560.0" spacing="5.0">
                      <children>
-                        <Button fx:id="decreaseButton" mnemonicParsing="false" onAction="#decreaseButton" text="-">
+                        <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="350.0" spacing="10.0">
+                           <children>
+                              <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButton" prefHeight="30.0" prefWidth="34.0" text="🗑">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <HBox alignment="CENTER" prefHeight="30.0" prefWidth="103.0" spacing="5.0">
+                                 <children>
+                                    <Button fx:id="decreaseButton" mnemonicParsing="false" onAction="#decreaseButton" text="-">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Label fx:id="qtyLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="21.0" text="0" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="increaseButton" mnemonicParsing="false" onAction="#increaseButton" text="+">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButton" text="Save">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButton" text="Cancel">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="BOTTOM_RIGHT">
+                     <children>
+                        <Label text="Total price:">
                            <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
-                        <Label fx:id="qtyLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="21.0" text="0" textAlignment="CENTER">
-                           <font>
-                              <Font size="14.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="increaseButton" mnemonicParsing="false" onAction="#increaseButton" text="+">
+                        <Label fx:id="totalLabel" alignment="CENTER_RIGHT" minWidth="-Infinity" prefHeight="20.0" prefWidth="75.0" text="00,00" textAlignment="RIGHT">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="DKK">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="35.0" prefWidth="560.0">
+                     <children>
+                        <VBox prefHeight="35.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="successLabel" text="Success Label" textFill="#27a525" />
+                              <Label fx:id="errorLabel" text="Error Label" textFill="#df2626" />
+                           </children>
+                        </VBox>
+                        <Button fx:id="placeOrderButton" mnemonicParsing="false" onAction="#placeOrderButton" text="Place Order">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="updateButton" mnemonicParsing="false" onAction="#updateButton" text="Save">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButton" text="Cancel">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-            <Label text="Total price:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="totalLabel" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="52.0" text="00,00" textAlignment="RIGHT">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label text="DKK">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox alignment="TOP_CENTER" prefHeight="35.0" prefWidth="560.0">
-         <children>
-            <VBox prefHeight="35.0" prefWidth="448.0">
-               <children>
-                  <Label fx:id="successLabel" prefHeight="17.0" prefWidth="451.0" text="Success Label" textFill="#27a525" />
-                  <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="451.0" text="Error Label" textFill="#df2626" />
                </children>
             </VBox>
-            <Button fx:id="placeOrderButton" mnemonicParsing="false" onAction="#placeOrderButton" text="Place Order">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
          </children>
       </HBox>
    </children>
