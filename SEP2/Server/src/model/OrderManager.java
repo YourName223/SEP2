@@ -80,6 +80,7 @@ public class OrderManager
 
   public void addOrder(Order order)
   {
+    order.setId(followingOrderId);
     orderList.addOrder(order);
     updateFollowingOrderId();
   }

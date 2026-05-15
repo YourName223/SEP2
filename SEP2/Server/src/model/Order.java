@@ -6,10 +6,21 @@ public class Order
 {
   private String orderType;
   private ArrayList<OrderItem> items;
+  private int id;
 
   public Order()
   {
     items = new ArrayList<>();
+  }
+
+  public void setId(int id)
+  {
+    this.id = id;
+  }
+
+  public int getId()
+  {
+    return id;
   }
 
   public void setOrderType(String orderType)
