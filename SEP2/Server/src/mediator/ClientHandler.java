@@ -138,7 +138,7 @@ public class ClientHandler implements Runnable
       case "Cancel":
         if(model.cancelOrder(orderPackage.getItems().getFirst()))
         {
-          sendPackage = new OrderPackage("Order",orderPackage.getItems(),"Order Canceled");
+          sendPackage = new OrderPackage("Order",orderPackage.getItems(),"Cancel");
           model.broadCast(parser.toJson(new MenuPackage("Menu",model.getMenuItemsDto())));
         }
         else

@@ -70,8 +70,7 @@ public class Client
           case "Remove":
             model.removeOrder(orderPackage.getItems());
             break;
-          case "Cancel":
-            System.out.println("Trying to cancel your order:" + orderPackage.getItems().getFirst());
+          case "Order Canceled":
             model.removeOrderItem(orderPackage.getItems().getFirst());
             break;
           case "RemoveAll":
@@ -83,7 +82,6 @@ public class Client
         model.orderFeedback(orderPackage.getMessage());
         break;
       case "Menu":
-        System.out.println("Got menu");
         MenuPackage menuPackage = parser.fromJson(line, MenuPackage.class);
         model.changeMenu(menuPackage.getMenuItems());
         break;
