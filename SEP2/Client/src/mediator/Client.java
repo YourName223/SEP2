@@ -78,6 +78,10 @@ public class Client
             break;
           case "Order accepted":
             model.acceptOrder();
+            break;
+          case "StartTimer":
+            model.startTimerOnOrder(orderPackage.getItems());
+            break;
         }
         model.orderFeedback(orderPackage.getMessage());
         break;

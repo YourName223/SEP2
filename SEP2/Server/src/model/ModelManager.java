@@ -50,12 +50,15 @@ public class ModelManager implements Model
   @Override public void clickOnOrder(OrderCurrent order)
   {
     orderManager.clickOnOrder(order);
-    property.firePropertyChange("Update",null,null);
 
-    if(order.getOrder().getOrderType().equals("Table"))
+    System.out.println("Order was clicked on");
+    if(order.getOrder().getOrderType().equals("Table") && order.getState() instanceof OrderStateCurrent)
     {
-      property.firePropertyChange("Order time updated",null,(((TableOrder)order.getOrder()).getTableNr()));
+      System.out.println("Order is of a state current and should fire proeprtyChange");
+      property.firePropertyChange("StartTimer",orderManager.convertOrderToOrderItemDto(order.getOrder()),(((TableOrder)order.getOrder()).getTableNr()));
     }
+
+    property.firePropertyChange("Update",null,null);
   }
 
   @Override public void removeOrder(OrderCurrent order)
