@@ -22,6 +22,7 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
   private OrderItem selectedOrderItem;
   private Timeline timeline;
+  private boolean timerRunning = false;
 
   private final ObservableList<OrderItemViewModel> orderItems =
       FXCollections.observableArrayList();
@@ -114,23 +115,20 @@ public class OrderContentsViewModel implements PropertyChangeListener
         reloadOrderTable();
       });
     }
-    else if(evt.getPropertyName().equals("Time"))
+    else if (evt.getPropertyName().equals("TimeStart"))
+    {
+      Platform.runLater(this::startTimer);
+    }
+
+    else if (evt.getPropertyName().equals("TimeStop"))
     {
       Platform.runLater(() ->
       {
-        ArrayList<OrderItem> orderItemList = (ArrayList<OrderItem>) evt.getOldValue();
+        stopTimer();
 
-        ArrayList<String> time = (ArrayList<String>) evt.getNewValue();
-
-        for (OrderItemViewModel row : orderItems)
+        for (OrderItemViewModel row : oldOrderItems)
         {
-          for (int i = 0; i<orderItemList.size();i++)
-          {
-            if (row.getOrderItem().getMenuItem().getName().equals((orderItemList.get(i).getMenuItem().getName())))
-            {
-              //row.setTime(time.get(i));
-            }
-          }
+          row.forceZero();
         }
       });
     }
@@ -202,13 +200,27 @@ public class OrderContentsViewModel implements PropertyChangeListener
 
   private void startTimer()
   {
-    if (timeline != null) return;
+    if (timerRunning) return;
 
     timeline = new Timeline(
         new KeyFrame(Duration.seconds(1), e -> tickOldOrders())
     );
+
     timeline.setCycleCount(Timeline.INDEFINITE);
     timeline.play();
+
+    timerRunning = true;
+  }
+
+  private void stopTimer()
+  {
+    if (timeline != null)
+    {
+      timeline.stop();
+      timeline = null;
+    }
+
+    timerRunning = false;
   }
 
   private void tickOldOrders()
