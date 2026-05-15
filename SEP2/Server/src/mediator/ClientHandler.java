@@ -128,6 +128,7 @@ public class ClientHandler implements Runnable
         if(model.receiveTableOrder(order,socket.getInetAddress().getHostAddress()))
         {
           sendPackage = new OrderPackage("Order",null,"Order accepted");
+          sendPackage.setOrderId(model.getNewOrderId());
           model.broadCast(parser.toJson(new MenuPackage("Menu",model.getMenuItemsDto())));
         }
         else

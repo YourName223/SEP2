@@ -60,6 +60,7 @@ public class OrderManager
 {
   private OrderListCurrent orderList;
   private MenuManager menuManager;
+  private int followingOrderId;
 
   public OrderManager(MenuManager menuManager)
   {
@@ -67,9 +68,20 @@ public class OrderManager
     orderList = new OrderListCurrent();
   }
 
+  public int getFollowingOrderId()
+  {
+    return followingOrderId;
+  }
+
+  private void updateFollowingOrderId()
+  {
+    followingOrderId++;
+  }
+
   public void addOrder(Order order)
   {
     orderList.addOrder(order);
+    updateFollowingOrderId();
   }
 
   public void clickOnOrder(OrderCurrent order)

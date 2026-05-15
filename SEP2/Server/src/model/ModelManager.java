@@ -126,6 +126,11 @@ public class ModelManager implements Model
     return tableManager.getPriceFromTable(tableNr);
   }
 
+  @Override public int getNewOrderId()
+  {
+    return orderManager.getFollowingOrderId();
+  }
+
   @Override public void broadCast(String message)
   {
     property.firePropertyChange("Broadcast",null,message);
