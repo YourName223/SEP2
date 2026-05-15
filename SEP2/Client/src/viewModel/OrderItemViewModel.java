@@ -52,12 +52,16 @@ public class OrderItemViewModel
     if (prepTimeSec <= 0)
     {
       waitingTimeProperty.set("0:00");
-      System.out.println("time is out");
     }
     else{
-System.out.println("ticking test");
     prepTimeSec--;
     updateText();}
+  }
+
+  public void forceZero()
+  {
+    prepTimeSec = 0;
+    updateText();
   }
 
   private void updateText()
