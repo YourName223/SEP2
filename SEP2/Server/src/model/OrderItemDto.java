@@ -44,4 +44,4 @@ public class OrderItemDto
 
     return (this.menuItemId.equals(orderItemDto.menuItemId) && this.quantity==orderItemDto.getQuantity() && this.active==orderItemDto.isActive());
   }
-}A
+}
