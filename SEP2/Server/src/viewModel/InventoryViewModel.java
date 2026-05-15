@@ -7,7 +7,10 @@ import javafx.collections.ObservableList;
 import model.Ingredient;
 import model.Model;
 
-public class InventoryViewModel
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public class InventoryViewModel implements PropertyChangeListener
 {
   private final Model model;
 
@@ -32,6 +35,7 @@ public class InventoryViewModel
   public InventoryViewModel(Model model)
   {
     this.model = model;
+    model.addListener("Update",this);
     loadFromModel();
   }
 
@@ -130,5 +134,10 @@ public class InventoryViewModel
   public BooleanProperty hasSelectionProperty()
   {
     return hasSelectionProperty;
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt)
+  {
+    Platform.runLater(() -> loadFromModel());
   }
 }

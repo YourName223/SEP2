@@ -134,16 +134,23 @@ public class ModelManager implements Model
 
   @Override public void removeOrderItem(OrderItemDto orderItemDto)
   {
+    System.out.println("Trying to remove orderitem on modelmanager:" + orderItemDto.getMenuItemId());
     for (Order order : orderManager.getOldOrders())
     {
+      System.out.println("Getting all your orders:");
       ArrayList<OrderItem> orderItems = order.getItems();
-
       for (OrderItem orderItem : orderItems)
       {
+        System.out.println("Order item in your order beeing:" + orderItem.toString());
         if (orderManager.convertOrderItemToOrderItemDto(orderItem).equals(orderItemDto))
         {
+          System.out.println("Theres a match between that order item and the order item u are trying to remove");
           order.removeOrderItem(orderItem);
           return;
+        }
+        else
+        {
+          System.out.println("Theres not a match between that order item and the order item u are trying to remove");
         }
       }
     }

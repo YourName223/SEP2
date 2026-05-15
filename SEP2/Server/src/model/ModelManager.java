@@ -61,15 +61,13 @@ public class ModelManager implements Model
   {
     orderManager.removeOrder(order);
     tableManager.removeOrder(order.getOrder());
-
     ingredientManager.addRecipeIngredientsFromOrder(order.getOrder());
-
-    property.firePropertyChange("Update",null,null);
 
     if(order.getOrder().getOrderType().equals("Table"))
     {
       property.firePropertyChange("RemoveOrder",orderManager.convertOrderToOrderItemDto(order.getOrder()),(((TableOrder)order.getOrder()).getTableNr()));
     }
+    property.firePropertyChange("Update",null,null);
   }
 
   @Override public boolean receiveTableOrder(Order order, String tableNr)
@@ -79,8 +77,8 @@ public class ModelManager implements Model
       TableOrder tableOrder = orderManager.createTableOrder(order, tableNr);
       orderManager.addOrder(tableOrder);
       orderDispatcher.dispatch(tableOrder);
-      property.firePropertyChange("Update", null, null);
       ingredientManager.removeRecipeIngredientsFromOrder(order);
+      property.firePropertyChange("Update", null, null);
       return true;
     }
     return false;
@@ -143,23 +141,18 @@ public class ModelManager implements Model
         orderItem.setQuantity(orderItemDto.getQuantity());
         if (orderItem1.equals(orderItem))
         {
-          System.out.println("Its the right orderitem");
           if(order1.getState() instanceof OrderStateIncoming)
           {
-            System.out.println("Its the right state");
             orderManager.removeOrderItem(order1.getOrder(),orderItem);
             tableManager.removeOrderItem(order1.getOrder(),orderItem);
+            ingredientManager.addRecipeIngredientsFromMenuItem(orderItem.getItem());
+            property.firePropertyChange("Update",null,null);
             return true;
           }
           return false;
         }
-        else
-        {
-          System.out.println("Its not the right orderItem");
-        }
       }
     }
-    System.out.println("What the hell?!");
     return false;
   }
 

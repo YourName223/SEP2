@@ -59,6 +59,11 @@ public class IngredientManager
     addRecipeIngredients(getRecipeIngredientsInOrder(order));
   }
 
+  public void addRecipeIngredientsFromMenuItem(MenuItem menuItem)
+  {
+    addRecipeIngredients(getRecipeIngredientsInMenuItem(menuItem));
+  }
+
   public ArrayList<RecipeIngredient> getRecipeIngredientsInOrder(Order order)
   {
     ArrayList<RecipeIngredient> ingredientsInOrder = new ArrayList<>();

@@ -71,6 +71,7 @@ public class Client
             model.removeOrder(orderPackage.getItems());
             break;
           case "Cancel":
+            System.out.println("Trying to cancel your order:" + orderPackage.getItems().getFirst());
             model.removeOrderItem(orderPackage.getItems().getFirst());
             break;
           case "RemoveAll":

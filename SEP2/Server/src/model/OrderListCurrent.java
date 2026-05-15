@@ -43,6 +43,11 @@ public class OrderListCurrent
       if (order1.equals(order))
       {
         order1.removeOrderItem(orderItem);
+        if (order1.getOrderItems().isEmpty())
+        {
+          orders.remove(orderCurrent);
+        }
+        break;
       }
     }
   }
