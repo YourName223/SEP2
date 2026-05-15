@@ -86,9 +86,10 @@ public class OrderManager
 
   public OrderItemDto convertOrderItemToOrderItemDto(OrderItem orderItem)
   {
-    return new OrderItemDto(
-        orderItem.getMenuItem().getName(),
-        orderItem.getQuantity());
+    OrderItemDto orderItemDto = new OrderItemDto(orderItem.getMenuItem().getName(),orderItem.getQuantity());
+    orderItemDto.setActive(orderItem.isActive());
+
+    return orderItemDto;
   }
 
   public Order getOrderFromOrderItemDto(OrderItemDto orderItemDto)

@@ -8,6 +8,7 @@ public class OrderItemDto
 
   public OrderItemDto(String menuItemId, int quantity)
   {
+    active = false;
     this.menuItemId = menuItemId;
     this.quantity = quantity;
   }
@@ -30,6 +31,11 @@ public class OrderItemDto
   public boolean isActive()
   {
     return active;
+  }
+
+  public void setActive(boolean active)
+  {
+    this.active = active;
   }
 
   @Override public boolean equals(Object obj)
