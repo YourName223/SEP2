@@ -121,7 +121,6 @@ public class Server implements Runnable, PropertyChangeListener
     {
       if(client.getIp().equals(ip))
       {
-        System.out.println("Should send about startTimerToClient");
         OrderPackage sentPackage = new OrderPackage("Order",orderItemDtos,"StartTimer");
         client.sendMessage(parser.toJson(sentPackage));
         break;
@@ -143,7 +142,6 @@ public class Server implements Runnable, PropertyChangeListener
         broadcast(evt.getNewValue().toString());
         break;
       case "StartTimer":
-        System.out.println("Property start timer run");
         startTimerOnOrderFromClient(evt.getNewValue().toString(),(ArrayList<OrderItemDto>)evt.getOldValue());
         break;
     }

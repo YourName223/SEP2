@@ -61,12 +61,10 @@ public class Client
 
   public void received(String line)
   {
-    System.out.println(line);
     switch(parser.fromJson(line, OrderPackage.class).getType())
     {
       case "Order":
         OrderPackage orderPackage = parser.fromJson(line, OrderPackage.class);
-        System.out.println(orderPackage.getMessage());
         switch (orderPackage.getMessage())
         {
           case "Remove":
@@ -82,7 +80,6 @@ public class Client
             model.acceptOrder();
             break;
           case "StartTimer":
-            System.out.println("Start timer");
             model.startTimerOnOrder(orderPackage.getItems());
             break;
         }
