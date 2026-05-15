@@ -45,7 +45,7 @@ public class OrderItemViewModel
     return item.getQuantity();
   }
 
-  public StringProperty getWaitingTimeProperty()
+  public StringProperty waitingTimeProperty()
   {return waitingTimeProperty;}
 
   private void startCountdown()
@@ -61,11 +61,12 @@ public class OrderItemViewModel
     if (prepTimeSec <= 0)
     {
       waitingTimeProperty.set("0:00");
-      return;
+      System.out.println("time is out");
     }
-
+    else{
+System.out.println("ticking test");
     prepTimeSec--;
-    updateText();
+    updateText();}
   }
 
   private void updateText()

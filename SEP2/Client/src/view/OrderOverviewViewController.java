@@ -49,7 +49,7 @@ public class OrderOverviewViewController
         cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
 
     timeColumn.setCellValueFactory(
- cell -> cell.getValue().getWaitingTimeProperty());
+ cell -> cell.getValue().waitingTimeProperty());
 
     nameColumn1.setCellValueFactory(
         cell -> new SimpleStringProperty(cell.getValue().getName()));
@@ -61,7 +61,7 @@ public class OrderOverviewViewController
         cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getQuantity()));
 
     timeColumn1.setCellValueFactory(
-        cell -> cell.getValue().getWaitingTimeProperty());
+        cell -> cell.getValue().waitingTimeProperty());
 
     orderTable1.setItems(viewModel.getOldOrderItems());
     orderTable1.getSelectionModel().selectedItemProperty()
